@@ -1,13 +1,61 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Amazon";
+  src: url("./assets/fonts/Amazon-Ember-Medium.ttf");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: "Amazon-light";
+  src: url("./assets/fonts/AmazonEmber_Lt.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Amazon", Helvetica, sans-serif;
+}
+
+:root {
+  --yellow: #f7ca00;
+  --darkblue: #232f3e;
+  --lightgray: rgb(207, 207, 207);
+  --blue: #007185;
+  --orange: #c7511f;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+a,
+a:visited,
+a:focus,
+a:active {
+  color: white;
+  text-decoration: none;
+}
+ul,
+li {
+  list-style: none;
+}
+
+select {
+  outline: orange;
+}
+
+.nav--hover {
+  padding: 0.4rem;
+  height: 49px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.nav--hover:hover {
+  border-color: white;
 }
