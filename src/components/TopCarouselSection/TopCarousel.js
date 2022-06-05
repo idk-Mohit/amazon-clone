@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 const TopCarousel = ({ data }) => {
   const carouselSlides = data.map((item, index) => {
     return (
-      <Link key={index} to={"/"}>
-        <CarouselSlide bgImage={item} />
+      <Link className='TopCarouselImageLink' key={index} to={`${index}`}>
+        <CarouselSlide bgImage={item.image} />
       </Link>
     );
   });

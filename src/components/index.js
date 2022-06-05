@@ -16,3 +16,10 @@ export { default as carouselData } from "./TopCarouselSection/carouselData";
 export { default as MultipleShowCaseCard } from "./HomeShowCaseCard/MultipleShowCaseCard";
 export { default as SingleShowCaseCard } from "./HomeShowCaseCard/SingleShowCaseCard";
 export { default as MultipleShowCaseData } from "./HomeShowCaseCard/MultipleShowCaseData";
+
+// Item Carousel ...
+export { default as ItemCarousel } from "./ItemCarousel/ItemCarousel";
+export { default as ItemCarouselData } from "./ItemCarousel/ItemCarouselData";
+
+// SignIn FooterCard...
+export { default as SignInFooter } from "./SignInFooter";

@@ -191,6 +191,134 @@ const MultipleImageData = [
       },
     ],
   },
+  // Seventh Object
+  {
+    title: "Up to 45% off | Shop by Pet",
+    footerLinkText: "See all deals",
+    footerLink: "/",
+    data: [
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/Dog_186X116._SY116_CB644270746_.jpg",
+        imageLink: "/",
+        imageLinkText: "Dog Supplies",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/Cat_186X116._SY116_CB644270746_.jpg",
+        imageLink: "/",
+        imageLinkText: "Cat Supplies",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/bird_186X116._SY116_CB644270746_.jpg",
+        imageLink: "/",
+        imageLinkText: "Birds & small animals",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/fish_186X116._SY116_CB644270746_.jpg",
+        imageLink: "/",
+        imageLinkText: "Aquarium accessories",
+      },
+    ],
+  },
+  // Eight Object
+  {
+    title: "Electronics devices for home office",
+    footerLinkText: "See all deals",
+    footerLink: "/",
+    data: [
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_5._SY116_CB655805757_.jpg",
+        imageLink: "/",
+        imageLinkText: "Smart Watches & Fitness Trackers",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_6._SY116_CB655805757_.jpg",
+        imageLink: "/",
+        imageLinkText: "Tablets",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_7._SY116_CB655805757_.jpg",
+        imageLink: "/",
+        imageLinkText: "Laptops",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_8._SY116_CB655805757_.jpg",
+        imageLink: "/",
+        imageLinkText: "Monitors",
+      },
+    ],
+  },
+  // Ninth Object
+  {
+    title: "Cookware & dining",
+    footerLinkText: "See More",
+    footerLink: "/",
+    data: [
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_1198417__1_1573567224_jpg_LOWER_QL85_._SY116_CB448746450_.jpg",
+        imageLink: "/",
+        imageLinkText: "Gas Stoves",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_1198417__2_1573567224_jpg_LOWER_QL85_._SY116_CB448746415_.jpg",
+        imageLink: "/",
+        imageLinkText: "Cookware",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_3_copyx400x2C5x_1573713358_jpg_LOWER_QL85_._SY116_CB448746425_.jpg",
+        imageLink: "/",
+        imageLinkText: "Kitchen Storage",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_1198417__4_1573567224_jpg_LOWER_QL85_._SY116_CB448746450_.jpg",
+        imageLink: "/",
+        imageLinkText: "Tableware",
+      },
+    ],
+  },
+  // Tenth Object
+  {
+    title: "Clothing for all | Extra up to ₹700 cashback",
+    footerLinkText: "Mega Fashion",
+    footerLink: "/",
+    data: [
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC_01._SY116_CB651157265_.jpg",
+        imageLink: "/",
+        imageLinkText: "Kurtas | Upto 70% Off",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC_02._SY116_CB651157265_.jpg",
+        imageLink: "/",
+        imageLinkText: "Sarees | Upto 70% Off",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC2_01._SY116_CB651157265_.jpgg",
+        imageLink: "/",
+        imageLinkText: "T-shirts | Upto 70% Off",
+      },
+      {
+        image:
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC2_02._SY116_CB651157265_.jpg",
+        imageLink: "/",
+        imageLinkText: "Jeans | Upto 70% Off",
+      },
+    ],
+  },
 ];
 
 export default MultipleImageData;

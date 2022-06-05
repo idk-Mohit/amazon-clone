@@ -6,13 +6,15 @@ import {
   MultipleShowCaseCard,
   MultipleShowCaseData,
   SingleShowCaseCard,
+  ItemCarousel,
+  SignInFooter,
 } from "../components";
 
 const Home = () => {
   return (
     <Container>
       <TopCarousel data={carouselData} />
-      <div className="cardContainer">
+      <div className="cardContainer onTopCarouselDiv">
         <MultipleShowCaseCard data={MultipleShowCaseData[0]} />
         <MultipleShowCaseCard data={MultipleShowCaseData[1]} />
         <MultipleShowCaseCard data={MultipleShowCaseData[2]} />
@@ -32,8 +34,37 @@ const Home = () => {
           footerLinkText="Pay Now"
         />
         <MultipleShowCaseCard data={MultipleShowCaseData[5]} />
-        <MultipleShowCaseCard data={MultipleShowCaseData[5]} />
+        <MultipleShowCaseCard data={MultipleShowCaseData[6]} />
       </div>
+      <div className="itemCarouselContainer">
+        <ItemCarousel data="Frequently repurchased in Grocery" />
+      </div>
+      <div className="cardContainer">
+        <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
+        <SingleShowCaseCard
+          title="Effective dishwashing for Indian cooking"
+          button={false}
+          footerLink="/"
+          image="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/DW_CC_-_March_379x304._SY304_CB655397356_.jpg"
+          footerLinkText="See More"
+        />
+        <MultipleShowCaseCard data={MultipleShowCaseData[8]} />
+        <SingleShowCaseCard
+          title="Up to 50% off | Chimneys"
+          button={false}
+          footerLink="/"
+          image="https://images-eu.ssl-images-amazon.com/images/G/31/img19/Home/LA/LATVFdesktopQC/Chimney_GW_CC_379x304._SY304_CB427965740_.jpg"
+          footerLinkText="See More"
+        />
+        <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
+      </div>
+      <div className="itemCarouselContainer">
+        <ItemCarousel data="Frequently repurchased in Drugstore" />
+      </div>
+      <div className="itemCarouselContainer">
+        <ItemCarousel data="4 star rated & above | Refurbished products" />
+      </div>
+      <SignInFooter />
     </Container>
   );
 };
@@ -41,31 +72,35 @@ const Home = () => {
 export default Home;
 
 const Container = styled.section`
+  background-color: var(--lightgray);
+  /* padding-bottom: 1rem; */
+
   .cardContainer {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin-top: -350px;
-    padding: 1rem 1rem 5rem;
+
+    padding: 1rem 1rem;
     width: 100%;
     justify-content: space-evenly;
     justify-items: center;
     /* align-items: center; */
     gap: 1.5rem;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0),
-      rgba(200, 200, 200, 1)
-    );
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--lightgray));
+    z-index: 1;
 
     div:last-child {
       display: none;
     }
-
     @media (max-width: 1150px) {
       grid-template-columns: repeat(3, 1fr);
       div:last-child {
         display: block;
       }
     }
+  }
+
+  .onTopCarouselDiv {
+    margin-top: -350px;
   }
 `;

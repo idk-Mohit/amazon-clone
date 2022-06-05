@@ -29,9 +29,7 @@ const CardContainer = styled.div`
   padding: 1.5rem 1rem;
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.1);
   background-color: white;
-  z-index: 1;
   justify-content: space-between;
-
   border-radius: 5px;
   transition: 300ms all ease;
 
