@@ -79,7 +79,7 @@ const TopNavSearchBar = styled.div`
   .nav__input__Container {
     height: 100%;
     align-items: center;
-    z-index: 100;
+    z-index: 20;
     flex-grow: 2;
     input {
       height: 100%;

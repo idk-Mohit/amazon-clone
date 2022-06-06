@@ -83,6 +83,7 @@ const TopNavContainer = styled.nav`
   padding: 0.4rem 0.8rem;
   width: 100%;
   gap: 0.5rem;
+  z-index: 100;
 
   .nav__span__first {
     font-size: 0.75rem;

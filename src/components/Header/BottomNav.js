@@ -84,6 +84,7 @@ const BottomNavContainer = styled.nav`
   background-color: #232f3e;
   overflow: visible;
   height: 45px;
+  z-index: 100;
   ::-webkit-scrollbar {
     height: 3px;
     /* display: none; */
@@ -131,11 +132,12 @@ const BottomNavContainer = styled.nav`
     .prime__dropdownContent {
       display: none;
       position: absolute;
-      top: 1.4rem;
+      top: 1.5rem;
       left: -0.45rem;
       padding: 1rem;
       background-color: white;
       box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+      z-index: 90;
       /* right: 0; */
       img {
         width: 20rem;
@@ -145,6 +147,8 @@ const BottomNavContainer = styled.nav`
     &:hover {
       .prime__dropdownContent {
         display: block;
+        transition: 300ms ease;
+        animation: fadeAway 1s ease;
       }
     }
   }
