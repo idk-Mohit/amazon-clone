@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const TopCarousel = ({ data }) => {
   const carouselSlides = data.map((item, index) => {
     return (
-      <Link className='TopCarouselImageLink' key={index} to={`${index}`}>
+      <Link className='TopCarouselImageLink' key={index} to={`${item.link}`}>
         <CarouselSlide bgImage={item.image} />
       </Link>
     );
@@ -52,7 +52,7 @@ const Carousel = styled.div`
     top: 6.5rem;
     fill: black;
     pointer-events: none;
-    z-index: 500;
+    z-index: 2;
   }
 
   .main-prev-icon {
@@ -88,12 +88,12 @@ const Carousel = styled.div`
   .slick-prev {
     /* position: absolute; */
     left: 0;
-    z-index: 500;
+    z-index:2;
   }
   .slick-next {
     /* position: absolute; */
     right: 0;
-    z-index: 500;
+    z-index:2;
   }
 `;
 

@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import React, { useContext } from "react";
+import BackDropContext from "../../Store/BackDrop-context";
 
 const BottomNav = () => {
+  const backdrop = useContext(BackDropContext);
   return (
     <BottomNavContainer className="flex">
       <ul className="flex">
@@ -30,9 +33,23 @@ const BottomNav = () => {
         <li>
           <Link to={"/"}>Electronics</Link>
         </li>
-        <li>
-          <Link to={"/"} className="flex link__icons">
-            Prime <ArrowDropDownIcon fontSize="small" />
+        <li
+          className="prime"
+          onMouseEnter={backdrop.activateBackdrop}
+          onMouseLeave={backdrop.deactiveBackdrop}
+        >
+          <Link to={"/"} className="prime backdrop">
+            <div className="flex link__icons">
+              Prime <ArrowDropDownIcon fontSize="small" />
+            </div>
+            <div className="prime__dropdownContent">
+              <img
+                src={
+                  "https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.jpg"
+                }
+                alt=""
+              />
+            </div>
           </Link>
         </li>
         <li>
@@ -65,7 +82,7 @@ export default BottomNav;
 
 const BottomNavContainer = styled.nav`
   background-color: #232f3e;
-  overflow: hidden;
+  overflow: visible;
   height: 45px;
   ::-webkit-scrollbar {
     height: 3px;
@@ -105,6 +122,30 @@ const BottomNavContainer = styled.nav`
     .link__icons {
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  .prime {
+    position: relative;
+    display: inline-block;
+    .prime__dropdownContent {
+      display: none;
+      position: absolute;
+      top: 1.4rem;
+      left: -0.45rem;
+      padding: 1rem;
+      background-color: white;
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+      /* right: 0; */
+      img {
+        width: 20rem;
+        height: 20rem;
+      }
+    }
+    &:hover {
+      .prime__dropdownContent {
+        display: block;
+      }
     }
   }
 `;

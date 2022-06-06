@@ -1,12 +1,15 @@
 import styled from "styled-components";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Amazon_Logo } from "../../assets/Images";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TopNavSearch from "./TopNavSearch";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import BackDropContext from "../../Store/BackDrop-context";
 
 const TopNav = () => {
+  const backdrop = useContext(BackDropContext);
   return (
     <TopNavContainer className="flex">
       {/* Top Nav Left Side */}
@@ -40,7 +43,11 @@ const TopNav = () => {
       <TopNavRight className="flex top-nav-child">
         {/* <div className="nav--hover nav__language"></div> */}
 
-        <div className="nav--hover nav__signIn">
+        <div
+          className="nav--hover nav__signIn"
+          onMouseEnter={backdrop.activateBackdrop}
+          onMouseLeave={backdrop.deactiveBackdrop}
+        >
           <Link to={"/"} className="flex-column">
             <span className="nav__span__first">Hello, Sign in</span>
             <span className="nav__span__second flex">
@@ -70,7 +77,7 @@ const TopNav = () => {
 export default TopNav;
 
 const TopNavContainer = styled.nav`
-height: 60px;
+  height: 60px;
   align-items: center;
   background-color: #0f1111;
   padding: 0.4rem 0.8rem;

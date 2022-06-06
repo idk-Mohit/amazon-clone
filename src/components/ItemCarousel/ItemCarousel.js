@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 import ItemCarouselData from "./ItemCarouselData";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -73,7 +74,7 @@ const ItemCarousel = ({ data }) => {
 export default ItemCarousel;
 
 const CarouselContainer = styled.div`
-  margin: 1rem;
+  margin: 1rem 0;
   padding: 1rem;
   background-color: white;
   position: relative;
@@ -93,7 +94,7 @@ const CarouselContainer = styled.div`
     top: 9rem;
     fill: black !important;
     pointer-events: none;
-    z-index: 500;
+    /* z-index: 1; */
   }
 
   .main-prev-icon {
@@ -118,7 +119,7 @@ const CarouselContainer = styled.div`
     position: absolute;
     background-color: var(--lightgray);
     background-color: white;
-    z-index: 100;
+    /* z-index: 1; */
     width: 4rem;
     height: 7rem;
     top: 6rem;

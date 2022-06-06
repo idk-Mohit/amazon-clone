@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e7d0c129.css",
-    "main.js": "/static/js/main.b4a00713.js",
+    "main.js": "/static/js/main.f0c8ed98.js",
     "static/media/Amazon-Ember-Medium.ttf": "/static/media/Amazon-Ember-Medium.803b0c95226591a84d03.ttf",
     "static/media/AmazonEmber_Lt.ttf": "/static/media/AmazonEmber_Lt.327fc56aff92da01c853.ttf",
     "static/media/Amazon_Logo.png": "/static/media/Amazon_Logo.d5483c3ec114e2a38018.png",
@@ -11,10 +11,10 @@
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
     "main.e7d0c129.css.map": "/static/css/main.e7d0c129.css.map",
-    "main.b4a00713.js.map": "/static/js/main.b4a00713.js.map"
+    "main.f0c8ed98.js.map": "/static/js/main.f0c8ed98.js.map"
   },
   "entrypoints": [
     "static/css/main.e7d0c129.css",
-    "static/js/main.b4a00713.js"
+    "static/js/main.f0c8ed98.js"
   ]
 }

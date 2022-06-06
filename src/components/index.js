@@ -23,3 +23,6 @@ export { default as ItemCarouselData } from "./ItemCarousel/ItemCarouselData";
 
 // SignIn FooterCard...
 export { default as SignInFooter } from "./SignInFooter";
+
+// Backdrop ...
+export { default as Backdrop } from "./Backdrop";

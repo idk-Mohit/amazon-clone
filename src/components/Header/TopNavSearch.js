@@ -1,11 +1,14 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import search from "./searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import BackDropContext from "../../Store/BackDrop-context";
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
+  const backdrop = useContext(BackDropContext);
+
   const SearchOptions = search.map((item, index) => {
     return (
       <option key={index} value={item}>
@@ -32,7 +35,7 @@ const TopNavSearch = () => {
         </span>
       </div>
       <div className="nav__input__Container flex">
-        <input type="text" />
+        <input type="text" onClick={backdrop.activateBackdrop} />
       </div>
       <div className="Nav__search__button flex">
         <SearchIcon fontSize="medium" />
@@ -87,7 +90,7 @@ const TopNavSearchBar = styled.div`
       padding: 0.5rem;
       font-size: 1rem;
       color: #242323;
-      min-width:200px;
+      min-width: 200px;
     }
   }
 
