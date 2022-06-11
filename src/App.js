@@ -10,7 +10,7 @@ function App() {
   const ctx = useContext(BackDropContext);
 
   useEffect(() => {
-    ctx.deactiveBackdrop();
+    ctx.deactiveBackdrop(); // eslint-disable-next-line
   }, [location]);
   return (
     <>
