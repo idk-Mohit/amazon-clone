@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AuthenticationWrapper from "./Authentication/AuthenticationWrapper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SignIn = () => {
   const [helpDropdown, setHelpDropDown] = useState(false);
