@@ -17,11 +17,34 @@
 }
 
 :root {
+  --amazon-button: #f0c14b;
   --yellow: #f7ca00;
   --darkblue: #232f3e;
   --lightgray: rgb(207, 207, 207);
-  --blue: #007185;
+  --blue: #0066c0;
   --orange: #c7511f;
+}
+
+button {
+  font-family: "Amazon-light";
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--orange);
+  border-radius: 3px;
+  outline-color: var(--orange);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 183, 0, 0.293),
+    var(--amazon-button)
+  );
+}
+
+button:hover {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 183, 0, 0.5),
+    var(--amazon-button)
+  );
 }
 
 .flex {
@@ -72,5 +95,17 @@ select {
     transform: translateY(0);
     opacity: 1;
     z-index: -1;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }

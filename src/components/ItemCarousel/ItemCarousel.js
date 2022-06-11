@@ -94,20 +94,20 @@ const CarouselContainer = styled.div`
     top: 9rem;
     fill: black !important;
     pointer-events: none;
-    /* z-index: 1; */
+    z-index: 2;
   }
 
   .main-prev-icon {
     left: 1.9rem;
+    display: none;
   }
 
   .main-next-icon {
     right: 1.9rem;
+    display: none;
   }
 
   /* Slick Carousel Navigation Styling */
-  .slick-carousel-contianer {
-  }
   .slick-slider.slider {
     max-height: 15rem !important;
     position: relative;
@@ -119,7 +119,7 @@ const CarouselContainer = styled.div`
     position: absolute;
     background-color: var(--lightgray);
     background-color: white;
-    /* z-index: 1; */
+    z-index: 1;
     width: 4rem;
     height: 7rem;
     top: 6rem;
@@ -139,9 +139,21 @@ const CarouselContainer = styled.div`
   .slick-prev {
     /* position: absolute; */
     left: 0;
+    display: none !important;
   }
   .slick-next {
     /* position: absolute; */
     right: 0;
+    display: none !important;
+  }
+
+  &:hover {
+    .slick-prev,
+    .main-prev-icon,
+    .slick-next,
+    .main-next-icon {
+      display: block !important;
+      animation: fade 300ms ease;
+    }
   }
 `;

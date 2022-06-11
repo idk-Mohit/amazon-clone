@@ -46,7 +46,7 @@ const Footer = styled.footer`
       color: var(--blue);
       font-size: 0.8rem;
       font-family: "Amazon-light";
-      font-weight: 600;
+      font-weight: 500;
       :hover {
         color: var(--orange);
         text-decoration: underline;

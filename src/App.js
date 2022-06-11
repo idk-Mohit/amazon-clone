@@ -1,22 +1,27 @@
-import React, { useContext } from "react";
-import { Routes, Route } from "react-router-dom";
-import { Header, Footer, Backdrop } from "./components/index";
+import React, { useContext, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { Backdrop, SignIn, SignUp } from "./components/index";
 import { Home, NotFound } from "./pages";
 import styled from "styled-components";
 import BackDropContext from "./Store/BackDrop-context";
 
 function App() {
+  const location = useLocation();
   const ctx = useContext(BackDropContext);
+
+  useEffect(() => {
+    ctx.deactiveBackdrop();
+  }, [location]);
   return (
     <>
-      <Header />
       <Container>
         {ctx.backDrop && <Backdrop />}
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/notfound"} element={<NotFound />} />
+          <Route path={"/signin"} element={<SignIn />} />
+          <Route path={"/signup"} element={<SignUp />} />
         </Routes>
-        <Footer />
       </Container>
     </>
   );

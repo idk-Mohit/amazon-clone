@@ -44,15 +44,84 @@ const TopNav = () => {
         {/* <div className="nav--hover nav__language"></div> */}
 
         <div
-          className="nav--hover nav__signIn"
+          className="nav--hover nav__signIn nav__signIn__dropDown"
           onMouseEnter={backdrop.activateBackdrop}
           onMouseLeave={backdrop.deactiveBackdrop}
         >
-          <Link to={"/"} className="flex-column">
+          <Link to={"/signin"} className="flex-column">
             <span className="nav__span__first">Hello, Sign in</span>
             <span className="nav__span__second flex">
               Accounts &amp; Lists <ArrowDropDownIcon />{" "}
             </span>
+            <div className="nav__signIn__dropDown__content">
+              <div>
+                <div className="dropdown__signin">
+                  <Link to={"/signin"}>
+                    <button>Sign In</button>
+                  </Link>
+                  <p>
+                    New Customer?
+                    <Link to={"/signup"}>
+                      <span>Start Here.</span>
+                    </Link>
+                  </p>
+                </div>
+                <ul className="dropdown__list">
+                  <h3>Your List</h3>
+                  <li>
+                    <Link to={"/"}>Create a Wish List</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Wish from Any Website</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Baby Wishlist</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Discover Your Style</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Explore Showroom</Link>
+                  </li>
+                </ul>
+                <ul className="dropdown__account">
+                  <h3>Your Account</h3>
+                  <li>
+                    <Link to={"/"}>Your Account</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Orders</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Wish List</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Recommendations</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Prime Membership</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Prime Video</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Subscribe & Save Items</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Memberships & Subscriptions</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Amazon Business Account</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Your Seller Account</Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>Manage Your Content and Devices</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </Link>
         </div>
         <div className="nav--hover nav__orders">
@@ -126,6 +195,83 @@ const TopNavMiddle = styled.div`
   flex-grow: 2;
 `;
 const TopNavRight = styled.div`
+  .nav__signIn__dropDown {
+    position: relative;
+    display: inline-block;
+
+    .nav__signIn__dropDown__content {
+      display: none;
+      position: absolute;
+      top: 3rem;
+      right: -1px;
+      padding: 1rem 2rem;
+      background-color: white;
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+      z-index: 90;
+      color: black;
+
+      ul {
+        h3 {
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0.5rem 0;
+        }
+        a {
+          font-size: 0.9rem;
+          font-family: "Amazon-light";
+          color: black;
+          &:hover {
+            color: var(--orange);
+            text-decoration: underline;
+          }
+        }
+      }
+
+      div {
+        display: grid;
+        width: 25rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "signin signin" "yourlist youraccount";
+
+        .dropdown__signin {
+          grid-area: signin;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 0.5rem;
+          button {
+            width: 10rem;
+            padding: 0.5rem;
+            margin-bottom: 0.6rem;
+          }
+          p {
+            font-size: 0.7rem;
+            a {
+              color: var(--blue);
+              margin-left: 0.2rem;
+              &:hover {
+                text-decoration: underline;
+                color: var(--orange);
+              }
+            }
+          }
+        }
+        .dropdown__list {
+          grid-area: yourlist;
+        }
+        .dropdown__account {
+          grid-area: youraccount;
+        }
+      }
+    }
+
+    &:hover {
+      .nav__signIn__dropDown__content {
+        display: block;
+        transition: 300ms ease;
+      }
+    }
+  }
   .nav__cart {
     .nav__span__second {
       align-items: flex-end;

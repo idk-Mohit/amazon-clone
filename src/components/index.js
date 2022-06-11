@@ -26,3 +26,8 @@ export { default as SignInFooter } from "./SignInFooter";
 
 // Backdrop ...
 export { default as Backdrop } from "./Backdrop";
+
+// Authentication ...
+export { default as AuthenticationWrapper } from "./Authentication/AuthenticationWrapper";
+export { default as SignIn } from "./SignIn";
+export { default as SignUp } from "./SignUp";
