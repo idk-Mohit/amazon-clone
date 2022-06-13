@@ -35,6 +35,8 @@ const AuthenticationWrapper = (props) => {
 export default AuthenticationWrapper;
 
 const Container = styled.section`
+position: relative;
+height: 100vh;
   header {
     padding: 1rem 0;
     justify-content: center;
@@ -49,11 +51,14 @@ const Container = styled.section`
     background-color: rgba(200, 200, 200, 0.2);
     justify-content: center;
     align-items: center;
-    font-size: 0.9rem;
-    padding: 1rem 0 4rem;
-
+    font-size: 0.8rem;
+    padding: 2rem 0 4rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     p {
-      color: var(--lightgray);
+      color: var(--darkblue);
+      margin-top: 0.8rem;
     }
 
     ul {
@@ -66,5 +71,6 @@ const Container = styled.section`
         }
       }
     }
+    box-shadow: 5px 0px 5px 0px rgba(0,0,0,.2) ;
   }
 `;

@@ -6,10 +6,10 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TopNavSearch from "./TopNavSearch";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import BackDropContext from "../../Store/BackDrop-context";
+import Context from "../../Store/Context";
 
 const TopNav = () => {
-  const backdrop = useContext(BackDropContext);
+  const ctx = useContext(Context);
   return (
     <TopNavContainer className="flex">
       {/* Top Nav Left Side */}
@@ -45,18 +45,18 @@ const TopNav = () => {
 
         <div
           className="nav--hover nav__signIn nav__signIn__dropDown"
-          onMouseEnter={backdrop.activateBackdrop}
-          onMouseLeave={backdrop.deactiveBackdrop}
+          onMouseEnter={ctx.activatectx}
+          onMouseLeave={ctx.deactivectx}
         >
-          <Link to={"/signin"} className="flex-column">
-            <span className="nav__span__first">Hello, Sign in</span>
+          <Link to={"/signin/emailCheck"} className="flex-column">
+            <span className="nav__span__first">Hello, {ctx.isLoggedIn ? ctx.user.name : 'Sign in'}</span>
             <span className="nav__span__second flex">
               Accounts &amp; Lists <ArrowDropDownIcon />{" "}
             </span>
             <div className="nav__signIn__dropDown__content">
               <div>
-                <div className="dropdown__signin">
-                  <Link to={"/signin"}>
+                {!ctx.isLoggedIn && <div className="dropdown__signin">
+                  <Link to={"/signin/emailCheck"}>
                     <button>Sign In</button>
                   </Link>
                   <p>
@@ -65,11 +65,11 @@ const TopNav = () => {
                       <span>Start Here.</span>
                     </Link>
                   </p>
-                </div>
+                </div>}
                 <ul className="dropdown__list">
                   <h3>Your List</h3>
                   <li>
-                    <Link to={"/"}>Create a Wish List</Link>
+                    <Link to={"/"}>{ctx.isLoggedIn ? ctx.user.name + "'s" : 'Create a'} Wish List</Link>
                   </li>
                   <li>
                     <Link to={"/"}>Wish from Any Website</Link>
@@ -119,6 +119,9 @@ const TopNav = () => {
                   <li>
                     <Link to={"/"}>Manage Your Content and Devices</Link>
                   </li>
+                  {ctx.isLoggedIn && <li onClick={ctx.logoutHandler} >
+                    <Link to={'#'}>Sign Out</Link>
+                  </li>}
                 </ul>
               </div>
             </div>

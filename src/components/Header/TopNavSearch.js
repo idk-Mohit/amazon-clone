@@ -3,11 +3,11 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import search from "./searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import BackDropContext from "../../Store/BackDrop-context";
+import Context from "../../Store/Context";
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
-  const backdrop = useContext(BackDropContext);
+  const ctx = useContext(Context);
 
   const SearchOptions = search.map((item, index) => {
     return (
@@ -35,7 +35,7 @@ const TopNavSearch = () => {
         </span>
       </div>
       <div className="nav__input__Container flex">
-        <input type="text" onClick={backdrop.activateBackdrop} />
+        <input type="text" onClick={ctx.activateBackdrop} />
       </div>
       <div className="Nav__search__button flex">
         <SearchIcon fontSize="medium" />

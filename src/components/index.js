@@ -29,5 +29,5 @@ export { default as Backdrop } from "./Backdrop";
 
 // Authentication ...
 export { default as AuthenticationWrapper } from "./Authentication/AuthenticationWrapper";
-export { default as SignIn } from "./SignIn";
-export { default as SignUp } from "./SignUp";
+export { default as EmailForm } from "./Authentication/EmailForm";
+export { default as PasswordForm } from "./Authentication/PasswordForm";
