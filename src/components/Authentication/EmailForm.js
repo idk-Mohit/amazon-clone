@@ -26,7 +26,7 @@ const EmailForm = () => {
 
     const isEmail = enteredEmail.split('').includes('@');
 
-    const url = 'http://localhost:3001/login/emailCheck';
+    const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';
 
     if (isEmail) {
       const response = await axios({

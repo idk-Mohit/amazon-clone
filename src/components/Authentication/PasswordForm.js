@@ -19,7 +19,7 @@ const EmailForm = () => {
     e.preventDefault();
     console.log(keepMeSigned)
 
-    const url = 'http://localhost:3001/login/passwordCheck';
+    const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck';
 
     const response = await axios({
       method: 'post',

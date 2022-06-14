@@ -10,9 +10,7 @@ function App() {
   const ctx = useContext(Context);
 
   useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem('user')))
     if (localStorage.getItem('stayLoggedIn')) {
-      console.log('yeahhhh')
       ctx.loginHandler();
       ctx.userHandler(JSON.parse(localStorage.getItem('user')))
     } else {
