@@ -1,12 +1,27 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import ItemCarouselData from "./ItemCarouselData";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Slider from "react-slick";
+import FetchDataContext from "../../Store/FetchData-Context";
+import { Loading } from '../../assets/Images'
 
-const ItemCarousel = ({ data }) => {
+const ItemCarousel = ({ data, heading }) => {
+  const [carouselData, setCarouselData] = useState([])
+  const FetchDataCtx = useContext(FetchDataContext)
+  useEffect(() => {
+    if (localStorage.getItem(`Fetched ${data}`)) {
+      let parsedData = JSON.parse(localStorage.getItem(`Fetched ${data}`))
+      setCarouselData(parsedData)
+    }
+    else {
+      setCarouselData(FetchDataCtx.FetchDataHandler(data))
+    }
+    //eslint-disable-next-line
+  }, [])
+
   const settings = {
     className: "slider variable-width",
     infinite: true,
@@ -40,35 +55,32 @@ const ItemCarousel = ({ data }) => {
     ],
   };
 
-  const CarouselData = ItemCarouselData.map((item, index) => {
-    if (Object.keys(item).toString() === data) {
-      const heading = Object.keys(item).toString();
-      const list = Object.values(item)[0].map((item, index) => {
-        return (
-          <Link to={`${item.link}`} key={index}>
-            <img src={item.image} alt="" />
-          </Link>
-        );
-      });
-      return (
-        <CarouselContainer key={index}>
-          <ArrowBackIosNewIcon
-            fontSize="large"
-            className="main-prev-icon main-carousel-button"
-          />
-          <h1>{heading}</h1>
-          <Slider {...settings}>{list}</Slider>
-          <ArrowForwardIosIcon
-            fontSize="large"
-            className="main-next-icon main-carousel-button"
-          />
-        </CarouselContainer>
-      );
-    }
-    return null;
-  });
+  const CarouselData = carouselData.map((item, index) => {
+    const slides = item.product.map((slide, index) => {
+      return (<Link to={`/product/${item.name}/${slide._id}`} key={index}>
+        <img src={slide.image} alt="" />
+      </Link>)
+    })
+    return (
+      <CarouselContainer key={index}>
+        <ArrowBackIosNewIcon
+          fontSize="large"
+          className="main-prev-icon main-carousel-button"
+        />
+        <h1>{heading}</h1>
+        <Slider {...settings}>{slides}</Slider>
+        <ArrowForwardIosIcon
+          fontSize="large"
+          className="main-next-icon main-carousel-button"
+        />
+      </CarouselContainer>
+    )
+  })
 
-  return <>{CarouselData}</>;
+  return <>
+    {carouselData.length === 0 && <div>{Loading}</div>}
+    {carouselData.length !== 0 && <div>{CarouselData}</div>}
+  </>;
 };
 
 export default ItemCarousel;
@@ -79,7 +91,8 @@ const CarouselContainer = styled.div`
   background-color: white;
   position: relative;
   h1 {
-    margin-bottom: 1rem;
+    margin:0 0 1rem 1.4rem;
+    font-size: 1.6rem;
   }
 
   div {

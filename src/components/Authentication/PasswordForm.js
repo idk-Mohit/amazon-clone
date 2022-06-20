@@ -6,43 +6,41 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AuthenticationWrapper from "./AuthenticationWrapper";
 import axios from "axios";
 import ErrorModal from "./ErrorModal";
-import Context from '../../Store/Context'
+import { UserContext } from "../../Store";
 
 const EmailForm = () => {
-  const ctx = useContext(Context)
+  const userCtx = useContext(UserContext)
   const [error, setError] = useState('')
   const passwordRef = useRef('');
-  const [keepMeSigned, setKeepMeSigned] = useState(false)
   const redirect = useNavigate()
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(keepMeSigned)
 
-    const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck';
 
-    const response = await axios({
-      method: 'post',
-      url: url,
-      data: {
-        mobile: ctx.userMobile,
-        password: passwordRef.current.value
-      }
-    });
-    if (response.data.found) {
-      ctx.userMobileHandler('')
-      ctx.userHandler(response.data.user)
-      ctx.loginHandler()
-      if (keepMeSigned) {
-        localStorage.setItem('stayLoggedIn', 1)
-      }
-      else {
-        localStorage.setItem('stayLoggedIn', 0)
-      }
-      redirect('/')
+    // const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
+    const url = 'http://localhost:3001/login/passwordCheck' //development
+    if (!userCtx.userName) {
+      redirect('/signin/emailCheck')
     }
     else {
-      setError(response.data.message)
+      const response = await axios({
+        method: 'post',
+        url: url,
+        data: {
+          username: userCtx.userName,
+          password: passwordRef.current.value
+        }
+      });
+      if (response.data.found) {
+        console.log(response)
+        userCtx.loginHandler(response.data.accessToken)
+        localStorage.setItem('accessToken', response.data.accessToken)
+        redirect('/')
+      }
+      else {
+        setError(response.data.message)
+      }
     }
   }
 
@@ -62,9 +60,9 @@ const EmailForm = () => {
             <button type="submit">Sign-In</button>
           </form>
           <div>
-            <p className="flex">
-              <input type="checkbox" onClick={() => setKeepMeSigned(prev => !prev)} /> Keep me signed in. <Link to={'#'}>Details</Link>
-            </p>
+            {/* <p className="flex">
+              <input type="checkbox" onChange={()=>} checked /> Keep me signed in. <Link to={'#'}>Details</Link>
+            </p> */}
             <div
               className="help__dropdown"
               onClick={() => setHelpDropDown(!helpDropdown)}

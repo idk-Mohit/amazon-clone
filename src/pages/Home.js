@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import {
   TopCarousel,
@@ -11,8 +11,10 @@ import {
   Header,
   Footer,
 } from "../components";
+import { UserContext } from "../Store";
 
 const Home = () => {
+  const UserCtx = useContext(UserContext)
   return (
     <>
       <Header />
@@ -21,7 +23,7 @@ const Home = () => {
         {/* OnTop CarouselDiv */}
         <div className="onTopCarouselDiv">
           <div className="Mobile__Carousel">
-            <ItemCarousel data="4 star rated & above | Refurbished products" />
+            <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
           </div>
           <div className="cardContainer">
             <MultipleShowCaseCard data={MultipleShowCaseData[0]} />
@@ -31,7 +33,7 @@ const Home = () => {
               title="Sign in for your best experience"
               button={true}
               buttonText="Sign in securely"
-              buttonLink="/login"
+              buttonLink="/signin/emailCheck"
             />
             <MultipleShowCaseCard data={MultipleShowCaseData[3]} />
             <MultipleShowCaseCard data={MultipleShowCaseData[4]} />
@@ -46,7 +48,7 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[6]} />
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="Frequently repurchased in Grocery" />
+            <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
           </div>
           <div className="cardContainer">
             <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
@@ -68,12 +70,12 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="Frequently repurchased in Drugstore" />
+            {/* <ItemCarousel data="Frequently repurchased in Drugstore" /> */}
           </div>
 
-          <ItemCarousel data="4 star rated & above | Refurbished products" />
+          {/* <ItemCarousel data="4 star rated & above | Refurbished products" /> */}
 
-          <SignInFooter />
+          {!UserCtx.isLoggedIn && <SignInFooter />}
         </div>
         {/* OnTop CarouselDiv */}
       </Container>

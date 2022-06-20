@@ -53,7 +53,7 @@ height: 100vh;
     align-items: center;
     font-size: 0.8rem;
     padding: 2rem 0 4rem;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     p {

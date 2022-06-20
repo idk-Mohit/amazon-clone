@@ -6,7 +6,7 @@ const SignInFooter = () => {
   return (
     <Footer className="flex-column">
       <p>See personalized Recommendations</p>
-      <Link to={"/signIn"}>
+      <Link to={"/signin/emailCheck"}>
         <button>Sign In</button>
       </Link>
       <p className="SignUpLink">

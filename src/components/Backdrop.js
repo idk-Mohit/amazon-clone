@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import Context from "../Store/Context";
+import { backDropContext } from "../Store";
 
 const BackDrop = () => {
-  const ctx = useContext(Context);
-  return <Container onClick={ctx.deactiveBackdrop}></Container>;
+  const backDropCtx = useContext(backDropContext);
+  return <Container onClick={backDropCtx.disableBackDrop}></Container>;
 };
 
 const Container = styled.div`

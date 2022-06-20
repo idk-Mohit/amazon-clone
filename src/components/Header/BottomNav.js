@@ -3,10 +3,10 @@ import styled from "styled-components";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import React, { useContext } from "react";
-import Context from "../../Store/Context";
+import { backDropContext } from "../../Store";
 
 const BottomNav = () => {
-  const ctx = useContext(Context);
+  const backdrop = useContext(backDropContext);
   return (
     <BottomNavContainer className="flex">
       <ul className="flex">
@@ -35,8 +35,8 @@ const BottomNav = () => {
         </li>
         <li
           className="prime"
-          onMouseEnter={ctx.activateBackdrop}
-          onMouseLeave={ctx.deactiveBackdrop}
+          onMouseEnter={backdrop.enableBackDrop}
+          onMouseLeave={backdrop.disableBackDrop}
         >
           <Link to={"/"} className="prime backdrop">
             <div className="flex link__icons">

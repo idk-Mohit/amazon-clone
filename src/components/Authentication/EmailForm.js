@@ -5,42 +5,39 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AuthenticationWrapper from "./AuthenticationWrapper";
 import axios from "axios";
-import Context from '../../Store/Context'
+import { UserContext } from "../../Store";
 
 const EmailForm = () => {
-  const ctx = useContext(Context)
+  const userCtx = useContext(UserContext)
   const [enteredEmail, setEnteredEmail] = useState('')
   const redirect = useNavigate()
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('user'))) {
-      setEnteredEmail(JSON.parse(localStorage.getItem('user')).email)
-    }
-    else {
-      setEnteredEmail('')
-    }
+    localStorage.getItem('username') && setEnteredEmail(localStorage.getItem('username'));
   }, [])
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const isEmail = enteredEmail.split('').includes('@');
+    // const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';// Production
+    const url = 'http://localhost:3001/login/emailCheck' //development
 
-    const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';
-
-    if (isEmail) {
-      const response = await axios({
-        method: 'post',
-        url: url,
-        data: {
-          username: enteredEmail
-        }
-      });
-      if (response.data.found) {
-        ctx.userMobileHandler(response.data.user[1])
-        redirect('/signin/passwordCheck')
+    const response = await axios({
+      method: 'post',
+      url: url,
+      data: {
+        username: enteredEmail
       }
+    });
+    if (response.data.found) {
+      console.log(response.data)
+      userCtx.userNameHandler(response.data.user)
+      redirect('/signin/passwordCheck')
     }
+    else {
+      console.log(response.data.message)
+    }
+
   }
 
   const [helpDropdown, setHelpDropDown] = useState(false);

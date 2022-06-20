@@ -25,7 +25,7 @@ const MultipleShowCaseCard = ({ data }) => {
 export default MultipleShowCaseCard;
 
 const CardContainer = styled.div`
-  min-height: 15rem;
+  height: fit-content;
   max-width: 21.25rem;
   padding: 1.5rem 1rem;
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.1);

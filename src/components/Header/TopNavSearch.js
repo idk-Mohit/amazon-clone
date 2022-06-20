@@ -3,11 +3,18 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import search from "./searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import Context from "../../Store/Context";
+import { backDropContext } from "../../Store";
+import { useEffect } from "react";
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
-  const ctx = useContext(Context);
+  const [suggestions, setSuggestions] = useState([])
+  const [enteredQuery, SetEnteredQuery] = useState('')
+  const backdrop = useContext(backDropContext);
+
+  useEffect(() => {
+    console.log(enteredQuery)
+  }, [enteredQuery])
 
   const SearchOptions = search.map((item, index) => {
     return (
@@ -17,16 +24,17 @@ const TopNavSearch = () => {
     );
   });
 
-  const selectedOptionHandler = (e) => {
-    setSelectedOption(e.target.value);
-  };
+  const FormSubmitHandler = (e) => {
+    e.preventDefault()
+  }
+
   return (
     <TopNavSearchBar className="flex">
       <div className="nav__select__container">
         <select
           name="search_options"
           id="searchOptions"
-          onChange={selectedOptionHandler}
+          onChange={(e) => setSelectedOption(e.target.value)}
         >
           {SearchOptions}
         </select>
@@ -34,12 +42,16 @@ const TopNavSearch = () => {
           {selectedOption} <ArrowDropDownIcon />
         </span>
       </div>
-      <div className="nav__input__Container flex">
-        <input type="text" onClick={ctx.activateBackdrop} />
-      </div>
-      <div className="Nav__search__button flex">
-        <SearchIcon fontSize="medium" />
-      </div>
+      <form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
+        <input type="text" onClick={backdrop.enableBackDrop} onChange={(e) => SetEnteredQuery(e.target.value)} />
+        <div className="nav__floyout_Search">
+          { }
+        </div>
+        <div className="Nav__search__button flex">
+          <SearchIcon fontSize="medium" />
+        </div>
+      </form>
+
     </TopNavSearchBar>
   );
 };
