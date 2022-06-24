@@ -23,6 +23,7 @@
   --lightgray: rgb(207, 207, 207);
   --blue: #0066c0;
   --orange: #c7511f;
+  --black: #0f1111;
 }
 
 button {
@@ -62,6 +63,7 @@ a:focus,
 a:active {
   color: white;
   text-decoration: none;
+  width: fit-content;
 }
 ul,
 li {
@@ -109,3 +111,4 @@ select {
     opacity: 1;
   }
 }
+

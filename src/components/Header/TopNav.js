@@ -49,10 +49,10 @@ const TopNav = () => {
           onMouseEnter={backDropCtx.enableBackDrop}
           onMouseLeave={backDropCtx.disableBackDrop}
         >
-          <Link to={"/signin/emailCheck"} className="flex-column">
+          <Link to={userCtx.isLoggedIn ? '/' : "/signin/emailCheck"} className="flex-column">
             <span className="nav__span__first">Hello, {userCtx.isLoggedIn ? userCtx.user.name : 'Sign in'}</span>
             <span className="nav__span__second flex">
-              Accounts &amp; Lists <ArrowDropDownIcon />{" "}
+              Accounts &amp; Lists <ArrowDropDownIcon />
             </span>
             <div className="nav__signIn__dropDown__content">
               <div>

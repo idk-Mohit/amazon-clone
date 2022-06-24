@@ -16,8 +16,6 @@ const EmailForm = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-
-
     // const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
     const url = 'http://localhost:3001/login/passwordCheck' //development
     if (!userCtx.userName) {
@@ -33,7 +31,6 @@ const EmailForm = () => {
         }
       });
       if (response.data.found) {
-        console.log(response)
         userCtx.loginHandler(response.data.accessToken)
         localStorage.setItem('accessToken', response.data.accessToken)
         redirect('/')

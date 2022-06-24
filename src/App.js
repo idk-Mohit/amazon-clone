@@ -2,7 +2,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { ArrowUp } from './assets/Images'
 import AddProduct from "./Database/AddProduct";
-import { Home, NotFound, ProductPage } from "./pages";
+import { Home, NotFound, ProductPage, ProductList } from "./pages";
 import { backDropContext, UserContext } from "./Store";
 import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
@@ -66,7 +66,8 @@ function App() {
           <Route path={"/signin/emailCheck"} element={<EmailForm />} />
           <Route path={"/signin/passwordCheck"} element={<PasswordForm />} />
           <Route path={"/database"} element={<AddProduct />} />
-          <Route path={"/product/:name/:id"} element={<ProductPage />} />
+          <Route path={"/product/:id"} element={<ProductPage />} />
+          <Route path={"/productList"} element={<ProductList />} />
         </Routes>
         {showButton && (
           <button onClick={scrollToTop} id={'scrollToTopButton'}>

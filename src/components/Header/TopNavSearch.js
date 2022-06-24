@@ -1,21 +1,42 @@
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import search from "./searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { backDropContext } from "../../Store";
-import { useEffect } from "react";
+import { FetchDataContext } from '../../Store'
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
-  const [suggestions, setSuggestions] = useState([])
+  // const [suggestions, setSuggestions] = useState([])
   const [enteredQuery, SetEnteredQuery] = useState('')
   const backdrop = useContext(backDropContext);
+  const FetchDataCtx = useContext(FetchDataContext)
+  const redirect = useNavigate()
 
-  useEffect(() => {
-    console.log(enteredQuery)
-  }, [enteredQuery])
+  // useEffect(() => {
+  //   async function getSuggestions() {
+  //     const result = await axios({
+  //       method: 'post',
+  //       url: 'http://localhost:3001/getProduct',
+  //       data: {
+  //         name: enteredQuery
+  //       }
+  //     })
+  //     if (result) {
+  //       console.log(result.data.result)
+  //     }
+  //     else {
+  //       console.log('no data found in suggestions')
+  //     }
+  //   }
+  //   if (enteredQuery !== '') {
+  //     getSuggestions()
+  //   }
+  // }, [enteredQuery])
 
+  // Select Input Data (Options created)
   const SearchOptions = search.map((item, index) => {
     return (
       <option key={index} value={item}>
@@ -24,8 +45,12 @@ const TopNavSearch = () => {
     );
   });
 
-  const FormSubmitHandler = (e) => {
+  const FormSubmitHandler = async (e) => {
     e.preventDefault()
+    if (enteredQuery !== '') {
+      FetchDataCtx.FetchDataQueryHandler(enteredQuery)
+      redirect('/productList')
+    }
   }
 
   return (
@@ -43,13 +68,13 @@ const TopNavSearch = () => {
         </span>
       </div>
       <form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
-        <input type="text" onClick={backdrop.enableBackDrop} onChange={(e) => SetEnteredQuery(e.target.value)} />
+        <input type="text" onClick={backdrop.enableBackDrop} placeholder={FetchDataCtx.APIFetchProductsQuery} onChange={(e) => SetEnteredQuery(e.target.value)} />
         <div className="nav__floyout_Search">
           { }
         </div>
-        <div className="Nav__search__button flex">
+        <button className="Nav__search__button flex">
           <SearchIcon fontSize="medium" />
-        </div>
+        </button>
       </form>
 
     </TopNavSearchBar>
@@ -110,7 +135,9 @@ const TopNavSearchBar = styled.div`
     background-color: #fdba3d;
     height: 100%;
     color: black;
+    border: 1px solid transparent;
     padding: 0.2rem 0.8rem;
+    border-radius: 0;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     box-sizing: border-box;

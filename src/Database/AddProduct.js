@@ -27,12 +27,12 @@ const AddProduct = () => {
                 }
             }
         })
-        const response = await axios({
+        await axios({
             method: 'post',
             url: 'http://localhost:3001/addProduct',
             data: dataObj
         });
-        
+
     }
 
     return (

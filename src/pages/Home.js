@@ -8,16 +8,14 @@ import {
   SingleShowCaseCard,
   ItemCarousel,
   SignInFooter,
-  Header,
-  Footer,
 } from "../components";
 import { UserContext } from "../Store";
+import LayOut from "./LayOut";
 
 const Home = () => {
   const UserCtx = useContext(UserContext)
   return (
-    <>
-      <Header />
+    <LayOut>
       <Container>
         <TopCarousel data={carouselData} />
         {/* OnTop CarouselDiv */}
@@ -29,12 +27,12 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[0]} />
             <MultipleShowCaseCard data={MultipleShowCaseData[1]} />
             <MultipleShowCaseCard data={MultipleShowCaseData[2]} />
-            <SingleShowCaseCard
+            {!UserCtx.isLoggedIn ? <SingleShowCaseCard
               title="Sign in for your best experience"
               button={true}
               buttonText="Sign in securely"
               buttonLink="/signin/emailCheck"
-            />
+            /> : ''}
             <MultipleShowCaseCard data={MultipleShowCaseData[3]} />
             <MultipleShowCaseCard data={MultipleShowCaseData[4]} />
             <SingleShowCaseCard
@@ -79,8 +77,7 @@ const Home = () => {
         </div>
         {/* OnTop CarouselDiv */}
       </Container>
-      <Footer />
-    </>
+    </LayOut>
   );
 };
 

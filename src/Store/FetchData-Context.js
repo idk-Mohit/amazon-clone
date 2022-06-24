@@ -1,29 +1,37 @@
 import React, { useState, createContext } from 'react'
-import axios from 'axios'
 
 const FetchDataContext = createContext({
-    products: {},
-    FetchDataHandler: (data) => { }
+    APIFetchProductsQuery: '',
+    // products: {},
+    // FetchDataHandler: (data) => { },
+    FetchDataQueryHandler: (query) => { }
 })
 
 
 export const FetchDataProvider = (props) => {
-    const [products, setProducts] = useState({})
+    // const [products, setProducts] = useState({})  //Used To grab data from db
+    const [APIFetchProductsQuery, setAPIFetchProductsQuery] = useState('')
 
-    const FetchDataHandler = async (data) => {
-        const products = await axios({
-            method: 'post',
-            url: 'http://localhost:3001/getProduct',
-            data: { name: data }
-        })
-
-        if (products) {
-            localStorage.setItem(`Fetched ${data}`, JSON.stringify(products.data))
-            setProducts(products)
-        }
+    const FetchDataQueryHandler = (query) => {
+        setAPIFetchProductsQuery(query)
+        localStorage.setItem('FetchDataQuery', query)
     }
 
-    return <FetchDataContext.Provider value={{ FetchDataHandler, products }}>
+    //Used To grab data from db
+    // const FetchDataHandler = async (data) => {
+    //     const products = await axios({
+    //         method: 'post',
+    //         url: 'http://localhost:3001/getProduct',
+    //         data: { name: data }
+    //     })
+
+    //     if (products) {
+    //         localStorage.setItem(`Fetched ${data}`, JSON.stringify(products.data))
+    //         setProducts(products)
+    //     }
+    // }
+
+    return <FetchDataContext.Provider value={{ FetchDataQueryHandler, APIFetchProductsQuery }}>
         {props.children}
     </FetchDataContext.Provider>
 }
