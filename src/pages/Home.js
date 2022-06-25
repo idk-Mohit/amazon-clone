@@ -71,7 +71,7 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="Protein" heading='Frequently repurchased in Drugstore' />
+            <ItemCarousel data="tv" heading='Decor your Livingroom' />
           </div>
 
           <ItemCarousel data="laptop" heading="Latest to improve Productivity" />

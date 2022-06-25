@@ -15,25 +15,34 @@ import axios from "axios";
 const ItemCarousel = ({ data, heading }) => {
   const [carouselData, setCarouselData] = useState([])
   useEffect(() => {
+    const getData = async () => {
+      const result = await axios({
+        method: 'get',
+        url: `https://amazon-scraper.tprojects.workers.dev/search/${data}`
+      })
+      if (await result.data.status) {
+        await setCarouselData(result.data.result)
+        localStorage.setItem(`Fetched ${data}`, JSON.stringify(result.data.result))
+      }
+    }
     if (localStorage.getItem(`Fetched ${data}`)) {
       let parsedData = JSON.parse(localStorage.getItem(`Fetched ${data}`))
+      console.log(data, parsedData.length)
+      if (parsedData.length < 1) {
+        getData()
+      }
       setCarouselData(parsedData)
     }
     else {
-      const getData = async () => {
-        const result = await axios({
-          method: 'get',
-          url: `https://amazon-scraper.tprojects.workers.dev/search/${data}`
-        })
-        if (result.data.status) {
-          setCarouselData(result.data.result)
-          localStorage.setItem(`Fetched ${data}`, JSON.stringify(result.data.result))
-        }
-      }
       getData()
-      // setCarouselData(FetchDataCtx.FetchDataHandler(data))
     }
-
+    return function cleanup() {
+      if (carouselData.length < 1) {
+        console.log(carouselData, 'running again')
+        getData()
+      }
+    }
+    // eslint-disable-next-line
   }, [data])
 
   const List = carouselData.map((slide, index) => {
