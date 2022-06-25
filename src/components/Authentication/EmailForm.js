@@ -19,8 +19,8 @@ const EmailForm = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';// Production
-    const url = 'http://localhost:3001/login/emailCheck' //development
+    const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';// Production
+    // const url = 'http://localhost:3001/login/emailCheck' //development
 
     const response = await axios({
       method: 'post',
@@ -30,7 +30,6 @@ const EmailForm = () => {
       }
     });
     if (response.data.found) {
-      console.log(response.data)
       userCtx.userNameHandler(response.data.user)
       redirect('/signin/passwordCheck')
     }

@@ -4,11 +4,14 @@ import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import LayOut from './LayOut'
 import { Loading } from '../assets/Images'
-import { EMI_Section_IMG } from '../assets/Images'
+import { Accordian, ProductRating, PriceUI, BuyingSection } from '../components'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 
 const ProductPage = () => {
     const { id } = useParams();
     const [product, setProduct] = useState()
+    const [productFeatures, setProductFeatures] = useState([])
     // const productId = id.replaceAll(`~`, '/')
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
@@ -21,6 +24,7 @@ const ProductPage = () => {
             if (result.status) {
                 console.log(result.data.product_detail)
                 setProduct(result.data.product_detail)
+                setProductFeatures(result.data.product_detail.features)
                 setIsLoading(false)
             }
             else {
@@ -33,6 +37,10 @@ const ProductPage = () => {
     }, [])
 
 
+    let List = productFeatures.map((feature, index) => {
+        return <li key={index}>{feature}</li>
+    })
+
 
     return (
         <LayOut>
@@ -40,28 +48,35 @@ const ProductPage = () => {
                 {
                     isLoading ? <div className='flex'><Loader src={Loading} alt="" /></div>
                         :
-                        <ProductContainer>
-                            <ProductImageDiv>
-                                <img src={product.image} alt="" />
-                            </ProductImageDiv>
-                            <ProductData className='flex-column'>
-                                <Heading>{product.name}</Heading>
-                                <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
-                                {product.rating_details.rating && <Link to={'#'} className='color-link'><span>Rating : {product.rating_details.rating}</span></Link>}
-                                {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}
-                                <hr />
-                                <ProductPriceDiv className='product-price-div'>
-                                    <p className='current-price flex'><span className='price-symbol'>&#8377;</span>{product.price}</p>
-                                    <p>From <span className='price-symbol'>&#8377;</span><span className='original-price'>{product.original_price}</span></p>
-                                    <span>Inclusive of all taxes <br />No cost EMI available</span>
-                                </ProductPriceDiv>
-                                <EMISection>
-                                    <Accordian>
-                                        <div><img src={EMI_Section_IMG} alt="" /></div>
-                                    </Accordian>
-                                </EMISection>
-                            </ProductData>
-                        </ProductContainer>}
+                        <>
+                            {/* <ItemCarousel data={FetchDataCtx.APIFetchProductsQuery} /> */}
+                            <ProductContainer>
+                                <ProductImageDiv>
+                                    {product.image && <img src={product.image} alt="" />}
+                                    <span>Hover to Zoom In</span>
+                                </ProductImageDiv>
+                                <ProductData className='flex-column'>
+                                    {product.name && <Heading>{product.name}</Heading>}
+                                    <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
+                                    {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
+                                    {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}
+                                    <hr />
+                                    <PriceUI currentPrice={product.price} originalPrice={product.original_price} />
+                                    <EMISection>
+                                        <Accordian />
+                                    </EMISection>
+                                    <ReplacementDiv>
+                                        <Link to={'#'} className='color-link'><span className='flex'>7-day replacement only <KeyboardArrowDownIcon fontSize='extrasmall' /></span></Link>
+                                        <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
+                                    </ReplacementDiv>
+                                    <Features>
+                                        {List}
+                                    </Features>
+                                </ProductData>
+                                <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />
+                            </ProductContainer>
+                        </>
+                }
             </Container>
         </LayOut>
     )
@@ -76,9 +91,9 @@ const Container = styled.section`
 `
 const ProductContainer = styled.div`
 display: grid;
-grid-template-columns: 40% auto;
-grid-gap: 2rem;
-padding-top: 1rem;
+grid-template-columns: 1.8fr 1fr .8fr;
+grid-gap: .5rem;
+padding-top: 3rem;
 `
 const Loader = styled.img`
     margin:2rem auto;
@@ -87,20 +102,35 @@ const Loader = styled.img`
 `
 
 const ProductImageDiv = styled.div`
+    top: 0;
     margin: auto;
-    padding: 4rem 1rem;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    padding:2rem 0;
+    border:1px solid var(--lightgray);
+    border-radius: 5px;
     img {
-        width: inherit;
+        max-width:100%;
+        max-height: 30rem;
         transition: 300ms ease all;
         cursor: pointer;
         &:hover {
+            /* width: 90%; */
             transition: 300ms ease all;
             transform: scale(1.1);
         }
     }
+    span{
+        color:var(--gray)
+    }
 `
 const ProductData = styled.div`
+border:1px solid var(--lightgray);
+    border-radius: 5px;
+    padding: 0.5rem;
     hr{
         margin: 0.3rem;
         border: 1px solid rgba(200,200,200,.4);
@@ -126,20 +156,41 @@ const Heading = styled.h1`
     font-family: 'Amazon-light';
     font-weight: 600;
 `
-const ProductPriceDiv = styled.div`
-    .price-symbol{
-        font-size: 1rem;
-        color: var(--orange);
-        margin: .3rem .1rem 0 0;
+const EMISection = styled.div``
+const ReplacementDiv = styled.div`
+position: relative;
+    a {
+        width: fit-content;
+        span{
+            width: fit-content;
+            align-items: center;
+            gap: .4rem;
+        }
     }
-    .current-price{
-        font-size: 1.8rem;
+
+    &:hover .replacementDivPopUp{
+        display: block;
     }
-    .original-price{
-        text-decoration: line-through;
-        color: gray;
-        margin-bottom: 1rem;
+    .replacementDivPopUp{
+        position: absolute;
+        width: 100%;
+        top: 1rem;
+        right: 40%;
+        padding: 1rem;
+        border: 1px solid var(--lightgray);
+        border-radius: 5px;
+        background-color: white;
+        display: none;
+        box-shadow: 0px 3px 14px 0px rgba(0,0,0,.4);
+    }
+
+`
+const Features = styled.ul`
+padding: .5rem 0 .5rem 1.5rem ;
+    li {
+        list-style: disc;
+        font-weight:100;
+        letter-spacing: .1px;
+        margin-bottom:0.5rem;
     }
 `
-const EMISection = styled.div``
-const Accordian = styled.div``

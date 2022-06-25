@@ -12,7 +12,6 @@ const ProductList = () => {
     const FetchDataCtx = useContext(FetchDataContext);
     const [FetchedProductList, setFtechedProductList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    // const [filterWithPrice, setFilterWithPrice] = useState(null)
 
     useEffect(() => {
         setIsLoading(true)
@@ -31,7 +30,6 @@ const ProductList = () => {
                 url: `https://amazon-scraper.tprojects.workers.dev/search/${query}`
             })
             if (result.data.status) {
-                console.log(result.data.result)
                 setFtechedProductList(result.data.result)
                 setIsLoading(false)
             }
@@ -137,7 +135,7 @@ aside {
     }
     h3{
         font-size: 0.9rem;
-        margin:0 0 1rem 1rem;
+        margin-left:1rem;
     }
 
     ul{
@@ -181,12 +179,6 @@ grid-template-columns: auto 70%;
 grid-gap: 1rem;
 border: 1px solid rgba(200,200,200,.4);
 border-radius: 5px;
-transition: 300ms ease all;
-
-&:hover {
-    box-shadow: 0px 3px 3px 0px rgba(0,0,0,.2);
-    transition: 300ms ease all;
-}
 
 .ProductViaImageLink{
     width: inherit;
@@ -196,8 +188,14 @@ transition: 300ms ease all;
 const ImageContainer = styled.div` 
 width: 100%;
 height: inherit;
+/* transition: 300ms ease all; */
 img {
     width:inherit;
+    transition: 300ms ease all;
+}
+&:hover img{
+    transform: scale(1.1);
+    transition: 300ms ease all;
 }
 `
 const DataContainer = styled.div`

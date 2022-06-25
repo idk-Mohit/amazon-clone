@@ -20,10 +20,12 @@
   --amazon-button: #f0c14b;
   --yellow: #f7ca00;
   --darkblue: #232f3e;
-  --lightgray: rgb(207, 207, 207);
+  --lightgray: #f3f3f3;
+  --gray: rgb(97, 96, 96);
   --blue: #0066c0;
   --orange: #c7511f;
   --black: #0f1111;
+  --green: #007600;
 }
 
 button {
@@ -111,4 +113,3 @@ select {
     opacity: 1;
   }
 }
-

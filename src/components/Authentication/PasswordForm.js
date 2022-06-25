@@ -16,8 +16,8 @@ const EmailForm = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-    // const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
-    const url = 'http://localhost:3001/login/passwordCheck' //development
+    const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
+    // const url = 'http://localhost:3001/login/passwordCheck' //development
     if (!userCtx.userName) {
       redirect('/signin/emailCheck')
     }

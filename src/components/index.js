@@ -31,3 +31,10 @@ export { default as Backdrop } from "./Backdrop";
 export { default as AuthenticationWrapper } from "./Authentication/AuthenticationWrapper";
 export { default as EmailForm } from "./Authentication/EmailForm";
 export { default as PasswordForm } from "./Authentication/PasswordForm";
+
+// ProductPageComponents...
+export { default as Accordian } from './AboutProduct/Accordian'
+export { default as ProductRating } from './ProductRating'
+export { default as EMICard } from './AboutProduct/EMICard'
+export { default as PriceUI } from './AboutProduct/PriceUi'
+export { default as BuyingSection } from './AboutProduct/BuyingSection'

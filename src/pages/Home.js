@@ -46,6 +46,9 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[6]} />
           </div>
           <div className="itemCarouselContainer">
+            <ItemCarousel data="Grocery" heading="Absolute Fresh" />
+          </div>
+          <div className="itemCarouselContainer">
             <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
           </div>
           <div className="cardContainer">
@@ -68,10 +71,10 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
           </div>
           <div className="itemCarouselContainer">
-            {/* <ItemCarousel data="Frequently repurchased in Drugstore" /> */}
+            <ItemCarousel data="Protein" heading='Frequently repurchased in Drugstore' />
           </div>
 
-          {/* <ItemCarousel data="4 star rated & above | Refurbished products" /> */}
+          <ItemCarousel data="laptop" heading="Latest to improve Productivity" />
 
           {!UserCtx.isLoggedIn && <SignInFooter />}
         </div>

@@ -3,3 +3,7 @@ export { default as Amazon_Logo_Dark } from "./amazon_logo_dark.png";
 export { default as Loading } from './loading.gif'
 export { default as ArrowUp } from './arrow_Up.png'
 export { default as EMI_Section_IMG } from './EMI_Section_image.png'
+export { default as no_contact_delivery } from './no_contact_delivery.png'
+export { default as amazon_delivery } from './amazon_delivery.png'
+export { default as cash_on_delivery } from './cash_on_delivery.png'
+export { default as replacement } from './replacement.png'
