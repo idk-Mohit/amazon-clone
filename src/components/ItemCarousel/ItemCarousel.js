@@ -18,16 +18,15 @@ const ItemCarousel = ({ data, heading }) => {
     const getData = async () => {
       const result = await axios({
         method: 'get',
-        url: `https://amazon-scraper.tprojects.workers.dev/search/${data}`
+        url: `https://amazon-scraper.chipmunk092000.workers.dev/search/${data}`
       })
       if (await result.data.status) {
-        await setCarouselData(result.data.result)
+        setCarouselData(result.data.result)
         localStorage.setItem(`Fetched ${data}`, JSON.stringify(result.data.result))
       }
     }
     if (localStorage.getItem(`Fetched ${data}`)) {
       let parsedData = JSON.parse(localStorage.getItem(`Fetched ${data}`))
-      console.log(data, parsedData.length)
       if (parsedData.length < 1) {
         getData()
       }
@@ -38,7 +37,6 @@ const ItemCarousel = ({ data, heading }) => {
     }
     return function cleanup() {
       if (carouselData.length < 1) {
-        console.log(carouselData, 'running again')
         getData()
       }
     }
@@ -49,7 +47,7 @@ const ItemCarousel = ({ data, heading }) => {
     let ProductLink = slide.query_url.split('/product/')[1];
     ProductLink = ProductLink.replaceAll('/', '~')
     return (
-      <SwiperSlide key={index}>
+      <SwiperSlide key={index} className='ImageContainer'>
         <Link to={`/product/${ProductLink}`}>
           <img src={slide.image} alt="" />
         </Link>
@@ -58,15 +56,35 @@ const ItemCarousel = ({ data, heading }) => {
   })
 
   return <>
-    <CarouselContainer>
+    <CarouselContainer className="CarouselContainer">
       {heading && <h1>{heading}</h1>}
-      <Swiper slidesPerView={5}
+      <Swiper
+        slidesPerView={4}
         spaceBetween={10}
         pagination={{
           clickable: true,
         }}
+        breakpoints={{
+          250: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+        }}
         modules={[Pagination]}
-        className="mySwiper">{List}</Swiper>
+        className="mySwiper"
+      >{List}</Swiper>
     </CarouselContainer>
   </>;
 };
@@ -90,6 +108,16 @@ const CarouselContainer = styled.div`
       img{
         height: 10rem;
       }
+    }
+  }
+
+  .ImageContainer{
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    place-items: center;
+    img {
+      width: 100%;
     }
   }
 `;

@@ -15,14 +15,14 @@ const EMICard = () => {
                 <h1>EMI Options</h1>
                 <InnerContainer>
                     <HeaderButton>
-                        <button className={selectedTab === '1' && 'active'} onClick={TabHandler} value='1'>Debit Card EMIs</button>
-                        <button className={selectedTab === '2' && 'active'} onClick={TabHandler} value='2' >Other EMIs</button></HeaderButton>
+                        <button className={selectedTab === '1' ? "active" : ''} onClick={TabHandler} value='1'>Debit Card EMIs</button>
+                        <button className={selectedTab === '2' ? 'active' : ""} onClick={TabHandler} value='2' >Other EMIs</button></HeaderButton>
                     {selectedTab === '1' && <DebitCardEMIs>
                         <p>EMI on debit cards is currently available for select customers of following banks:HDFC, ICICI, Axis, Kotak Mahindra, State Bank of India and Federal Bank on products above Rs.5,000. To know more about Debit EMI eligibility and how it works click here</p>
                     </DebitCardEMIs>}
-                    {selectedTab === '2' && <OtherEMIS>
+                    {selectedTab === '2' ? <OtherEMIS>
                         <p>Other EMIs Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, fugiat quasi? Dolorem asperiores nesciunt repudiandae amet aut ab, vero, incidunt recusandae, dolore consequuntur earum necessitatibus ducimus? Magnam id deserunt dolorem!</p>
-                    </OtherEMIS>}
+                    </OtherEMIS> : ""}
                 </InnerContainer>
             </DropDownContent>
         </Container>

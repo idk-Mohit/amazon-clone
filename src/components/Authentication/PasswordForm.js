@@ -1,21 +1,23 @@
-import React, { useState, useRef, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import AuthenticationWrapper from "./AuthenticationWrapper";
 import axios from "axios";
 import ErrorModal from "./ErrorModal";
+import styled from "styled-components";
 import { UserContext } from "../../Store";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useRef, useContext } from "react";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import AuthenticationWrapper from "./AuthenticationWrapper";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const EmailForm = () => {
   const userCtx = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const passwordRef = useRef('');
   const redirect = useNavigate()
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
     const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
     // const url = 'http://localhost:3001/login/passwordCheck' //development
     if (!userCtx.userName) {
@@ -33,12 +35,14 @@ const EmailForm = () => {
       if (response.data.found) {
         userCtx.loginHandler(response.data.accessToken)
         localStorage.setItem('accessToken', response.data.accessToken)
+        userCtx.userHandler(response.data)
         redirect('/')
       }
       else {
         setError(response.data.message)
       }
     }
+    setIsLoading(false)
   }
 
 
@@ -54,7 +58,8 @@ const EmailForm = () => {
             <label htmlFor="password">Password</label>
             {/* username input */}
             <input type="password" id="password" name="password" ref={passwordRef} required />
-            <button type="submit">Sign-In</button>
+            {!isLoading && <button type="submit">Sign-In</button>}
+            {isLoading && <button className="loaderDiv flex"><div className="loader"></div></button>}
           </form>
           <div>
             {/* <p className="flex">
@@ -125,6 +130,11 @@ const InputSection = styled.section`
     }
     button {
       padding: 0.5rem;
+    }
+    button.loaderDiv{
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
     }
   }
   a {

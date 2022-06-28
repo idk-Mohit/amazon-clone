@@ -29,10 +29,8 @@ const SingleShowCaseCard = (props) => {
 export default SingleShowCaseCard;
 
 const CardContainer = styled.div`
-  /* min-height: 15rem; */
-  /* align-items: center; */
-  justify-content: sapce;
-  height: fit-content;
+  /* justify-content: sapce; */
+  height: 420px;
   max-width: 21.25rem;
   padding: 1.5rem 1rem;
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.1);

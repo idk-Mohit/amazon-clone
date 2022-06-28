@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Amazon_Logo } from "../../assets/Images";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TopNavSearch from "./TopNavSearch";
@@ -11,6 +11,10 @@ import { backDropContext, UserContext } from "../../Store";
 const TopNav = () => {
   const backDropCtx = useContext(backDropContext);
   const userCtx = useContext(UserContext)
+  const redirect = useNavigate()
+  const navigateToSignIn = () => {
+    redirect('/signin/EmailCheck')
+  }
   return (
     <TopNavContainer className="flex">
       {/* Top Nav Left Side */}
@@ -49,7 +53,7 @@ const TopNav = () => {
           onMouseEnter={backDropCtx.enableBackDrop}
           onMouseLeave={backDropCtx.disableBackDrop}
         >
-          <Link to={userCtx.isLoggedIn ? '/' : "/signin/emailCheck"} className="flex-column">
+          <div style={{ cursor: 'pointer' }} className="flex-column" onClick={!userCtx.isLoggedIn ? navigateToSignIn : null}>
             <span className="nav__span__first">Hello, {userCtx.isLoggedIn ? userCtx.user.name : 'Sign in'}</span>
             <span className="nav__span__second flex">
               Accounts &amp; Lists <ArrowDropDownIcon />
@@ -126,7 +130,7 @@ const TopNav = () => {
                 </ul>
               </div>
             </div>
-          </Link>
+          </div>
         </div>
         <div className="nav--hover nav__orders">
           <Link to={"/"} className="flex-column">
@@ -143,7 +147,7 @@ const TopNav = () => {
           </Link>
         </div>
       </TopNavRight>
-    </TopNavContainer>
+    </TopNavContainer >
   );
 };
 

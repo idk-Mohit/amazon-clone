@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Header, Footer } from '../components'
-
 const LayOut = (props) => {
 
     useEffect(() => {

@@ -1,14 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import AuthenticationWrapper from "./AuthenticationWrapper";
 import axios from "axios";
+import styled from "styled-components";
 import { UserContext } from "../../Store";
+import { Link, useNavigate } from "react-router-dom";
+import AuthenticationWrapper from "./AuthenticationWrapper";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import React, { useState, useContext, useEffect } from "react";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const EmailForm = () => {
   const userCtx = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false)
   const [enteredEmail, setEnteredEmail] = useState('')
   const redirect = useNavigate()
 
@@ -18,7 +19,7 @@ const EmailForm = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
     const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';// Production
     // const url = 'http://localhost:3001/login/emailCheck' //development
 
@@ -36,7 +37,7 @@ const EmailForm = () => {
     else {
       console.log(response.data.message)
     }
-
+    setIsLoading(false)
   }
 
   const [helpDropdown, setHelpDropDown] = useState(false);
@@ -50,7 +51,8 @@ const EmailForm = () => {
             <label htmlFor="username">Email or mobile phone number</label>
             {/* username input */}
             <input type="text" id="username" name="username" value={enteredEmail} onChange={(e) => { setEnteredEmail(e.target.value) }} />
-            <button type="submit">Continue</button>
+            {!isLoading && <button type="submit">Continue</button>}
+            {isLoading && <button className="flex loaderDiv"><div className="loader"></div></button>}
           </form>
           <div>
             <p>
@@ -123,6 +125,11 @@ const InputSection = styled.section`
     }
     button {
       padding: 0.5rem;
+    }
+    button.loaderDiv{
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
     }
   }
   a {

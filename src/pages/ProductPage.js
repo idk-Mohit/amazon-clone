@@ -1,25 +1,25 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import styled from 'styled-components'
 import LayOut from './LayOut'
+import styled from 'styled-components'
 import { Loading } from '../assets/Images'
-import { Accordian, ProductRating, PriceUI, BuyingSection } from '../components'
+import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Accordian, ProductRating, PriceUI, BuyingSection } from '../components'
 
 
 const ProductPage = () => {
+    // const FetchDataCtx = useContext(FetchDataContext)
     const { id } = useParams();
     const [product, setProduct] = useState()
     const [productFeatures, setProductFeatures] = useState([])
-    // const productId = id.replaceAll(`~`, '/')
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         setIsLoading(true)
         const FetchProduct = async () => {
             const result = await axios({
                 method: 'get',
-                url: `https://amazon-scraper.tprojects.workers.dev/product/${id.replaceAll(`~`, '/')}`
+                url: `https://amazon-scraper.chipmunk092000.workers.dev/product/${id.replaceAll(`~`, '/')}`
             })
             if (result.status) {
                 console.log(result.data.product_detail)
@@ -34,7 +34,7 @@ const ProductPage = () => {
         }
         FetchProduct()
         // eslint-disable-next-line
-    }, [])
+    }, [id])
 
 
     let List = productFeatures.map((feature, index) => {
@@ -49,7 +49,7 @@ const ProductPage = () => {
                     isLoading ? <div className='flex'><Loader src={Loading} alt="" /></div>
                         :
                         <>
-                            {/* <ItemCarousel data={FetchDataCtx.APIFetchProductsQuery} /> */}
+
                             <ProductContainer>
                                 <ProductImageDiv>
                                     {product.image && <img src={product.image} alt="" />}
@@ -70,7 +70,8 @@ const ProductPage = () => {
                                         <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
                                     </ReplacementDiv>
                                     <Features>
-                                        {List}
+                                        <h3>About this item</h3>
+                                        <ul>{List}</ul>
                                     </Features>
                                 </ProductData>
                                 <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />
@@ -186,11 +187,15 @@ position: relative;
 
 `
 const Features = styled.ul`
-padding: .5rem 0 .5rem 1.5rem ;
-    li {
-        list-style: disc;
-        font-weight:100;
-        letter-spacing: .1px;
-        margin-bottom:0.5rem;
-    }
+margin:1rem 0;
+    ul {
+        padding: .5rem 0 .5rem 1.5rem;
+        li {
+            list-style: disc;
+            font-weight:100;
+            letter-spacing: .1px;
+            margin-bottom:0.5rem;
+        }
+}
+    
 `

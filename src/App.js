@@ -15,6 +15,11 @@ function App() {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
+    // Waking up the backend server
+    axios('https://diverse-backend.herokuapp.com/')
+      .then(result => {
+        if (result) console.log('Server awake')
+      })
     window.addEventListener("scroll", () => {
       if (window.pageYOffset > 300) {
         setShowButton(true);
@@ -28,7 +33,8 @@ function App() {
     const accessToken = localStorage.getItem('accessToken')
     if ((accessToken !== undefined || accessToken !== '') && accessToken) {
       const fetchData = async () => {
-        const url = 'http://localhost:3001/fetchUserData'
+        const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
+        // const url = 'http://localhost:3001/fetchUserData'  // Development
         const user = await axios({
           method: 'get',
           url: url,
@@ -42,10 +48,7 @@ function App() {
         }
       }
       fetchData()
-    }  // eslint-disable-next-line
-  }, [])
-
-  useEffect(() => {
+    }
     backdropCtx.disableBackDrop(); // eslint-disable-next-line
   }, [location]);
 

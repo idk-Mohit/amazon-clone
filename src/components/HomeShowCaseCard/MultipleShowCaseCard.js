@@ -25,14 +25,15 @@ const MultipleShowCaseCard = ({ data }) => {
 export default MultipleShowCaseCard;
 
 const CardContainer = styled.div`
-  height: fit-content;
+  height: 420px;
   max-width: 21.25rem;
-  padding: 1.5rem 1rem;
+  padding: 1rem 0;
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.1);
   background-color: white;
-  justify-content: space-between;
+  justify-content: space-around;
   border-radius: 5px;
   transition: 300ms all ease;
+  position: relative;
 
   &:hover {
     transform: translateY(-2px);
@@ -42,6 +43,8 @@ const CardContainer = styled.div`
   h1 {
     font-size: 1.3rem;
     font-weight: 500;
+    margin-bottom: 0.5rem;
+    padding:0 1rem;
   }
 
   a {
@@ -51,6 +54,9 @@ const CardContainer = styled.div`
   }
 
   .ShowCardFooterLink {
+    position: absolute;
+    bottom:1.25rem;
+    left:1.25rem;
     color: var(--blue);
     font-size: 0.8rem;
     width: fit-content;
@@ -63,25 +69,36 @@ const CardContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
+  justify-content: space-between;
   box-sizing: border-box;
-  margin: 1rem 0;
-
+  height:275px;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  position: relative;
   a {
-    width: 100%;
+    width: 45%;
+    height: 50%;
     text-align: center;
     transition: all 300ms ease;
     border-radius: 5px;
     background-color: transparent;
+    overflow: hidden;
+    margin-bottom: 0.3rem;
     img {
-      width: inherit;
+      width: 100%;
+      height: auto;
     }
     &:hover {
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
       transition: all 300ms ease;
+    }
+    span {
+      margin-top: 0.3rem;
+      font-size: .8rem;
     }
   }
 `;

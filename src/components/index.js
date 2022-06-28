@@ -19,7 +19,6 @@ export { default as MultipleShowCaseData } from "./HomeShowCaseCard/MultipleShow
 
 // Item Carousel ...
 export { default as ItemCarousel } from "./ItemCarousel/ItemCarousel";
-export { default as ItemCarouselData } from "./ItemCarousel/ItemCarouselData";
 
 // SignIn FooterCard...
 export { default as SignInFooter } from "./SignInFooter";
@@ -38,3 +37,6 @@ export { default as ProductRating } from './ProductRating'
 export { default as EMICard } from './AboutProduct/EMICard'
 export { default as PriceUI } from './AboutProduct/PriceUi'
 export { default as BuyingSection } from './AboutProduct/BuyingSection'
+
+// Product List ....
+export { default as ProductListLoader } from './ProductListLoader'

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FetchDataContext } from '../Store'
-import { Loading } from '../assets/Images';
+import Skeleton from '@mui/material/Skeleton';
 import DoneIcon from '@mui/icons-material/Done';
 import LayOut from './LayOut';
 
@@ -27,18 +27,17 @@ const ProductList = () => {
         const FetchProductList = async (query) => {
             const result = await axios({
                 method: 'get',
-                url: `https://amazon-scraper.tprojects.workers.dev/search/${query}`
+                url: `https://amazon-scraper.chipmunk092000.workers.dev/search/${query}`
             })
             if (result.data.status) {
                 setFtechedProductList(result.data.result)
                 setIsLoading(false)
             }
             else {
-                setIsLoading(false)
                 setFtechedProductList()
+                setIsLoading(false)
             }
         }
-
         FetchProductList(query)
     }, [FetchDataCtx])
 
@@ -53,7 +52,7 @@ const ProductList = () => {
             NewProductName = product.name
         }
         return <List key={index}>
-            <Link to={`/product/${ProductLink}`} className="ProductViaImageLink" >
+            <Link to={`/product/${ProductLink}`} className="ProductViaImageLink flex" >
                 <ImageContainer>
                     <img src={product.image} alt="" />
                 </ImageContainer>
@@ -61,7 +60,7 @@ const ProductList = () => {
             <DataContainer>
                 <Link to={`/product/${ProductLink}`} ><ProductName className='product-name'>{NewProductName}</ProductName></Link>
                 <ProductPriceDiv className='flex-column product-price-div'>
-                    <p className='current-price flex'><span className='price-symbol'>&#8377;</span>{product.price}</p>
+                    <Link to={`/product/${ProductLink}`} ><p className='current-price flex'><span className='price-symbol'>&#8377;</span>{product.price}</p></Link>
                     <p>From<span className='price-symbol'>&#8377;</span><span className='original-price'>{product.original_price}</span></p>
                 </ProductPriceDiv>
                 <span className='productNote'>Flat INR 6000 Off on HDFC Bank Cards</span>
@@ -78,8 +77,7 @@ const ProductList = () => {
             <Container>
                 <MainHeading>Search Result for <span>"{FetchDataCtx.APIFetchProductsQuery}"</span></MainHeading>
                 <InnerContainer>
-                    {isLoading && <div className='flex loader' ><Loader src={Loading} /></div>}
-                    {!isLoading && <aside>
+                    <aside>
                         <h1>Filter</h1>
                         <h3>Price</h3>
                         <ul className='filterPrice'>
@@ -88,13 +86,59 @@ const ProductList = () => {
                             <li><span>&#8377;</span>5,000 - <span>&#8377;</span>10,000</li>
                             <li><span>&#8377;</span>10,000 - <span>&#8377;</span>20,000</li>
                         </ul>
-                    </aside>}
-                    {!isLoading &&
-                        < main >
-                            {FetchedProductList.length < 1 && <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{FetchDataCtx.APIFetchProductsQuery}"</span></h1>}
-                            <ul>{list}</ul>
-                        </main>
-                    }
+                    </aside>
+
+                    < main >
+                        {!isLoading && FetchedProductList.length < 1 && <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{FetchDataCtx.APIFetchProductsQuery}"</span></h1>}
+                        <ul>
+                            {isLoading ?
+                                (<LoadingDiv>
+                                    <li>
+                                        <Skeleton variant="rectangular" width={"100%"} height={209} />
+                                        <div className="loadingDataDiv flex-column">
+                                            <Skeleton variant="rectangular" width={"100%"} height={"20%"} />
+                                            <Skeleton variant="rectangular" width={"50%"} height={"15%"} />
+                                            <Skeleton variant="rectangular" width={"100%"} height={"40%"} />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <Skeleton variant="rectangular" width={"100%"} height={209} />
+                                        <div className="loadingDataDiv flex-column">
+                                            <Skeleton variant="rectangular" width={"100%"} height={"20%"} />
+                                            <Skeleton variant="rectangular" width={"50%"} height={"15%"} />
+                                            <Skeleton variant="rectangular" width={"100%"} height={"40%"} />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <Skeleton variant="rectangular" width={"100%"} height={209} />
+                                        <div className="loadingDataDiv flex-column">
+                                            <Skeleton variant="rectangular" width={"100%"} height={"20%"} />
+                                            <Skeleton variant="rectangular" width={"50%"} height={"15%"} />
+                                            <Skeleton variant="rectangular" width={"100%"} height={"40%"} />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <Skeleton variant="rectangular" width={"100%"} height={209} />
+                                        <div className="loadingDataDiv flex-column">
+                                            <Skeleton variant="rectangular" width={"100%"} height={"20%"} />
+                                            <Skeleton variant="rectangular" width={"50%"} height={"15%"} />
+                                            <Skeleton variant="rectangular" width={"100%"} height={"40%"} />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <Skeleton variant="rectangular" width={"100%"} height={209} />
+                                        <div className="loadingDataDiv flex-column">
+                                            <Skeleton variant="rectangular" width={"100%"} height={"20%"} />
+                                            <Skeleton variant="rectangular" width={"50%"} height={"15%"} />
+                                            <Skeleton variant="rectangular" width={"100%"} height={"40%"} />
+                                        </div>
+                                    </li>
+                                </LoadingDiv>)
+                                :
+                                list
+                            }
+                        </ul>
+                    </main>
                 </InnerContainer>
             </Container>
         </LayOut >
@@ -107,11 +151,7 @@ const Container = styled.div`
 margin-top: 105px;
 min-height: 70vh;
 `
-const Loader = styled.img`
-    margin:2rem auto;
-    width: 5rem;
-    height: 5rem;
-`
+
 const InnerContainer = styled.section`
 display: grid;
 grid-template-columns: 25% auto;
@@ -119,10 +159,6 @@ grid-template-areas: "loader loader"
 "aside main";
 grid-gap: 1rem;
 padding:0 1rem 1rem 0;
-
-.loader {
-    grid-area: loader;
-}
 
 aside {
     grid-area: aside;
@@ -181,16 +217,18 @@ border: 1px solid rgba(200,200,200,.4);
 border-radius: 5px;
 
 .ProductViaImageLink{
-    width: inherit;
-    height: inherit;
+    width: auto;
+    height: 218px;
+    justify-content:center;
 }
 `
 const ImageContainer = styled.div` 
-width: 100%;
+width: inherit;
 height: inherit;
 /* transition: 300ms ease all; */
 img {
     width:inherit;
+    height: inherit;
     transition: 300ms ease all;
 }
 &:hover img{
@@ -262,4 +300,21 @@ const DeliveryDiv = styled.div`
     strong {
         margin: 0 .2rem;
     }
+`
+
+const LoadingDiv = styled.div`
+
+li {
+    display: grid;
+    grid-template-columns: auto 70%;
+    grid-gap: 1rem;
+    border: 1px solid rgba(200,200,200,.4);
+    border-radius: 5px;
+    margin: 1rem 0;
+
+    .loadingDataDiv{
+        justify-content: space-between;
+        padding: 1rem 1rem 1rem 0;
+    }
+} 
 `

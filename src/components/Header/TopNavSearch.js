@@ -68,7 +68,7 @@ const TopNavSearch = () => {
         </span>
       </div>
       <form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
-        <input type="text" onClick={backdrop.enableBackDrop} placeholder={FetchDataCtx.APIFetchProductsQuery} onChange={(e) => SetEnteredQuery(e.target.value)} />
+        <input type="text" onClick={backdrop.enableBackDrop} value={enteredQuery} placeholder={FetchDataCtx.APIFetchProductsQuery} onChange={(e) => SetEnteredQuery(e.target.value)} />
         <div className="nav__floyout_Search">
           { }
         </div>

@@ -103,7 +103,7 @@ const Container = styled.section`
     @media (max-width: 1150px) {
       grid-template-columns: repeat(3, 1fr);
       div:last-child {
-        display: block;
+        display: flex;
       }
     }
   }
