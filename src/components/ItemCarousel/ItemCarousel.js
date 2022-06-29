@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
+// // Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/pagination";
 // import required modules
-import { Pagination } from "swiper";
+// import { Pagination } from "swiper";
+import Slider from "react-slick";
 import styled from "styled-components";
-// import { Loading } from '../../assets/Images'
 import axios from "axios";
-// import { FetchDataContext } from "../../Store";
 
 const ItemCarousel = ({ data, heading }) => {
   const [carouselData, setCarouselData] = useState([])
@@ -47,44 +47,34 @@ const ItemCarousel = ({ data, heading }) => {
     let ProductLink = slide.query_url.split('/product/')[1];
     ProductLink = ProductLink.replaceAll('/', '~')
     return (
-      <SwiperSlide key={index} className='ImageContainer'>
+      <div key={index} className='ImageContainer'>
         <Link to={`/product/${ProductLink}`}>
           <img src={slide.image} alt="" />
         </Link>
-      </SwiperSlide>
+      </div>
     )
   })
+
+  const settings = {
+    className: "slider variable-width",
+    infinite: true,
+    centerMode: true,
+    centerPadding: "100px",
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    variableWidth: true,
+    autoplay: true,
+    speed: 1000,
+    autoplaySpeed: 5000,
+    cssEase: "linear"
+  };
 
   return <>
     <CarouselContainer className="CarouselContainer">
       {heading && <h1>{heading}</h1>}
-      <Swiper
-        slidesPerView={4}
-        spaceBetween={10}
-        pagination={{
-          clickable: true,
-        }}
-        breakpoints={{
-          250: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 40,
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 50,
-          },
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >{List}</Swiper>
+      <ArrowBackIosNewIcon className="MuiPrevIcon" />
+      <Slider {...settings} >{List}</Slider>
+      <ArrowForwardIosIcon className='MuiNextIcon' />
     </CarouselContainer>
   </>;
 };
@@ -92,17 +82,16 @@ const ItemCarousel = ({ data, heading }) => {
 export default ItemCarousel;
 
 const CarouselContainer = styled.div`
+  position: relative;
   margin: 1rem 0;
   padding: 1rem;
   background-color: white;
-  position: relative;
+
   h1 {
     margin:0 0 1rem 1.4rem;
     font-size: 1.6rem;
   }
-  .swiper{
-    height:12rem;
-  }
+  
   div > div  {
     a{
       img{
@@ -113,11 +102,61 @@ const CarouselContainer = styled.div`
 
   .ImageContainer{
     width: 100%;
-    padding: 1rem;
     display: grid;
     place-items: center;
+    padding: 0 1rem;
     img {
       width: 100%;
+    }
+  }
+  .slick-slider {
+    height: 165px;
+  }
+  .slick-next,.slick-prev {
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    z-index: 50;
+    width: 4.5rem;
+    height: 165px;
+    transition:300ms ease all;
+    &:hover {
+      border: 2px solid var(--gray);
+      background-color: var(--lightgray);
+      transition:300ms ease background-color;
+    }
+  }
+  .slick-next {
+    right:0;
+  }
+  .slick-prev{
+    left:0;
+  }
+  .slick-next:before,.slick-prev:before{
+    display: none;
+  }
+  /* Custom Icons */
+  .MuiPrevIcon,.MuiNextIcon{
+    opacity: 0;
+    position: absolute;
+    top:50%;
+    background-color: transparent;
+    z-index: 100;
+    font-size: 2.5rem;
+    pointer-events: none;
+    transition: 300ms ease opacity; 
+  }
+  .MuiPrevIcon{
+    left:1.8rem;
+  }
+  .MuiNextIcon{
+    right:1.8rem;
+  }
+
+  &:hover{
+    .MuiPrevIcon,.MuiNextIcon{
+      opacity: 1;
+      transition: 300ms ease opacity;
     }
   }
 `;

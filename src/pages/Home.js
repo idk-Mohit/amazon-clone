@@ -38,37 +38,36 @@ const Home = () => {
             <SingleShowCaseCard
               title="Pay your credit card bills on Amazon"
               button={false}
-              footerLink="/"
+              link={'#'}
               image="https://images-eu.ssl-images-amazon.com/images/G/31/img19/AmazonPay/Boson/Sid/CCBP/DesktopGateway_CategoryCard_379x304_CCBP._SY304_CB413372299_.jpg"
               footerLinkText="Pay Now"
             />
-            <MultipleShowCaseCard data={MultipleShowCaseData[5]} />
-            <MultipleShowCaseCard data={MultipleShowCaseData[6]} />
+            {/* <MultipleShowCaseCard data={MultipleShowCaseData[5]} /> */}
+            {/* <MultipleShowCaseCard data={MultipleShowCaseData[6]} /> */}
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="Grocery" heading="Absolute Fresh" />
+            <ItemCarousel data="mobile accessories" heading="Mobile Accessories" />
           </div>
           <div className="itemCarouselContainer">
             <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
           </div>
           <div className="cardContainer">
-            <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
+            {/* <MultipleShowCaseCard data={MultipleShowCaseData[6]} /> */}
             <SingleShowCaseCard
               title="Effective dishwashing for Indian cooking"
               button={false}
-              footerLink="/"
+              link="/productList/dishwasher"
               image="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/DW_CC_-_March_379x304._SY304_CB655397356_.jpg"
               footerLinkText="See More"
             />
-            <MultipleShowCaseCard data={MultipleShowCaseData[8]} />
+            {/* <MultipleShowCaseCard data={MultipleShowCaseData[6]} /> */}
             <SingleShowCaseCard
               title="Up to 50% off | Chimneys"
               button={false}
-              footerLink="/"
+              link="/productList/chimneys"
               image="https://images-eu.ssl-images-amazon.com/images/G/31/img19/Home/LA/LATVFdesktopQC/Chimney_GW_CC_379x304._SY304_CB427965740_.jpg"
               footerLinkText="See More"
             />
-            <MultipleShowCaseCard data={MultipleShowCaseData[7]} />
           </div>
           <div className="itemCarouselContainer">
             <ItemCarousel data="tv" heading='Decor your Livingroom' />

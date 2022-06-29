@@ -1,68 +1,4 @@
 const MultipleImageData = [
-  // First Object
-  {
-    title: "Up to 60% off | Styles for Men",
-    footerLinkText: "See all offers",
-    footerLink: "/",
-    data: [
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-1-186-116._SY116_CB636110853_.jpg",
-        imageLink: "/",
-        imageLinkText: "Clothing",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-2-186-116._SY116_CB636110853_.jpg",
-        imageLink: "/",
-        imageLinkText: "Footwear",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-3-186-116._SY116_CB636110853_.jpg",
-        imageLink: "/",
-        imageLinkText: "Watches",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PF_MF/MF-4-186-116._SY116_CB636110853_.jpg",
-        imageLink: "/",
-        imageLinkText: "Bags & Luggage",
-      },
-    ],
-  },
-  // Second Object
-  {
-    title: "Up to 60% off | Styles for Women",
-    footerLinkText: "See all offers",
-    footerLink: "/",
-    data: [
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PC_WF/WF1-186-116._SY116_CB636048992_.jpg",
-        imageLink: "/",
-        imageLinkText: "Women's Clothing",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PC_WF/WF2-186-116._SY116_CB636048992_.jpg",
-        imageLink: "/",
-        imageLinkText: "Footwear+ Handbags",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PC_WF/WF4-186-116._SY116_CB636048992_.jpg",
-        imageLink: "/",
-        imageLinkText: "Watches",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Gateway/BAU/BTF-Refresh/May/PC_WF/WF3-186-116._SY116_CB636048992_.jpg",
-        imageLink: "/",
-        imageLinkText: "Fashion Jewellery",
-      },
-    ],
-  },
   // Third Object
   {
     title: "Up to 60% off on home appliances",
@@ -72,25 +8,25 @@ const MultipleImageData = [
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg",
-        imageLink: "/",
+        imageLink: "ac",
         imageLinkText: "ACs",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg",
-        imageLink: "/",
+        imageLink: "Refrigerator",
         imageLinkText: "Refrigerator",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg",
-        imageLink: "/",
+        imageLink: "Microwaves",
         imageLinkText: "Microwaves",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg",
-        imageLink: "/",
+        imageLink: "Washing Machines",
         imageLinkText: "Washing Machines",
       },
     ],
@@ -104,25 +40,25 @@ const MultipleImageData = [
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img21/AmazonBrands/GW/TV_1x._SY116_CB627443840_.jpg",
-        imageLink: "/",
+        imageLink: "TV",
         imageLinkText: "Smart LED TVs",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/AmazonSmallBusinessDay/PrivateBrands/GW20/GW_Desktop_QC_Appliances_1X_V2_3._SY116_CB636581536_.jpg",
-        imageLink: "/",
+        imageLink: "Appliances",
         imageLinkText: "Appliances",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img21/AmazonBrands/GW/Furn_1x._SY116_CB627275939_.jpg",
-        imageLink: "/",
+        imageLink: "Tables",
         imageLinkText: "Furniture",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img21/AmazonBrands/GW/Kitchen_1x._SY116_CB627276315_.jpg",
-        imageLink: "/",
+        imageLink: "chimney",
         imageLinkText: "Kitchen Products",
       },
     ],
@@ -136,90 +72,26 @@ const MultipleImageData = [
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img19/2020/PC/Fresh._SY116_CB431401553_.jpg",
-        imageLink: "/",
+        imageLink: "Grocery",
         imageLinkText: "Fresh",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img19/2020/PC/Mobile._SY116_CB431401553_.jpg",
-        imageLink: "/",
+        imageLink: "Mobiles",
         imageLinkText: "Mobiles",
       },
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/2020/PC/Fashion._SY116_CB431401553_.jpg",
-        imageLink: "/",
-        imageLinkText: "Fashion",
+          "https://m.media-amazon.com/images/I/61gYxcIGjvL._SL1000_.jpg",
+        imageLink: "over ear headphones",
+        imageLinkText: "Over Ear Headphones",
       },
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/2020/PC/Electronic._SY116_CB431401553_.jpg",
-        imageLink: "/",
-        imageLinkText: "Electronics",
-      },
-    ],
-  },
-  // Sixth Object
-  {
-    title: "Car & Bike Essentials",
-    footerLinkText: "See More",
-    footerLink: "/",
-    data: [
-      {
-        image:
-          "https://m.media-amazon.com/images/I/41kwH0GpHPL._SR210,210_.jpg",
-        imageLink: "/",
-        imageLinkText: "Car Cover",
-      },
-      {
-        image:
-          "https://m.media-amazon.com/images/I/41vb7+aKV4L._SR210,210_.jpg",
-        imageLink: "/",
-        imageLinkText: "Bike Cover",
-      },
-      {
-        image:
-          "https://m.media-amazon.com/images/I/41HToieSG2L._SR210,210_.jpg",
-        imageLink: "/",
-        imageLinkText: "Car Air Fresheners",
-      },
-      {
-        image:
-          "https://m.media-amazon.com/images/I/41VxLFNBQoL._SR210,210_.jpg",
-        imageLink: "/",
-        imageLinkText: "Bags & Luggage",
-      },
-    ],
-  },
-  // Seventh Object
-  {
-    title: "Up to 45% off | Shop by Pet",
-    footerLinkText: "See all deals",
-    footerLink: "/",
-    data: [
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/Dog_186X116._SY116_CB644270746_.jpg",
-        imageLink: "/",
-        imageLinkText: "Dog Supplies",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/Cat_186X116._SY116_CB644270746_.jpg",
-        imageLink: "/",
-        imageLinkText: "Cat Supplies",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/bird_186X116._SY116_CB644270746_.jpg",
-        imageLink: "/",
-        imageLinkText: "Birds & small animals",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/Aug/fish_186X116._SY116_CB644270746_.jpg",
-        imageLink: "/",
-        imageLinkText: "Aquarium accessories",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_5._SY116_CB655805757_.jpg",
+        imageLink: "Smart Watch",
+        imageLinkText: "Smart Watches & Fitness Trackers",
       },
     ],
   },
@@ -231,92 +103,55 @@ const MultipleImageData = [
     data: [
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_5._SY116_CB655805757_.jpg",
-        imageLink: "/",
-        imageLinkText: "Smart Watches & Fitness Trackers",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_6._SY116_CB655805757_.jpg",
-        imageLink: "/",
-        imageLinkText: "Tablets",
-      },
-      {
-        image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_7._SY116_CB655805757_.jpg",
-        imageLink: "/",
+        imageLink: "Laptops",
         imageLinkText: "Laptops",
       },
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_8._SY116_CB655805757_.jpg",
-        imageLink: "/",
+        imageLink: "Monitors",
         imageLinkText: "Monitors",
       },
+      {
+        image: 'https://m.media-amazon.com/images/I/61yQqZ7yI+L._SL1000_.jpg',
+        imageLink: "security camera",
+        imageLinkText: "Security & Surveillance",
+      },
+      {
+        image: 'https://m.media-amazon.com/images/I/71NBQ2a52CL._SL1000_.jpg',
+        imageLink: "Gaming and More",
+        imageLinkText: "Xbox",
+      }
     ],
   },
-  // Ninth Object
   {
-    title: "Cookware & dining",
-    footerLinkText: "See More",
+    title: "Electronics devices for home office",
+    footerLinkText: "See all deals",
     footerLink: "/",
     data: [
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_1198417__1_1573567224_jpg_LOWER_QL85_._SY116_CB448746450_.jpg",
-        imageLink: "/",
-        imageLinkText: "Gas Stoves",
+          "https://m.media-amazon.com/images/I/61imoTVBk7L._SL1000_.jpg",
+        imageLink: "Motherboard",
+        imageLinkText: "Motherboared Gaming / Productivity",
       },
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_1198417__2_1573567224_jpg_LOWER_QL85_._SY116_CB448746415_.jpg",
-        imageLink: "/",
-        imageLinkText: "Cookware",
+          "https://m.media-amazon.com/images/I/81EoGRqh1DL._SL1000_.jpg",
+        imageLink: "graphic card",
+        imageLinkText: "Graphic Card",
       },
       {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_3_copyx400x2C5x_1573713358_jpg_LOWER_QL85_._SY116_CB448746425_.jpg",
-        imageLink: "/",
-        imageLinkText: "Kitchen Storage",
+        image: 'https://m.media-amazon.com/images/I/51leZMMlvhL._SL1000_.jpg',
+        imageLink: "Ram",
+        imageLinkText: "Storage Memory",
       },
       {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2019/img/Kitchen/XCM_Manual_186x116_1198417XCM_Manual_1198417__4_1573567224_jpg_LOWER_QL85_._SY116_CB448746450_.jpg",
-        imageLink: "/",
-        imageLinkText: "Tableware",
-      },
-    ],
-  },
-  // Tenth Object
-  {
-    title: "Clothing for all | Extra up to ₹700 cashback",
-    footerLinkText: "Mega Fashion",
-    footerLink: "/",
-    data: [
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC_01._SY116_CB651157265_.jpg",
-        imageLink: "/",
-        imageLinkText: "Kurtas | Upto 70% Off",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC_02._SY116_CB651157265_.jpg",
-        imageLink: "/",
-        imageLinkText: "Sarees | Upto 70% Off",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC2_01._SY116_CB651157265_.jpgg",
-        imageLink: "/",
-        imageLinkText: "T-shirts | Upto 70% Off",
-      },
-      {
-        image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img2020/img21/apparelGW/WRS_DEC_21/PC/1x/WRS-GW-PC-QC2_02._SY116_CB651157265_.jpg",
-        imageLink: "/",
-        imageLinkText: "Jeans | Upto 70% Off",
-      },
+        image: 'https://m.media-amazon.com/images/I/515qC3Er6YL._SL1000_.jpg',
+        imageLink: "cabinet",
+        imageLinkText: "PC Cabinets",
+      }
     ],
   },
 ];

@@ -26,6 +26,7 @@
   --orange: #c7511f;
   --black: #0f1111;
   --green: #007600;
+  --red: #c40000;
 }
 
 button {
@@ -122,14 +123,4 @@ select {
   width: 27px;
   height: 27px;
   animation: spin 2s linear infinite;
-}
-
-/* Loading Animations */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

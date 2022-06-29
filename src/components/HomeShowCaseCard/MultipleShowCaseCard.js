@@ -5,8 +5,10 @@ import React from "react";
 const MultipleShowCaseCard = ({ data }) => {
   const Images = data.data.map((item, index) => {
     return (
-      <Link className="flex-column" to={`${item.imageLink}`} key={index}>
-        <img src={item.image} alt="" />
+      <Link className="flex-column" to={`/productList/${item.imageLink}`} key={index}>
+        <div className="innerImageContainer">
+          <img src={item.image} alt="" />
+        </div>
         <span>{item.imageLinkText}</span>
       </Link>
     );
@@ -32,13 +34,7 @@ const CardContainer = styled.div`
   background-color: white;
   justify-content: space-around;
   border-radius: 5px;
-  transition: 300ms all ease;
   position: relative;
-
-  &:hover {
-    transform: translateY(-2px);
-    transition: 300ms all ease;
-  }
 
   h1 {
     font-size: 1.3rem;
@@ -80,20 +76,26 @@ const ImageContainer = styled.div`
   overflow: hidden;
   position: relative;
   a {
-    width: 45%;
+    width: 49%;
     height: 50%;
     text-align: center;
     transition: all 300ms ease;
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: transparent;
     overflow: hidden;
     margin-bottom: 0.3rem;
-    img {
+    /* gap:1px; */
+    .innerImageContainer{
       width: 100%;
-      height: auto;
+      height: 102px;
+      overflow: hidden;
+      img {
+      width: 100%;
+      height: inherit;
+    }
     }
     &:hover {
-      box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.1);
       transition: all 300ms ease;
     }
     span {

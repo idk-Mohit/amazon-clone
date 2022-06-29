@@ -1,33 +1,22 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { FetchDataContext } from '../Store'
 import Skeleton from '@mui/material/Skeleton';
 import DoneIcon from '@mui/icons-material/Done';
 import LayOut from './LayOut';
 
 
 const ProductList = () => {
-    const FetchDataCtx = useContext(FetchDataContext);
     const [FetchedProductList, setFtechedProductList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-
+    const { name } = useParams()
     useEffect(() => {
         setIsLoading(true)
-        var query = '';
-        if (FetchDataCtx.APIFetchProductsQuery === '') {
-            query = localStorage.getItem('FetchDataQuery')
-            FetchDataCtx.FetchDataQueryHandler(localStorage.getItem('FetchDataQuery'))
-        }
-        else {
-            query = FetchDataCtx.APIFetchProductsQuery
-        }
-
-        const FetchProductList = async (query) => {
+        const FetchProductList = async () => {
             const result = await axios({
                 method: 'get',
-                url: `https://amazon-scraper.chipmunk092000.workers.dev/search/${query}`
+                url: `https://amazon-scraper.chipmunk092000.workers.dev/search/${name}`
             })
             if (result.data.status) {
                 setFtechedProductList(result.data.result)
@@ -38,8 +27,8 @@ const ProductList = () => {
                 setIsLoading(false)
             }
         }
-        FetchProductList(query)
-    }, [FetchDataCtx])
+        FetchProductList()
+    }, [name])
 
     const list = FetchedProductList.map((product, index) => {
         let ProductLink = product.query_url.split('/product/')[1];
@@ -75,7 +64,7 @@ const ProductList = () => {
     return (
         <LayOut>
             <Container>
-                <MainHeading>Search Result for <span>"{FetchDataCtx.APIFetchProductsQuery}"</span></MainHeading>
+                <MainHeading>Search Result for <span>"{name}"</span></MainHeading>
                 <InnerContainer>
                     <aside>
                         <h1>Filter</h1>
@@ -89,7 +78,7 @@ const ProductList = () => {
                     </aside>
 
                     < main >
-                        {!isLoading && FetchedProductList.length < 1 && <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{FetchDataCtx.APIFetchProductsQuery}"</span></h1>}
+                        {!isLoading && FetchedProductList.length < 1 && <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{name}"</span></h1>}
                         <ul>
                             {isLoading ?
                                 (<LoadingDiv>
@@ -211,33 +200,38 @@ const MainHeading = styled.h1`
 const List = styled.li`
 /* height: 14rem; */
 display: grid;
-grid-template-columns: auto 70%;
+grid-template-columns: 30% auto;
 grid-gap: 1rem;
 border: 1px solid rgba(200,200,200,.4);
 border-radius: 5px;
 
 .ProductViaImageLink{
-    width: auto;
+    width: 100%;
+    /* max-width: 224px; */
     height: 218px;
     justify-content:center;
+    overflow: hidden;
 }
 `
 const ImageContainer = styled.div` 
-width: inherit;
-height: inherit;
-/* transition: 300ms ease all; */
+    width: inherit;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 img {
-    width:inherit;
-    height: inherit;
+    height: 100%;
+    width: fit-content;
+    padding: 1rem;
+    margin: auto;
     transition: 300ms ease all;
 }
 &:hover img{
-    transform: scale(1.1);
+    transform: scale(1.03);
     transition: 300ms ease all;
 }
 `
 const DataContainer = styled.div`
-padding: 1rem 0;
+padding: 1rem 1rem 0 0;
 a{
     color:black;
     &:hover {
@@ -303,14 +297,13 @@ const DeliveryDiv = styled.div`
 `
 
 const LoadingDiv = styled.div`
-
 li {
     display: grid;
     grid-template-columns: auto 70%;
     grid-gap: 1rem;
     border: 1px solid rgba(200,200,200,.4);
     border-radius: 5px;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
 
     .loadingDataDiv{
         justify-content: space-between;

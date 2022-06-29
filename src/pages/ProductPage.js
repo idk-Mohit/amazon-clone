@@ -1,7 +1,8 @@
 import axios from 'axios'
 import LayOut from './LayOut'
 import styled from 'styled-components'
-import { Loading } from '../assets/Images'
+import { Skeleton } from '@mui/material'
+import Tilt from 'react-parallax-tilt';
 import { Link, useParams } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -11,6 +12,7 @@ import { Accordian, ProductRating, PriceUI, BuyingSection } from '../components'
 const ProductPage = () => {
     // const FetchDataCtx = useContext(FetchDataContext)
     const { id } = useParams();
+    const [scale, setScale] = useState(1.15);
     const [product, setProduct] = useState()
     const [productFeatures, setProductFeatures] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -22,9 +24,8 @@ const ProductPage = () => {
                 url: `https://amazon-scraper.chipmunk092000.workers.dev/product/${id.replaceAll(`~`, '/')}`
             })
             if (result.status) {
-                console.log(result.data.product_detail)
                 setProduct(result.data.product_detail)
-                setProductFeatures(result.data.product_detail.features)
+                if (result.data.product_detail.features.length > 0) setProductFeatures(result.data.product_detail.features)
                 setIsLoading(false)
             }
             else {
@@ -45,41 +46,62 @@ const ProductPage = () => {
     return (
         <LayOut>
             <Container>
-                {
-                    isLoading ? <div className='flex'><Loader src={Loading} alt="" /></div>
-                        :
-                        <>
+                <ProductContainer>
+                    <ProductImageDiv>
+                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> :
+                            <div className='flex-column'>
+                                {product.image &&
+                                    <Tilt scale={scale} transitionSpeed={2500}>
+                                        <div className="tilt-scale">
+                                            <img src={product.image} alt="" />
+                                            <div className="header">
+                                                <div id='ImageScaler'>
+                                                    <span>Scale x{scale}</span>
+                                                    <div className="form">
+                                                        <input
+                                                            type="range"
+                                                            min="0.7"
+                                                            max="1.5"
+                                                            step="0.01"
+                                                            value={scale}
+                                                            onChange={(ev) => setScale(parseFloat(ev.target.value))}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                            <ProductContainer>
-                                <ProductImageDiv>
-                                    {product.image && <img src={product.image} alt="" />}
-                                    <span>Hover to Zoom In</span>
-                                </ProductImageDiv>
-                                <ProductData className='flex-column'>
-                                    {product.name && <Heading>{product.name}</Heading>}
-                                    <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
-                                    {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
-                                    {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}
-                                    <hr />
-                                    <PriceUI currentPrice={product.price} originalPrice={product.original_price} />
-                                    <EMISection>
-                                        <Accordian />
-                                    </EMISection>
-                                    <ReplacementDiv>
-                                        <Link to={'#'} className='color-link'><span className='flex'>7-day replacement only <KeyboardArrowDownIcon fontSize='extrasmall' /></span></Link>
-                                        <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
-                                    </ReplacementDiv>
-                                    <Features>
-                                        <h3>About this item</h3>
-                                        <ul>{List}</ul>
-                                    </Features>
-                                </ProductData>
-                                <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />
-                            </ProductContainer>
-                        </>
-                }
+                                        </div>
+                                    </Tilt>}
+                                < span > Hover to Zoom In</span>
+                            </div>}
+                    </ProductImageDiv>
+                    <ProductData className='flex-column'>
+                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"50%"} /> : <>{product.name && <Heading>{product.name}</Heading>}
+                            <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
+                            {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
+                            {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}</>}
+                        <hr />
+                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <PriceUI currentPrice={product.price} originalPrice={product.original_price} />}
+                        {!isLoading && <>
+                            <EMISection>
+                                <Accordian />
+                            </EMISection>
+                            <ReplacementDiv>
+                                <Link to={'#'} className='color-link'><span className='flex'>7-day replacement only <KeyboardArrowDownIcon fontSize='extrasmall' /></span></Link>
+                                <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
+                            </ReplacementDiv>
+                        </>}
+                        {!isLoading &&
+                            <Features>
+                                <h3>About this item</h3>
+                                <ul>{List}</ul>
+                            </Features>
+                        }
+                    </ProductData>
+                    {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
+                </ProductContainer>
             </Container>
-        </LayOut>
+        </LayOut >
     )
 }
 
@@ -96,36 +118,53 @@ grid-template-columns: 1.8fr 1fr .8fr;
 grid-gap: .5rem;
 padding-top: 3rem;
 `
-const Loader = styled.img`
-    margin:2rem auto;
-    width: 5rem;
-    height: 5rem;
-`
 
 const ProductImageDiv = styled.div`
     top: 0;
     margin: auto;
+    min-height: 25rem;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    display: grid;
-    place-items: center;
-    padding:2rem 0;
     border:1px solid var(--lightgray);
     border-radius: 5px;
+    div {
+        margin:auto;
+        text-align: center;
+        width: 90%;
+        align-items: center;
+    }
     img {
-        max-width:100%;
+        margin:5rem 0 4rem;
         max-height: 30rem;
         transition: 300ms ease all;
         cursor: pointer;
         &:hover {
             /* width: 90%; */
             transition: 300ms ease all;
-            transform: scale(1.1);
+            transform: scale(1.04);
         }
     }
     span{
         color:var(--gray)
+    }
+    .tilt-scale{
+        position: relative;
+
+        #ImageScaler {
+            opacity: 0;
+            position: absolute;
+            top:50%;
+            z-index: 100;
+            transition: 200ms ease opacity;
+        }
+
+        &:hover{
+            #ImageScaler{
+                opacity: 1;
+                transition: 200ms ease opacity;
+            }
+        }
     }
 `
 const ProductData = styled.div`

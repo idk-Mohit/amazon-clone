@@ -1,4 +1,5 @@
 import axios from "axios";
+import ErrorModal from "./ErrorModal";
 import styled from "styled-components";
 import { UserContext } from "../../Store";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +12,8 @@ const EmailForm = () => {
   const userCtx = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false)
   const [enteredEmail, setEnteredEmail] = useState('')
-  const redirect = useNavigate()
+  const [errorPresent, setIsErrorPresent] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.getItem('username') && setEnteredEmail(localStorage.getItem('username'));
@@ -26,16 +28,21 @@ const EmailForm = () => {
     const response = await axios({
       method: 'post',
       url: url,
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: {
         username: enteredEmail
       }
     });
     if (response.data.found) {
+      console.log(response)
       userCtx.userNameHandler(response.data.user)
-      redirect('/signin/passwordCheck')
+      navigate("/signin/passwordCheck", { replace: true });
     }
     else {
       console.log(response.data.message)
+      setIsErrorPresent(response.data.message)
     }
     setIsLoading(false)
   }
@@ -43,6 +50,9 @@ const EmailForm = () => {
   const [helpDropdown, setHelpDropDown] = useState(false);
   return (
     <AuthenticationWrapper>
+      {errorPresent !== '' &&
+        <ErrorModal error={errorPresent} />
+      }
       <Container>
         <h1>Sign-In</h1>
         <InputSection>

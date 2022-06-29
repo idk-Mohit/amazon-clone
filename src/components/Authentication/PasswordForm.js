@@ -6,12 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useRef, useContext } from "react";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AuthenticationWrapper from "./AuthenticationWrapper";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const EmailForm = () => {
   const userCtx = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [errorPresent, setIsErrorPresent] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const passwordRef = useRef('');
   const redirect = useNavigate()
 
@@ -27,6 +30,9 @@ const EmailForm = () => {
       const response = await axios({
         method: 'post',
         url: url,
+        headers: {
+          'Content-Type': 'application/json'
+        },
         data: {
           username: userCtx.userName,
           password: passwordRef.current.value
@@ -39,7 +45,8 @@ const EmailForm = () => {
         redirect('/')
       }
       else {
-        setError(response.data.message)
+        setIsErrorPresent(response.data.message)
+        console.log(response.data.message)
       }
     }
     setIsLoading(false)
@@ -49,7 +56,9 @@ const EmailForm = () => {
   const [helpDropdown, setHelpDropDown] = useState(false);
   return (
     <AuthenticationWrapper>
-      {error === '' ? '' : <ErrorModal error={error} />}
+      {errorPresent !== '' &&
+        <ErrorModal error={errorPresent} />
+      }
       <Container>
         <h1>Sign-In</h1>
         <InputSection>
@@ -57,7 +66,10 @@ const EmailForm = () => {
             {/* Label for Email Input */}
             <label htmlFor="password">Password</label>
             {/* username input */}
-            <input type="password" id="password" name="password" ref={passwordRef} required />
+            <div className="inputContainer">
+              <input type={showPassword ? 'text' : 'password'} id="password" name="password" ref={passwordRef} required />
+              <span onClick={() => setShowPassword(!showPassword)} className="passwordToggle">{showPassword ? <VisibilityIcon id="On" fontSize="small" /> : <VisibilityOffIcon id="Off" fontSize="small" />}</span>
+            </div>
             {!isLoading && <button type="submit">Sign-In</button>}
             {isLoading && <button className="loaderDiv flex"><div className="loader"></div></button>}
           </form>
@@ -121,12 +133,29 @@ const InputSection = styled.section`
       font-size: 0.85rem;
       margin-bottom: 0.3rem;
     }
-    input {
+    .inputContainer {
+      position:relative;
+      .passwordToggle {
+        cursor: pointer;
+        position:absolute;
+        right:0;
+        top:7px;
+        padding: 0 1rem;
+        #On {
+          fill: var(--blue) !important;
+        }
+        #Off{
+          fill: var(--orange) !important;
+        }
+      }
+      input {
+      width: 100%;
       margin-bottom: 0.8rem;
       padding: 0.5rem;
       border: 1px solid var(--darkblue);
       border-radius: 3px;
       outline-color: var(--orange);
+    }
     }
     button {
       padding: 0.5rem;

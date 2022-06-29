@@ -1,8 +1,7 @@
 import axios from "axios";
 import styled from "styled-components";
 import { ArrowUp } from './assets/Images'
-import AddProduct from "./Database/AddProduct";
-import { Home, NotFound, ProductPage, ProductList, TestPage } from "./pages";
+import { Home, NotFound, ProductPage, ProductList } from "./pages";
 import { backDropContext, UserContext } from "./Store";
 import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
@@ -18,7 +17,7 @@ function App() {
     // Waking up the backend server
     axios('https://diverse-backend.herokuapp.com/')
       .then(result => {
-        if (result) console.log('Server awake')
+        if (result) console.log('Backend Active')
       })
     window.addEventListener("scroll", () => {
       if (window.pageYOffset > 300) {
@@ -27,9 +26,8 @@ function App() {
         setShowButton(false);
       }
     });
-  }, []);
 
-  useEffect(() => {
+    // Fetching User Data 
     const accessToken = localStorage.getItem('accessToken')
     if ((accessToken !== undefined || accessToken !== '') && accessToken) {
       const fetchData = async () => {
@@ -39,16 +37,21 @@ function App() {
           method: 'get',
           url: url,
           headers: {
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
           }
         })
         if (user) {
+          console.log(user)
           UserCtx.loginHandler(accessToken)
           UserCtx.userHandler(user.data)
         }
       }
       fetchData()
-    }
+    }// eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     backdropCtx.disableBackDrop(); // eslint-disable-next-line
   }, [location]);
 
@@ -65,13 +68,11 @@ function App() {
         {backdropCtx.backDrop && <Backdrop />}
         <Routes>
           <Route path={"/"} element={<Home />} />
-          <Route path={"/notfound"} element={<NotFound />} />
           <Route path={"/signin/emailCheck"} element={<EmailForm />} />
           <Route path={"/signin/passwordCheck"} element={<PasswordForm />} />
-          <Route path={"/database"} element={<AddProduct />} />
           <Route path={"/product/:id"} element={<ProductPage />} />
-          <Route path={"/productList"} element={<ProductList />} />
-          <Route path={"/test"} element={<TestPage />} />
+          <Route path={"/productList/:name"} element={<ProductList />} />
+          <Route path={"/notfound"} element={<NotFound />} />
         </Routes>
         {showButton && (
           <button onClick={scrollToTop} id={'scrollToTopButton'}>

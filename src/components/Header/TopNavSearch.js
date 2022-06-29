@@ -5,14 +5,14 @@ import styled from "styled-components";
 import search from "./searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { backDropContext } from "../../Store";
-import { FetchDataContext } from '../../Store'
+import { QueryContext } from '../../Store'
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
   // const [suggestions, setSuggestions] = useState([])
-  const [enteredQuery, SetEnteredQuery] = useState('')
+
   const backdrop = useContext(backDropContext);
-  const FetchDataCtx = useContext(FetchDataContext)
+  const queryCtx = useContext(QueryContext);
   const redirect = useNavigate()
 
   // useEffect(() => {
@@ -47,9 +47,8 @@ const TopNavSearch = () => {
 
   const FormSubmitHandler = async (e) => {
     e.preventDefault()
-    if (enteredQuery !== '') {
-      FetchDataCtx.FetchDataQueryHandler(enteredQuery)
-      redirect('/productList')
+    if (queryCtx.enteredQuery !== '') {
+      redirect(`/productList/${queryCtx.enteredQuery}`)
     }
   }
 
@@ -68,7 +67,7 @@ const TopNavSearch = () => {
         </span>
       </div>
       <form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
-        <input type="text" onClick={backdrop.enableBackDrop} value={enteredQuery} placeholder={FetchDataCtx.APIFetchProductsQuery} onChange={(e) => SetEnteredQuery(e.target.value)} />
+        <input type="text" onClick={backdrop.enableBackDrop} value={queryCtx.enteredQuery} onChange={(e) => queryCtx.EnteredQueryHandler(e.target.value)} />
         <div className="nav__floyout_Search">
           { }
         </div>
