@@ -23,13 +23,15 @@ const ProductPage = () => {
                 method: 'get',
                 url: `https://amazon-scraper.chipmunk092000.workers.dev/product/${id.replaceAll(`~`, '/')}`
             })
-            if (result.status) {
+            if (result.data.product_detail !== null) {
                 setProduct(result.data.product_detail)
-                if (result.data.product_detail.features.length > 0) setProductFeatures(result.data.product_detail.features)
+                if (result.data.product_detail !== null) {
+                    if (result.data.product_detail.features) setProductFeatures(result.data.product_detail.features)
+                }
                 setIsLoading(false)
             }
             else {
-                setProduct('Some Error Occured, Please Search Again!')
+                setProduct('Product Not Found')
                 setIsLoading(false)
             }
         }
@@ -46,7 +48,9 @@ const ProductPage = () => {
     return (
         <LayOut>
             <Container>
-                <ProductContainer>
+                {product === 'Product Not Found' ? <ProductContainer>
+                    {product}
+                </ProductContainer> : <ProductContainer>
                     <ProductImageDiv>
                         {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> :
                             <div className='flex-column'>
@@ -56,7 +60,6 @@ const ProductPage = () => {
                                             <img src={product.image} alt="" />
                                             <div className="header">
                                                 <div id='ImageScaler'>
-                                                    <span>Scale x{scale}</span>
                                                     <div className="form">
                                                         <input
                                                             type="range"
@@ -99,7 +102,7 @@ const ProductPage = () => {
                         }
                     </ProductData>
                     {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
-                </ProductContainer>
+                </ProductContainer>}
             </Container>
         </LayOut >
     )
@@ -137,6 +140,7 @@ const ProductImageDiv = styled.div`
     img {
         margin:5rem 0 4rem;
         max-height: 30rem;
+        max-width: 100%;
         transition: 300ms ease all;
         cursor: pointer;
         &:hover {

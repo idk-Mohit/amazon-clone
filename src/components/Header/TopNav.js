@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Amazon_Logo } from "../../assets/Images";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TopNavSearch from "./TopNavSearch";
@@ -11,10 +11,6 @@ import { backDropContext, UserContext } from "../../Store";
 const TopNav = () => {
   const backDropCtx = useContext(backDropContext);
   const userCtx = useContext(UserContext)
-  const redirect = useNavigate()
-  const navigateToSignIn = () => {
-    redirect('/signin/EmailCheck')
-  }
   return (
     <TopNavContainer className="flex">
       {/* Top Nav Left Side */}
@@ -53,82 +49,82 @@ const TopNav = () => {
           onMouseEnter={backDropCtx.enableBackDrop}
           onMouseLeave={backDropCtx.disableBackDrop}
         >
-          <div style={{ cursor: 'pointer' }} className="flex-column" onClick={!userCtx.isLoggedIn ? navigateToSignIn : null}>
+          <Link to={userCtx.isLoggedIn ? '#' : '/signin/emailCheck'} className="flex-column" >
             <span className="nav__span__first">Hello, {userCtx.isLoggedIn ? userCtx.user.name : 'Sign in'}</span>
             <span className="nav__span__second flex">
               Accounts &amp; Lists <ArrowDropDownIcon />
             </span>
-            <div className="nav__signIn__dropDown__content">
-              <div>
-                {!userCtx.isLoggedIn && <div className="dropdown__signin">
-                  <Link to={"/signin/emailCheck"}>
-                    <button>Sign In</button>
+          </Link>
+          <div className="nav__signIn__dropDown__content">
+            <div>
+              {!userCtx.isLoggedIn && <div className="dropdown__signin">
+                <Link to={"/signin/emailCheck"}>
+                  <button>Sign In</button>
+                </Link>
+                <p>
+                  New Customer?
+                  <Link to={"/signup"}>
+                    <span>Start Here.</span>
                   </Link>
-                  <p>
-                    New Customer?
-                    <Link to={"/signup"}>
-                      <span>Start Here.</span>
-                    </Link>
-                  </p>
-                </div>}
-                <ul className="dropdown__list">
-                  <h3>Your List</h3>
-                  <li>
-                    <Link to={"/"}>{userCtx.isLoggedIn ? userCtx.user.name + "'s" : 'Create a'} Wish List</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Wish from Any Website</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Baby Wishlist</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Discover Your Style</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Explore Showroom</Link>
-                  </li>
-                </ul>
-                <ul className="dropdown__account">
-                  <h3>Your Account</h3>
-                  <li>
-                    <Link to={"/"}>Your Account</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Orders</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Wish List</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Recommendations</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Prime Membership</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Prime Video</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Subscribe & Save Items</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Memberships & Subscriptions</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Amazon Business Account</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Your Seller Account</Link>
-                  </li>
-                  <li>
-                    <Link to={"/"}>Manage Your Content and Devices</Link>
-                  </li>
-                  {userCtx.isLoggedIn && <li onClick={userCtx.logoutHandler} >
-                    <Link to={'#'}>Sign Out</Link>
-                  </li>}
-                </ul>
-              </div>
+                </p>
+              </div>}
+              <ul className="dropdown__list">
+                <h3>Your List</h3>
+                <li>
+                  <Link to={"/"}>{userCtx.isLoggedIn ? userCtx.user.name + "'s" : 'Create a'} Wish List</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Wish from Any Website</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Baby Wishlist</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Discover Your Style</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Explore Showroom</Link>
+                </li>
+              </ul>
+              <ul className="dropdown__account">
+                <h3>Your Account</h3>
+                <li>
+                  <Link to={"/"}>Your Account</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Orders</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Wish List</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Recommendations</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Prime Membership</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Prime Video</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Subscribe & Save Items</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Memberships & Subscriptions</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Amazon Business Account</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Your Seller Account</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Manage Your Content and Devices</Link>
+                </li>
+                {userCtx.isLoggedIn && <li onClick={userCtx.logoutHandler} >
+                  <Link to={'#'}>Sign Out</Link>
+                </li>}
+              </ul>
             </div>
           </div>
         </div>

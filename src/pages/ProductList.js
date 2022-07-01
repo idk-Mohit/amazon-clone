@@ -78,6 +78,7 @@ const ProductList = () => {
                     </aside>
 
                     < main >
+                        <h1>RESULTS</h1>
                         {!isLoading && FetchedProductList.length < 1 && <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{name}"</span></h1>}
                         <ul>
                             {isLoading ?
@@ -207,7 +208,6 @@ border-radius: 5px;
 
 .ProductViaImageLink{
     width: 100%;
-    /* max-width: 224px; */
     height: 218px;
     justify-content:center;
     overflow: hidden;
@@ -215,15 +215,17 @@ border-radius: 5px;
 `
 const ImageContainer = styled.div` 
     width: inherit;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+    height: inherit;
+    position: relative;
 img {
-    height: 100%;
-    width: fit-content;
-    padding: 1rem;
+    position: absolute;
     margin: auto;
-    transition: 300ms ease all;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
 }
 &:hover img{
     transform: scale(1.03);

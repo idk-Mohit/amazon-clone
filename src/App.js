@@ -5,12 +5,12 @@ import { Home, NotFound, ProductPage, ProductList } from "./pages";
 import { backDropContext, UserContext } from "./Store";
 import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
-import { Backdrop, EmailForm, PasswordForm } from "./components/index";
+import { Backdrop, EmailForm, PasswordForm, SignUpForm } from "./components/index";
 
 function App() {
   const location = useLocation();
   const backdropCtx = useContext(backDropContext);
-  const UserCtx = useContext(UserContext);
+  const UserCtx = useContext(UserContext)
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -26,34 +26,38 @@ function App() {
         setShowButton(false);
       }
     });
-
-    // Fetching User Data 
-    const accessToken = localStorage.getItem('accessToken')
-    if ((accessToken !== undefined || accessToken !== '') && accessToken) {
-      const fetchData = async () => {
-        const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
-        // const url = 'http://localhost:3001/fetchUserData'  // Development
-        const user = await axios({
-          method: 'get',
-          url: url,
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        if (user) {
-          console.log(user)
-          UserCtx.loginHandler(accessToken)
-          UserCtx.userHandler(user.data)
-        }
-      }
-      fetchData()
-    }// eslint-disable-next-line
+    UserCtx.loginChecker()
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    backdropCtx.disableBackDrop(); // eslint-disable-next-line
-  }, [location]);
+    const accessToken = localStorage.getItem('accessToken')
+    if (localStorage.getItem('isLoggedIn') === '1') {
+      console.log('LOggedIn')
+      if ((accessToken !== undefined || accessToken !== '') && accessToken) {
+        console.log('Fetching User Data')
+        const fetchData = async () => {
+          const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
+          // const url = 'http://localhost:3001/fetchUserData'  // Development
+          const user = await axios({
+            method: 'get',
+            url: url,
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          })
+          if (user) {
+            UserCtx.loginHandler(accessToken)
+            UserCtx.userHandler(user.data)
+          }
+        }
+        fetchData()
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' })
+    backdropCtx.disableBackDrop();
+    // eslint-disable-next-line
+  }, [location, UserCtx]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -70,6 +74,7 @@ function App() {
           <Route path={"/"} element={<Home />} />
           <Route path={"/signin/emailCheck"} element={<EmailForm />} />
           <Route path={"/signin/passwordCheck"} element={<PasswordForm />} />
+          <Route path={"/signup"} element={<SignUpForm />} />
           <Route path={"/product/:id"} element={<ProductPage />} />
           <Route path={"/productList/:name"} element={<ProductList />} />
           <Route path={"/notfound"} element={<NotFound />} />

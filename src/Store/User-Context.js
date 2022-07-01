@@ -9,6 +9,7 @@ const UserContext = createContext({
     userHandler: () => { },
     loginHandler: () => { },
     logoutHandler: () => { },
+    loginChecker: () => { }
 })
 
 export const UserContextProvider = (props) => {
@@ -32,6 +33,32 @@ export const UserContextProvider = (props) => {
         setIsLoggedIn(true)
     }
 
+    const loginChecker = () => {
+        let loggedIn = localStorage.getItem('isLoggedIn')
+        let token = localStorage.getItem('accessToken')
+        if (loggedIn || token) {
+            console.log(loggedIn, token)
+            if ((loggedIn === null || loggedIn === '0') && token) {
+                console.log('Not Logged In, Removing Token')
+                localStorage.removeItem('isLoggedIn')
+                localStorage.removeItem('accessToken')
+                localStorage.removeItem('user')
+                setIsLoggedIn(false)
+            }
+            if (loggedIn === "1" && (token === '' || token === null)) {
+                console.log('No Token, Setting Logged Out')
+                localStorage.removeItem('isLoggedIn')
+                localStorage.removeItem('accessToken')
+                localStorage.removeItem('user')
+                setIsLoggedIn(false)
+            }
+            if (loggedIn === "1" && (token !== '' || token !== null)) {
+                console.log('Logged In and token present')
+                setIsLoggedIn(true)
+            }
+        }
+    }
+
     const logoutHandler = () => {
         localStorage.removeItem('isLoggedIn')
         localStorage.removeItem('accessToken')
@@ -41,7 +68,7 @@ export const UserContextProvider = (props) => {
 
     return <UserContext.Provider value={{
         user, isLoggedIn, userName, userNameHandler, userHandler, loginHandler,
-        logoutHandler
+        logoutHandler, loginChecker
     }}>
         {props.children}
     </UserContext.Provider>

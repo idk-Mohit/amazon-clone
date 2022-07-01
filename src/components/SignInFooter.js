@@ -10,7 +10,7 @@ const SignInFooter = () => {
         <button>Sign In</button>
       </Link>
       <p className="SignUpLink">
-        New Customer? <Link to={"/signUp"}>Start Here</Link>
+        New Customer? <Link to={"/signup"}>Start Here</Link>
       </p>
     </Footer>
   );

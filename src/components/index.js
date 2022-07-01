@@ -30,6 +30,7 @@ export { default as Backdrop } from "./Backdrop";
 export { default as AuthenticationWrapper } from "./Authentication/AuthenticationWrapper";
 export { default as EmailForm } from "./Authentication/EmailForm";
 export { default as PasswordForm } from "./Authentication/PasswordForm";
+export { default as SignUpForm } from './Authentication/SignUp'
 
 // ProductPageComponents...
 export { default as Accordian } from './AboutProduct/Accordian'

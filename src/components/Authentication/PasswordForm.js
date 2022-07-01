@@ -17,14 +17,17 @@ const EmailForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const passwordRef = useRef('');
   const redirect = useNavigate()
+  const [helpDropdown, setHelpDropDown] = useState(false);
+
+  var username = userCtx.userName || localStorage.getItem('username');
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true)
     const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
     // const url = 'http://localhost:3001/login/passwordCheck' //development
-    if (!userCtx.userName) {
-      redirect('/signin/emailCheck')
+    if (username === '') {
+      redirect('/signin/emailCheck', { replace: true })
     }
     else {
       const response = await axios({
@@ -39,6 +42,7 @@ const EmailForm = () => {
         }
       });
       if (response.data.found) {
+        console.log(response)
         userCtx.loginHandler(response.data.accessToken)
         localStorage.setItem('accessToken', response.data.accessToken)
         userCtx.userHandler(response.data)
@@ -52,8 +56,10 @@ const EmailForm = () => {
     setIsLoading(false)
   }
 
+  const usernameChangeHandler = () => {
+    redirect('/signin/emailCheck', { replace: true })
+  }
 
-  const [helpDropdown, setHelpDropDown] = useState(false);
   return (
     <AuthenticationWrapper>
       {errorPresent !== '' &&
@@ -64,6 +70,7 @@ const EmailForm = () => {
         <InputSection>
           <form className="flex-column" onSubmit={formSubmitHandler}>
             {/* Label for Email Input */}
+            <span className="username">{username} <strong onClick={usernameChangeHandler} >Change</strong></span>
             <label htmlFor="password">Password</label>
             {/* username input */}
             <div className="inputContainer">
@@ -121,6 +128,15 @@ const Container = styled.section`
     font-family: "Amazon-light";
     font-weight: 700;
     font-size: 1.8rem;
+  }
+  .username{
+    margin-bottom:.5rem;
+
+    strong {
+      cursor: pointer;
+      color:var(--blue);
+      font-weight:100;
+    }
   }
 `;
 
