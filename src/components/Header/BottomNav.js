@@ -16,22 +16,22 @@ const BottomNav = () => {
           </Link>
         </li>
         <li>
-          <Link to={"/"}>Best Sellers</Link>
+          <Link to={"/productList/Best Sellers"}>Best Sellers</Link>
         </li>
         <li>
-          <Link to={"/"}>Mobiles</Link>
+          <Link to={"/productList/mobile"}>Mobiles</Link>
         </li>
         <li>
-          <Link to={"/"}>Customer Service</Link>
+          <Link to={"/productList/Television"}>Television</Link>
         </li>
         <li>
-          <Link to={"/"}>Today's Deals</Link>
+          <Link to={"/productList/Today's deals"}>Today's Deals</Link>
         </li>
         <li>
-          <Link to={"/"}>Fashion</Link>
+          <Link to={"/productList/Fashion"}>Fashion</Link>
         </li>
         <li>
-          <Link to={"/"}>Electronics</Link>
+          <Link to={"/productList/electronics"}>Electronics</Link>
         </li>
         <li
           className="prime"
@@ -53,25 +53,25 @@ const BottomNav = () => {
           </Link>
         </li>
         <li>
-          <Link to={"/"}>Home &amp; Kitchen</Link>
+          <Link to={"/productList/Kitchen"}>Home &amp; Kitchen</Link>
         </li>
         <li>
-          <Link to={"/"}>Amazon Pay</Link>
+          <Link to={"/productList/Amazon pay"}>Amazon Pay</Link>
         </li>
         <li>
-          <Link to={"/"}>New Releases</Link>
+          <Link to={"/productList/New Releases"}>New Releases</Link>
         </li>
         <li>
-          <Link to={"/"}>Computers</Link>
+          <Link to={"/productList/Computer"}>Computers</Link>
         </li>
         <li>
-          <Link to={"/"}>Books</Link>
+          <Link to={"/productList/Book"}>Books</Link>
         </li>
         <li>
-          <Link to={"/"}>Coupons</Link>
+          <Link to={"/productList/coupons"}>Coupons</Link>
         </li>
         <li>
-          <Link to={"/"}>Toys &amp; Games</Link>
+          <Link to={"/productList/toys and games"}>Toys &amp; Games</Link>
         </li>
       </ul>
     </BottomNavContainer>

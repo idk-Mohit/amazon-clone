@@ -2,12 +2,6 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
-// // Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import required modules
-// import { Pagination } from "swiper";
 import Slider from "react-slick";
 import styled from "styled-components";
 import axios from "axios";
@@ -15,6 +9,7 @@ import axios from "axios";
 const ItemCarousel = ({ data, heading }) => {
   const [carouselData, setCarouselData] = useState([])
   useEffect(() => {
+    var savedProducts = []
     const getData = async () => {
       const result = await axios({
         method: 'get',
@@ -26,19 +21,14 @@ const ItemCarousel = ({ data, heading }) => {
       }
     }
     if (localStorage.getItem(`Fetched ${data}`)) {
-      let parsedData = JSON.parse(localStorage.getItem(`Fetched ${data}`))
-      if (parsedData.length < 1) {
-        getData()
-      }
-      setCarouselData(parsedData)
+      savedProducts = JSON.parse(localStorage.getItem(`Fetched ${data}`))
     }
-    else {
+
+    if (savedProducts.length < 1) {
       getData()
     }
-    return function cleanup() {
-      if (carouselData.length < 1) {
-        getData()
-      }
+    else {
+      setCarouselData(savedProducts)
     }
     // eslint-disable-next-line
   }, [data])
@@ -48,7 +38,7 @@ const ItemCarousel = ({ data, heading }) => {
     ProductLink = ProductLink.replaceAll('/', '~')
     return (
       <div key={index} className='ImageContainer'>
-        <Link to={`/product/${ProductLink}`}>
+        <Link to={`/product/${data}/${ProductLink}`}>
           <img src={slide.image} alt="" />
         </Link>
       </div>
@@ -86,31 +76,26 @@ const CarouselContainer = styled.div`
   margin: 1rem 0;
   padding: 1rem;
   background-color: white;
+  height: auto;
 
   h1 {
     margin:0 0 1rem 1.4rem;
     font-size: 1.6rem;
   }
-  
-  div > div  {
-    a{
-      img{
-        height: 10rem;
-      }
-    }
-  }
 
-  .ImageContainer{
+  
+   .ImageContainer{
     width: 100%;
+    height: 165px;
     display: grid;
     place-items: center;
     padding: 0 1rem;
-    img {
-      width: 100%;
-    }
-  }
-  .slick-slider {
-    height: 165px;
+        a{
+          height: inherit;
+            img {
+            height: inherit;
+          }
+        }
   }
   .slick-next,.slick-prev {
     background-color: transparent;
@@ -118,7 +103,7 @@ const CarouselContainer = styled.div`
     top: 50%;
     z-index: 50;
     width: 4.5rem;
-    height: 165px;
+    height: 100%;
     transition:300ms ease all;
     &:hover {
       border: 2px solid var(--gray);

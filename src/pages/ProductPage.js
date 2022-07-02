@@ -6,12 +6,12 @@ import Tilt from 'react-parallax-tilt';
 import { Link, useParams } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Accordian, ProductRating, PriceUI, BuyingSection } from '../components'
+import { Accordian, ProductRating, PriceUI, BuyingSection, ItemCarousel } from '../components'
 
 
 const ProductPage = () => {
     // const FetchDataCtx = useContext(FetchDataContext)
-    const { id } = useParams();
+    const { id, category } = useParams();
     const [scale, setScale] = useState(1.15);
     const [product, setProduct] = useState()
     const [productFeatures, setProductFeatures] = useState([])
@@ -48,6 +48,11 @@ const ProductPage = () => {
     return (
         <LayOut>
             <Container>
+                <ItemCarouselContainer>
+                    <h1>More of <span>{category}</span></h1>
+                    <div><ItemCarousel data={category} /></div>
+                </ItemCarouselContainer>
+                <hr className='TopDivider' />
                 {product === 'Product Not Found' ? <ProductContainer>
                     {product}
                 </ProductContainer> : <ProductContainer>
@@ -114,12 +119,47 @@ const Container = styled.section`
     margin: 105px 1rem 2rem;
     font-family: 'Amazon-light';
     min-height: 70vh;
+
+    hr.TopDivider{
+        width: 95%;
+        border: 1px solid rgba(200,200,200,.5);
+        margin: 1rem auto;
+        border-radius: 50px;
+    }
+
 `
 const ProductContainer = styled.div`
 display: grid;
 grid-template-columns: 1.8fr 1fr .8fr;
 grid-gap: .5rem;
-padding-top: 3rem;
+`
+const ItemCarouselContainer = styled.div`
+display: grid;
+grid-template-columns: auto 90%;
+align-items: center;
+grid-gap: .5rem;
+h1{
+    font-size: 1.4rem;
+    span {
+        font-size: 1.2rem;
+        color:var(--orange);
+    }
+}
+.CarouselContainer{
+    margin: 0;
+    .ImageContainer{
+        height: 90px !important;
+    }
+    .slick-next,.slick-prev {
+        width:3.8rem;
+    }
+    .MuiPrevIcon,.MuiNextIcon{
+        font-size: 2rem;
+        top:38%
+    }
+}
+  
+
 `
 
 const ProductImageDiv = styled.div`

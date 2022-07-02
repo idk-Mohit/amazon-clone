@@ -15,15 +15,15 @@ const AuthenticationWrapper = (props) => {
       <footer className="flex-column">
         <ul className="flex">
           <li>
-            <Link to={"/"}>Conditions of Use</Link>
+            <Link to={"#"}>Conditions of Use</Link>
           </li>
 
           <li>
-            <Link to={"/"}>Privacy Notice</Link>
+            <Link to={"#"}>Privacy Notice</Link>
           </li>
 
           <li>
-            <Link to={"/"}>Help</Link>
+            <Link to={"#"}>Help</Link>
           </li>
         </ul>
         <p>© 1996-2022, Amazon.com, Inc. or its affiliates</p>
@@ -53,8 +53,6 @@ height: 100vh;
     align-items: center;
     font-size: 0.8rem;
     padding: 2rem 0 4rem;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     p {
       color: var(--darkblue);

@@ -11,12 +11,13 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 const EmailForm = () => {
   const userCtx = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false)
-  const [enteredEmail, setEnteredEmail] = useState('')
+  const [enteredUserName, setEnteredUserName] = useState('')
   const [errorPresent, setIsErrorPresent] = useState('')
+  const [helpDropdown, setHelpDropDown] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
-    localStorage.getItem('username') && setEnteredEmail(localStorage.getItem('username'));
+    localStorage.getItem('username') && setEnteredUserName(localStorage.getItem('username'));
   }, [])
 
   const formSubmitHandler = async (e) => {
@@ -32,7 +33,7 @@ const EmailForm = () => {
         'Content-Type': 'application/json'
       },
       data: {
-        username: enteredEmail
+        username: enteredUserName
       }
     });
     if (response.data.found) {
@@ -47,54 +48,58 @@ const EmailForm = () => {
     setIsLoading(false)
   }
 
-  const [helpDropdown, setHelpDropDown] = useState(false);
   return (
     <AuthenticationWrapper>
       {errorPresent !== '' &&
         <ErrorModal error={errorPresent} />
       }
       <Container>
-        <h1>Sign-In</h1>
-        <InputSection>
-          <form className="flex-column" onSubmit={formSubmitHandler}>
-            {/* Label for Email Input */}
-            <label htmlFor="username">Email or mobile phone number</label>
-            {/* username input */}
-            <input type="text" id="username" name="username" value={enteredEmail} onChange={(e) => { setEnteredEmail(e.target.value) }} />
-            {!isLoading && <button type="submit">Continue</button>}
-            {isLoading && <button className="flex loaderDiv"><div className="loader"></div></button>}
-          </form>
-          <div>
-            <p>
-              By continuing, you agree to Amazon's{" "}
-              <Link to={"/"}>Condition's of Use</Link>and{" "}
-              <Link to={"/"}>Privacy Notice</Link>
-            </p>
-            <div
-              className="help__dropdown"
-              onClick={() => setHelpDropDown(!helpDropdown)}
-            >
+        <InnerContainer><h1>Sign In</h1>
+          <InputSection>
+            <form className="flex-column" onSubmit={formSubmitHandler}>
+              <div className="inputContainer">
+                <label htmlFor="username">Email or mobile phone number</label>
+                <input type="text" id="username" name="username" onChange={(e) => setEnteredUserName(e.target.value)} value={enteredUserName} required />
+              </div>
+              {!isLoading && <button type="submit">Continue</button>}
+              {isLoading && <button className="flex loaderDiv"><div className="loader"></div></button>}
+            </form>
+            <TermCondition>
+              <p>
+                By continuing, you agree to Amazon's
+                <Link className="colored-link" to={"/"}>Condition's of Use</Link>and
+                <Link className="colored-link" to={"/"}>Privacy Notice</Link>
+              </p>
+            </TermCondition>
+            <Needhelp onClick={() => setHelpDropDown(!helpDropdown)}>
               <div className="flex">
                 {helpDropdown ? (
                   <ArrowDropDownIcon fontSize="small" />
                 ) : (
                   <ArrowRightIcon fontSize="small" />
                 )}
-                <Link to={"#"}>Need Help?</Link>
+                <Link className="colored-link" to={"#"}>Need Help?</Link>
               </div>
               {helpDropdown && (
                 <div className="help__dropdown__content">
                   <ul className="flex-column">
-                    <Link to={"#"}>Forgot Password</Link>
-                    <Link to={"#"}>Other Issues with Sign-In</Link>
+                    <Link className="colored-link" to={"#"}>Forgot Password</Link>
+                    <Link className="colored-link" to={"#"}>Other Issues with Sign-In</Link>
                   </ul>
                 </div>
               )}
+            </Needhelp>
+          </InputSection>
+          <hr className='form-footer-divider' />
+          <ExtraInformation>
+            <div className="line-through-div">
+              <span>New to Amazon?</span>
             </div>
-          </div>
-        </InputSection>
+            <Link to={'/signup'}><button className="gray-button">Create your Amazon Account</button></Link>
+          </ExtraInformation>
+        </InnerContainer>
       </Container>
-    </AuthenticationWrapper>
+    </AuthenticationWrapper >
   );
 };
 
@@ -103,37 +108,51 @@ export default EmailForm;
 const Container = styled.section`
   margin: auto;
   position: relative;
-  margin: 1rem auto;
-  /* min-height: 95%; */
+  margin: 1rem auto 3rem;
   max-width: 23rem;
-  border: 1px solid var(--lightgray);
+
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  
+`;
+
+const InnerContainer = styled.div`
+  border: 1px solid #ddd;
   border-radius: 5px;
   padding: 1rem;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   h1 {
     font-family: "Amazon-light";
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
   }
-`;
+
+  hr{
+    margin:1rem 0;
+    border-color: rgba(200,200,200,.4);
+  }
+`
 
 const InputSection = styled.section`
-  > form {
-    margin: 1rem 0;
-    label {
-      font-weight: 700;
-      font-family: "Amazon-light";
-      font-size: 0.85rem;
-      margin-bottom: 0.3rem;
-    }
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+
     input {
-      margin-bottom: 0.8rem;
-      padding: 0.5rem;
-      border: 1px solid var(--darkblue);
-      border-radius: 3px;
-      outline-color: var(--orange);
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid var(--darkblue);
+        border-radius: 3px;
+        outline-color: var(--orange);
     }
-    button {
+    label {
+        font-weight: 700;
+        font-family: "Amazon-light";
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+ }
+ button {
       padding: 0.5rem;
     }
     button.loaderDiv{
@@ -141,47 +160,86 @@ const InputSection = styled.section`
       justify-content: center;
       padding: 3px;
     }
-  }
-  a {
-    color: var(--blue);
-    &:hover {
-      color: var(--orange);
-      text-decoration: underline;
-    }
-  }
+`;
 
-  p {
+const TermCondition = styled.div`
+margin-top: 1rem;
+  p{
     font-size: 0.8rem;
-    a {
-      margin: 0 0.2rem;
+    letter-spacing: 0;
+
+    a{
+      margin:0 .3rem;
     }
   }
+`
 
-  /* Help Dropdown */
-  .help__dropdown {
+const Needhelp = styled.div`
+  margin: 1rem 0 0 -5px;
+  position: relative;
+  display: inline-block;
+  div {
+    align-items: center;
+    font-size: 0.8rem;
+
+    ul {
+      margin-left: 1rem;
+      padding: .3rem;
+    }
+  }
+`
+
+const ExtraInformation = styled.div`
+margin-top: 1rem;
+    p{
+        display: inline-flex;
+        font-size: 13px;
+
+        a{
+            display: inline-flex;
+            margin-left:0.2rem;
+        }
+    }
+
+    button.gray-button {
+      background: var(--lightgray);
+      border-color: #adb1b8 #a2a6ac #8d9096;
+      padding:.5rem;
+      border-radius: 3px;
+      width: 100%;
+    }
+
+    .line-through-div {
+      text-align: center;
     position: relative;
-    display: inline-block;
-    margin-top: 0.5rem;
-    > div {
-      align-items: center;
-      margin-bottom: 0.2rem;
-    }
-
-    .MuiSvgIcon-root {
-      margin-left: -5px;
-    }
-
-    a {
-      font-size: 0.85rem;
-      font-family: "Amazon-light";
-      font-weight: 600;
-    }
-
-    .help__dropdown__content {
-      width: max-content;
-      a {
-        margin: 0 0 0.15rem 1rem;
+    top: 2px;
+    padding-top: 1px;
+    margin-bottom: 14px;
+    line-height: 0;
+     &::after{
+      content: "";
+      width: 100%;
+      background-color: transparent;
+      display: block;
+      height: 1px;
+      border-top: 1px solid #e7e7e7;
+      position: absolute;
+      top: 50%;
+      margin-top: -1px;
+      z-index: 1;
+     }
+      span{
+        line-height: 1;
+      font-size: 12px;
+      color: #767676;
+      font-weight: 400;
+      z-index: 2;
+      position: relative;
+      display: inline-block;
+      background-color: #fff;
+      padding: 0 8px 0 7px;
       }
     }
-  }
-`;
+`
+
+

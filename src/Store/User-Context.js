@@ -37,24 +37,23 @@ export const UserContextProvider = (props) => {
         let loggedIn = localStorage.getItem('isLoggedIn')
         let token = localStorage.getItem('accessToken')
         if (loggedIn || token) {
-            console.log(loggedIn, token)
             if ((loggedIn === null || loggedIn === '0') && token) {
-                console.log('Not Logged In, Removing Token')
                 localStorage.removeItem('isLoggedIn')
                 localStorage.removeItem('accessToken')
                 localStorage.removeItem('user')
                 setIsLoggedIn(false)
+                return;
             }
-            if (loggedIn === "1" && (token === '' || token === null)) {
-                console.log('No Token, Setting Logged Out')
+            if (token === '' || token === null) {
                 localStorage.removeItem('isLoggedIn')
                 localStorage.removeItem('accessToken')
                 localStorage.removeItem('user')
                 setIsLoggedIn(false)
+                return
             }
             if (loggedIn === "1" && (token !== '' || token !== null)) {
-                console.log('Logged In and token present')
                 setIsLoggedIn(true)
+                return
             }
         }
     }

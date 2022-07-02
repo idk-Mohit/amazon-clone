@@ -17,7 +17,7 @@ function App() {
     // Waking up the backend server
     axios('https://diverse-backend.herokuapp.com/')
       .then(result => {
-        if (result) console.log('Backend Active')
+        if (result) sessionStorage.setItem('backend', 'active')
       })
     window.addEventListener("scroll", () => {
       if (window.pageYOffset > 300) {
@@ -32,32 +32,30 @@ function App() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')
-    if (localStorage.getItem('isLoggedIn') === '1') {
-      console.log('LOggedIn')
-      if ((accessToken !== undefined || accessToken !== '') && accessToken) {
-        console.log('Fetching User Data')
-        const fetchData = async () => {
-          const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
-          // const url = 'http://localhost:3001/fetchUserData'  // Development
-          const user = await axios({
-            method: 'get',
-            url: url,
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
-          })
-          if (user) {
-            UserCtx.loginHandler(accessToken)
-            UserCtx.userHandler(user.data)
+    const loggedIn = localStorage.getItem('isLoggedIn')
+    if (loggedIn === '1' && (accessToken !== null || accessToken !== '')) {
+      const fetchData = async () => {
+        const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
+        // const url = 'http://localhost:3001/fetchUserData'  // Development
+        const user = await axios({
+          method: 'get',
+          url: url,
+          headers: {
+            Authorization: `Bearer ${accessToken}`
           }
+        })
+        if (user) {
+          UserCtx.loginHandler(accessToken)
+          UserCtx.userHandler(user.data)
         }
-        fetchData()
       }
+      fetchData()
+
     }
     window.scrollTo({ top: 0, behavior: 'auto' })
     backdropCtx.disableBackDrop();
     // eslint-disable-next-line
-  }, [location, UserCtx]);
+  }, [location]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -75,7 +73,7 @@ function App() {
           <Route path={"/signin/emailCheck"} element={<EmailForm />} />
           <Route path={"/signin/passwordCheck"} element={<PasswordForm />} />
           <Route path={"/signup"} element={<SignUpForm />} />
-          <Route path={"/product/:id"} element={<ProductPage />} />
+          <Route path={"/product/:category/:id"} element={<ProductPage />} />
           <Route path={"/productList/:name"} element={<ProductList />} />
           <Route path={"/notfound"} element={<NotFound />} />
         </Routes>

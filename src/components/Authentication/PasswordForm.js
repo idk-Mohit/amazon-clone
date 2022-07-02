@@ -164,14 +164,14 @@ const InputSection = styled.section`
           fill: var(--orange) !important;
         }
       }
-      input {
+        input {
       width: 100%;
       margin-bottom: 0.8rem;
       padding: 0.5rem;
       border: 1px solid var(--darkblue);
       border-radius: 3px;
       outline-color: var(--orange);
-    }
+      }
     }
     button {
       padding: 0.5rem;

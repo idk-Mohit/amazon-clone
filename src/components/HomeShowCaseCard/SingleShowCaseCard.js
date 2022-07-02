@@ -12,7 +12,7 @@ const SingleShowCaseCard = (props) => {
         </Link>
       )}
       {props.image && (
-        <div>
+        <div className="imageContainer">
           <Link to={`${props.link}`}> <img src={props.image} alt="" /></Link>
         </div>
       )
@@ -31,17 +31,16 @@ const SingleShowCaseCard = (props) => {
 export default SingleShowCaseCard;
 
 const CardContainer = styled.div`
-  /* justify-content: sapce; */
-  height: 420px;
-          max-width: 21.25rem;
-          padding: 1.5rem 1rem;
-          box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.1);
-          background-color: white;
-          z-index: 1;
-          justify-content: space-between;
-          gap: 1rem;
-          border-radius: 5px;
-          transition: 300ms all ease;
+  /* height: 420px; */
+  max-width: 21.25rem;
+  padding: 1.5rem 1rem;
+  box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  z-index: 1;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 5px;
+  transition: 300ms all ease;
 
           &:hover {
             transform: translateY(-5px);
@@ -54,9 +53,9 @@ const CardContainer = styled.div`
     /* margin-bottom: 1rem; */
   }
 
-          div {
+          .imageContainer {
             width: 100%;
-          height: 250px;
+          height: 275px;
           img {
             width: 100%;
           height: 100%;

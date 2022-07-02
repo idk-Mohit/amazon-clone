@@ -20,6 +20,7 @@ const ProductList = () => {
             })
             if (result.data.status) {
                 setFtechedProductList(result.data.result)
+                localStorage.setItem(`Fetched ${name}`, JSON.stringify(result.data.result))
                 setIsLoading(false)
             }
             else {
@@ -27,7 +28,16 @@ const ProductList = () => {
                 setIsLoading(false)
             }
         }
-        FetchProductList()
+        const storedList = JSON.parse(localStorage.getItem(`Fetched ${name}`))
+        if (storedList === null || storedList.length < 1) {
+            console.log('Online data')
+            FetchProductList()
+        }
+        else {
+            console.log('Offline Data')
+            setFtechedProductList(storedList)
+            setIsLoading(false)
+        }
     }, [name])
 
     const list = FetchedProductList.map((product, index) => {
@@ -41,7 +51,7 @@ const ProductList = () => {
             NewProductName = product.name
         }
         return <List key={index}>
-            <Link to={`/product/${ProductLink}`} className="ProductViaImageLink flex" >
+            <Link to={`/product/${name}/${ProductLink}`} className="ProductViaImageLink flex" >
                 <ImageContainer>
                     <img src={product.image} alt="" />
                 </ImageContainer>
@@ -78,8 +88,7 @@ const ProductList = () => {
                     </aside>
 
                     < main >
-                        <h1>RESULTS</h1>
-                        {!isLoading && FetchedProductList.length < 1 && <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{name}"</span></h1>}
+                        {!isLoading && FetchedProductList.length < 1 ? <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{name}"</span></h1> : <h1>RESULTS</h1>}
                         <ul>
                             {isLoading ?
                                 (<LoadingDiv>

@@ -95,15 +95,14 @@ const Container = styled.section`
     justify-content: space-evenly;
     justify-items: center;
     gap: 1.5rem;
-
-    div:last-child {
-      display: none;
-    }
     @media (max-width: 1150px) {
       grid-template-columns: repeat(3, 1fr);
-      div:last-child {
-        display: flex;
-      }
+    }
+    @media(max-width:768px){
+      grid-template-columns: 1fr 1fr;
+    }
+    @media(max-width:425px){
+      grid-template-columns: 1fr;
     }
   }
 

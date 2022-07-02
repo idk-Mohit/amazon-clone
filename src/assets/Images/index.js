@@ -9,3 +9,5 @@ export { default as cash_on_delivery } from './cash_on_delivery.png'
 export { default as replacement } from './replacement.png'
 export { default as BtnLoader } from './btnLoader.gif'
 export { default as alertIcon } from './alertIcon.png'
+export { default as i_alert_Icon } from './i-alert-icon.png'
+
