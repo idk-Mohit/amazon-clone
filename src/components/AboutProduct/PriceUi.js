@@ -59,7 +59,6 @@ line-height: 1.5;
     color:var(--darkblue);
     font-size: 0.9rem;
     align-items: center;
-    position: relative;
     .MuiSvgIcon-root{
         margin-left: 0.2rem;
         cursor: pointer;

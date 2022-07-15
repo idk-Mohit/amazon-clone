@@ -1,19 +1,47 @@
+// import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LockIcon from '@mui/icons-material/Lock';
+import { addItemToCart } from '../../Store/Cart-Slice'
+import axios from 'axios';
 
 const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
+    const { category, id } = useParams()
+    const navigate = useNavigate()
+    const Auth = useSelector(state => state.Auth)
+    const dispatch = useDispatch()
     const [exchange, setExchange] = useState('2')
+    // const Auth = useSelector(state => state.Auth)
+    //Creating Fake Delivery Date ...
     let fullDate = new Date().toDateString().split(' ')
     let date = +fullDate[2]
     date += 3
     fullDate.splice(2, 1, date)
     fullDate = fullDate.join(' ')
+    //Creating Fake Delivery Date ...
 
     const ExchangeHandler = (e) => {
         setExchange(e.target.value)
+    }
+
+    const AddToCartHandler = async () => {
+        const response = await axios({
+            method: 'post',
+            // url: `https://diverse-backend.herokuapp.com/addToCart`,
+            url: 'http://localhost:3001/addToCart',
+            data: {
+                email: Auth.user.email,
+                productCategory: category,
+                productId: id,
+                quantity: 1
+            }
+        })
+        dispatch(addItemToCart({ id, quantity: 1 }))
+        console.log(response)
+        if (response) navigate('/Cart')
     }
 
     return (
@@ -53,7 +81,7 @@ const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
                     {!stock && <div className='paddingContainer'><span>Currently Unavailable.f</span></div>}
                 </ExtraInfo>
                 <Buttons className='paddingContainer flex-column'>
-                    <button id='addtoCartButton'>Add to Cart</button>
+                    <button id='addtoCartButton' onClick={AddToCartHandler} >Add to Cart</button>
                     <button id='buyNowButton'>Buy Now</button>
                 </Buttons>
                 <SecureTransaction className="paddingContainer flex">

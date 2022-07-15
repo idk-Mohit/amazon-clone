@@ -1,61 +1,135 @@
 import axios from "axios";
 import styled from "styled-components";
 import { ArrowUp } from './assets/Images'
-import { Home, NotFound, ProductPage, ProductList } from "./pages";
-import { backDropContext, UserContext } from "./Store";
+import { useSelector, useDispatch } from 'react-redux'
+import { loginHelper, userHelper } from './Store/AuthenticationHelper'
+import { Home, NotFound, ProductPage, ProductList, Cart } from "./pages";
 import { Routes, Route, useLocation } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
-import { Backdrop, EmailForm, PasswordForm, SignUpForm } from "./components/index";
+import React, { useCallback, useEffect, useState } from "react";
+import { Backdrop, EmailForm, PasswordForm, SignUpForm, PopUpbackDrop } from "./components/index";
+import { disableBackDrop } from "./Store/backdrop-Slice";
+import { Login, User } from './Store/Auth-Slice'
+import { replaceCart } from "./Store/Cart-Slice";
+
+var AppStart = true;
 
 function App() {
+  const dispatch = useDispatch()
   const location = useLocation();
-  const backdropCtx = useContext(backDropContext);
-  const UserCtx = useContext(UserContext)
+  const backdrop = useSelector(state => state.backdrop)
+  const Auth = useSelector(state => state.Auth)
   const [showButton, setShowButton] = useState(false);
 
-  useEffect(() => {
-    // Waking up the backend server
-    axios('https://diverse-backend.herokuapp.com/')
-      .then(result => {
-        if (result) sessionStorage.setItem('backend', 'active')
-      })
-    window.addEventListener("scroll", () => {
-      if (window.pageYOffset > 300) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
+  const loginCheckHelper = useCallback(
+    () => {
+      console.log('LoginCheckHelper Running')
+      let loggedIn = localStorage.getItem('isLoggedIn')
+      let token = localStorage.getItem('accessToken')
+      if (loggedIn || token) {
+        if ((loggedIn === null || loggedIn === '0') && token) {
+          localStorage.removeItem('isLoggedIn')
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('user')
+          dispatch(Login(false))
+          return;
+        }
+        if (token === '' || token === null) {
+          localStorage.removeItem('isLoggedIn')
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('user')
+          dispatch(Login(false))
+          return
+        }
+        if (loggedIn === "1" && (token !== '' || token !== null)) {
+          dispatch(Login(true))
+          return
+        }
       }
-    });
-    UserCtx.loginChecker()
-    //eslint-disable-next-line
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    if (AppStart) {
+      // Waking up the backend server
+      axios('https://diverse-backend.herokuapp.com/')
+        .then(result => {
+          if (result) sessionStorage.setItem('backend', 'active')
+        })
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          setShowButton(true);
+        } else {
+          setShowButton(false);
+        }
+      });
+    }
   }, []);
 
+  // Setting User LoggedIn State and User Data
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')
     const loggedIn = localStorage.getItem('isLoggedIn')
-    if (loggedIn === '1' && (accessToken !== null || accessToken !== '')) {
-      const fetchData = async () => {
-        const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
-        // const url = 'http://localhost:3001/fetchUserData'  // Development
-        const user = await axios({
-          method: 'get',
-          url: url,
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        })
-        if (user) {
-          UserCtx.loginHandler(accessToken)
-          UserCtx.userHandler(user.data)
+    const userData = localStorage.getItem('user')
+    const fetchData = async () => {
+      const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
+      // const url = 'http://localhost:3001/fetchUserData'
+      const user = await axios({
+        method: 'get',
+        url: url,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
         }
+      })
+      if (user) {
+        loginHelper(accessToken)
+        dispatch(Login(true))
+        userHelper(user.data)
+        dispatch(User(user.data))
       }
-      fetchData()
-
     }
+    if (loggedIn === '1' && (accessToken !== null || accessToken !== '')) {
+      if (userData === null || userData === undefined || userData === '') {
+        fetchData()
+      }
+      else {
+        loginCheckHelper()
+        dispatch(User(JSON.parse(userData)))
+      }
+    }
+  }, [location, dispatch, loginCheckHelper]);
+
+  useEffect(() => {
+    const getInitialCart = async () => {
+      console.log('Fetching User Cart')
+      const response = await axios({
+        method: 'get',
+        url: `https://diverse-backend.herokuapp.com/fetchCart/${Auth.user._id}`, //Production
+        // url: `http://localhost:3001/fetchCart/${Auth.user._id}`,
+      })
+      if (response) {
+        console.log(response)
+        const totalQty = await response.data.totalQuantity
+        const newCart = await response.data.cart.map((item) => {
+          return { id: item.productId, quantity: item.quantity, category: item.productCategory }
+        })
+        dispatch(replaceCart({ items: newCart, totalQuantity: totalQty }))
+      }
+      else {
+        console.log('initialCart No user Found')
+      }
+    }
+    if (Auth.isLoggedIn === true) {
+      getInitialCart()
+    }
+  }, [Auth.user._id, Auth.isLoggedIn, dispatch])
+
+  // Scrolling To Top And Disabling The Backdrops if Open
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
-    backdropCtx.disableBackDrop();
-    // eslint-disable-next-line
-  }, [location]);
+    dispatch(disableBackDrop())
+  }, [location, dispatch])
+
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -66,8 +140,9 @@ function App() {
 
   return (
     <>
+      {backdrop.backdrop && <Backdrop />}
+      {backdrop.popupbackdrop && <PopUpbackDrop />}
       <Container>
-        {backdropCtx.backDrop && <Backdrop />}
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/signin/emailCheck"} element={<EmailForm />} />
@@ -75,6 +150,7 @@ function App() {
           <Route path={"/signup"} element={<SignUpForm />} />
           <Route path={"/product/:category/:id"} element={<ProductPage />} />
           <Route path={"/productList/:name"} element={<ProductList />} />
+          <Route path={"/Cart"} element={<Cart />} />
           <Route path={"/notfound"} element={<NotFound />} />
         </Routes>
         {showButton && (

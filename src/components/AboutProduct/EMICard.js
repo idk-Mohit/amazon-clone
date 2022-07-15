@@ -37,12 +37,12 @@ const Container = styled.div`
 `
 const DropDownContent = styled.div`
     position: absolute;
+    z-index: 10;
     right: 0;
     top: 1.2rem;
     width: 25rem;
     background: white;
-    z-index: 10;
-    border:1px solid var(--lightgray);
+    border:1px solid rgba(200,200,200,1);
     border-radius: 5px;
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,.2);
     h1{

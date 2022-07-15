@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   TopCarousel,
@@ -6,14 +6,15 @@ import {
   MultipleShowCaseCard,
   MultipleShowCaseData,
   SingleShowCaseCard,
-  ItemCarousel,
   SignInFooter,
+  ItemCarousel
 } from "../components";
-import { UserContext } from "../Store";
+import { useSelector } from 'react-redux'
 import LayOut from "./LayOut";
 
 const Home = () => {
-  const UserCtx = useContext(UserContext)
+  const Auth = useSelector(state => state.Auth)
+
   return (
     <LayOut>
       <Container>
@@ -27,7 +28,7 @@ const Home = () => {
             <MultipleShowCaseCard data={MultipleShowCaseData[0]} />
             <MultipleShowCaseCard data={MultipleShowCaseData[1]} />
             <MultipleShowCaseCard data={MultipleShowCaseData[2]} />
-            {!UserCtx.isLoggedIn ? <SingleShowCaseCard
+            {!Auth.isLoggedIn ? <SingleShowCaseCard
               title="Sign in for your best experience"
               button={true}
               buttonText="Sign in securely"
@@ -75,7 +76,7 @@ const Home = () => {
 
           <ItemCarousel data="laptop" heading="Latest to improve Productivity" />
 
-          {!UserCtx.isLoggedIn && <SignInFooter />}
+          {!Auth.isLoggedIn && <SignInFooter />}
         </div>
         {/* OnTop CarouselDiv */}
       </Container>

@@ -1,19 +1,21 @@
 import axios from "axios";
 import ErrorModal from "./ErrorModal";
 import styled from "styled-components";
-import { UserContext } from "../../Store";
 import { Link, useNavigate } from "react-router-dom";
 import AuthenticationWrapper from "./AuthenticationWrapper";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { userNameHelper } from "../../Store/AuthenticationHelper";
+import { useDispatch } from "react-redux/es/exports";
+import { UserName } from "../../Store/Auth-Slice";
 
 const EmailForm = () => {
-  const userCtx = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false)
   const [enteredUserName, setEnteredUserName] = useState('')
   const [errorPresent, setIsErrorPresent] = useState('')
   const [helpDropdown, setHelpDropDown] = useState(false);
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -38,7 +40,8 @@ const EmailForm = () => {
     });
     if (response.data.found) {
       console.log(response)
-      userCtx.userNameHandler(response.data.user)
+      userNameHelper(response.data.user)
+      dispatch(UserName(response.data.user))
       navigate("/signin/passwordCheck", { replace: true });
     }
     else {

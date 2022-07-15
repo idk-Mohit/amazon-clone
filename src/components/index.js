@@ -24,13 +24,14 @@ export { default as ItemCarousel } from "./ItemCarousel/ItemCarousel";
 export { default as SignInFooter } from "./SignInFooter";
 
 // Backdrop ...
-export { default as Backdrop } from "./Backdrop";
+export { default as Backdrop } from "./backdrop/Backdrop";
+export { default as PopUpbackDrop } from "./backdrop/PopUpBackdrop";
 
 // Authentication ...
-export { default as AuthenticationWrapper } from "./Authentication/AuthenticationWrapper";
-export { default as EmailForm } from "./Authentication/EmailForm";
-export { default as PasswordForm } from "./Authentication/PasswordForm";
-export { default as SignUpForm } from './Authentication/SignUp'
+export { default as AuthenticationWrapper } from "./AuthenticationUI/AuthenticationWrapper";
+export { default as EmailForm } from "./AuthenticationUI/EmailForm";
+export { default as PasswordForm } from "./AuthenticationUI/PasswordForm";
+export { default as SignUpForm } from './AuthenticationUI/SignUp'
 
 // ProductPageComponents...
 export { default as Accordian } from './AboutProduct/Accordian'
@@ -41,3 +42,7 @@ export { default as BuyingSection } from './AboutProduct/BuyingSection'
 
 // Product List ....
 export { default as ProductListLoader } from './ProductListLoader'
+
+
+// Cart ....
+export { default as CartHolder } from './Cart/EmptyCartHolder'

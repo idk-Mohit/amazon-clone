@@ -1,40 +1,27 @@
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import search from "./searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { backDropContext } from "../../Store";
-import { QueryContext } from '../../Store'
+import { useDispatch, useSelector } from "react-redux";
+import { enableBackDrop } from "../../Store/backdrop-Slice";
+import { setQuery } from "../../Store/SearchField-Slice";
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
+  const query = useSelector(state => state.searchQuery.query)
   // const [suggestions, setSuggestions] = useState([])
-
-  const backdrop = useContext(backDropContext);
-  const queryCtx = useContext(QueryContext);
   const redirect = useNavigate()
 
-  // useEffect(() => {
-  //   async function getSuggestions() {
-  //     const result = await axios({
-  //       method: 'post',
-  //       url: 'http://localhost:3001/getProduct',
-  //       data: {
-  //         name: enteredQuery
-  //       }
-  //     })
-  //     if (result) {
-  //       console.log(result.data.result)
-  //     }
-  //     else {
-  //       console.log('no data found in suggestions')
-  //     }
-  //   }
-  //   if (enteredQuery !== '') {
-  //     getSuggestions()
-  //   }
-  // }, [enteredQuery])
+  const dispatch = useDispatch()
+  const backdropEnableHandler = () => {
+    dispatch(enableBackDrop())
+  }
+
+  const inputChangeHandler = (e) => {
+    dispatch(setQuery(e.target.value))
+  }
 
   // Select Input Data (Options created)
   const SearchOptions = search.map((item, index) => {
@@ -45,10 +32,12 @@ const TopNavSearch = () => {
     );
   });
 
+
+
   const FormSubmitHandler = async (e) => {
     e.preventDefault()
-    if (queryCtx.enteredQuery !== '') {
-      redirect(`/productList/${queryCtx.enteredQuery}`)
+    if (query !== '') {
+      redirect(`/productList/${query}`)
     }
   }
 
@@ -67,7 +56,7 @@ const TopNavSearch = () => {
         </span>
       </div>
       <form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
-        <input type="text" onClick={backdrop.enableBackDrop} value={queryCtx.enteredQuery} onChange={(e) => queryCtx.EnteredQueryHandler(e.target.value)} />
+        <input type="text" onClick={backdropEnableHandler} value={query} onChange={inputChangeHandler} />
         <div className="nav__floyout_Search">
           { }
         </div>
@@ -84,7 +73,7 @@ export default TopNavSearch;
 
 const TopNavSearchBar = styled.div`
   align-items: center;
-  height: 45px;
+  height: 40px;
   width: 100%;
   .nav__select__container {
     height: 100%;

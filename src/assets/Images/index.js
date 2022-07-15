@@ -10,4 +10,5 @@ export { default as replacement } from './replacement.png'
 export { default as BtnLoader } from './btnLoader.gif'
 export { default as alertIcon } from './alertIcon.png'
 export { default as i_alert_Icon } from './i-alert-icon.png'
+export { default as GreenTickIcon } from './greenTick.svg'
 

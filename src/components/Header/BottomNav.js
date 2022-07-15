@@ -2,14 +2,23 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import React, { useContext } from "react";
-import { backDropContext } from "../../Store";
+import { enableBackDrop, disableBackDrop } from "../../Store/backdrop-Slice";
+import { useDispatch } from "react-redux";
 
 const BottomNav = () => {
-  const backdrop = useContext(backDropContext);
+  const dispatch = useDispatch()
+
+  const backdropEnableHandler = () => {
+    dispatch(enableBackDrop())
+  }
+
+  const backdropDisableHandler = () => {
+    dispatch(disableBackDrop())
+  }
+
   return (
     <BottomNavContainer className="flex">
-      <ul className="flex">
+      <List className="flex">
         <li>
           <Link to={"/"} className="flex link__icons">
             <MenuOutlinedIcon /> All
@@ -33,25 +42,24 @@ const BottomNav = () => {
         <li>
           <Link to={"/productList/electronics"}>Electronics</Link>
         </li>
-        <li
-          className="prime"
-          onMouseEnter={backdrop.enableBackDrop}
-          onMouseLeave={backdrop.disableBackDrop}
+        <Prime
+          onMouseEnter={backdropEnableHandler}
+          onMouseLeave={backdropDisableHandler}
         >
           <Link to={"/"} className="prime backdrop">
             <div className="flex link__icons">
               Prime <ArrowDropDownIcon fontSize="small" />
             </div>
-            <div className="prime__dropdownContent">
+            <PrimeDropDown className='dropdown'>
               <img
                 src={
                   "https://m.media-amazon.com/images/G/31/prime/NavFlyout/TryPrime/2018/Apr/IN-Prime-PIN-TryPrime-MultiBen-Apr18-400x400._CB442254244_.jpg"
                 }
                 alt=""
               />
-            </div>
+            </PrimeDropDown>
           </Link>
-        </li>
+        </Prime>
         <li>
           <Link to={"/productList/Kitchen"}>Home &amp; Kitchen</Link>
         </li>
@@ -73,7 +81,7 @@ const BottomNav = () => {
         <li>
           <Link to={"/productList/toys and games"}>Toys &amp; Games</Link>
         </li>
-      </ul>
+      </List>
     </BottomNavContainer>
   );
 };
@@ -85,6 +93,7 @@ const BottomNavContainer = styled.nav`
   overflow: visible;
   height: 45px;
   z-index: 100;
+  padding: 0 .5rem;
   ::-webkit-scrollbar {
     height: 3px;
     /* display: none; */
@@ -102,54 +111,57 @@ const BottomNavContainer = styled.nav`
       transform: scale(1.5);
     }
   }
-  ul {
-    padding: 0.2rem 0;
-    flex: 1;
-    justify-content: space-evenly;
-    align-items: center;
+`;
 
-    li {
-      padding: 0.4rem;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      border-radius: 2px;
-      width: max-content;
+const List = styled.ul`
+  flex: 1;
+  justify-content: space-evenly;
+  align-items: center;
 
-      &:hover {
-        border-color: white;
-      }
-    }
+  li {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    width: max-content;
 
-    .link__icons {
-      align-items: center;
-      justify-content: center;
+    &:hover {
+      border-color: white;
     }
   }
 
-  .prime {
-    position: relative;
-    display: inline-block;
-    .prime__dropdownContent {
-      display: none;
+  .link__icons {
+    align-items: center;
+    justify-content: center;
+  }
+`
+
+const Prime = styled.li`
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    .dropdown {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+    
+`
+
+const PrimeDropDown = styled.div`
+      opacity:0;
+      pointer-events: none;
       position: absolute;
-      top: 1.5rem;
+      top: 2.1rem;
       left: -0.45rem;
       padding: 1rem;
       background-color: white;
       box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
       z-index: 90;
-      /* right: 0; */
+      transition:ease 300ms;
       img {
         width: 20rem;
         height: 20rem;
       }
-    }
-    &:hover {
-      .prime__dropdownContent {
-        display: block;
-        transition: 300ms ease;
-        animation: fadeAway 1s ease;
-      }
-    }
-  }
-`;
+`

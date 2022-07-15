@@ -26,6 +26,7 @@
   --orange: #c7511f;
   --black: #0f1111;
   --green: #007600;
+  --success-green: #067d62;
   --red: #c40000;
 }
 
@@ -140,7 +141,7 @@ select {
 }
 
 .colored-link:hover {
-  color: var(--orange);
+  color: var(--orange) !important;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: underline !important;
 }

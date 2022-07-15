@@ -18,11 +18,11 @@ const SignUp = () => {
     const [errorPresent, setIsErrorPresent] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
+
     const formSubmitHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true)
-        const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';// Production
-        // const url = 'http://localhost:3001/login/emailCheck' //development
+        const url = 'https://diverse-backend.herokuapp.com/signUp';// Production
 
         const response = await axios({
             method: 'post',
@@ -31,7 +31,10 @@ const SignUp = () => {
                 'Content-Type': 'application/json'
             },
             data: {
-                username: enteredEmail
+                name: enteredUserName.current.value,
+                email: enteredEmail.current.value,
+                mobile: enteredMobile.current.value,
+                password: enteredPassword.current.value,
             }
         });
         if (response.data.found) {
@@ -40,7 +43,7 @@ const SignUp = () => {
             navigate("/signin/emailCheck", { replace: true });
         }
         else {
-            console.log(response.data.message)
+            console.log(response.data.error)
             setIsErrorPresent(response.data.message)
         }
         setIsLoading(false)

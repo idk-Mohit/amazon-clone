@@ -20,4 +20,5 @@ const MainHeader = styled.header`
   top:0;
   left: 0;
   right:0;
+  min-width:60rem;
 `;

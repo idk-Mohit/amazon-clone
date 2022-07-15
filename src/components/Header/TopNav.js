@@ -1,77 +1,90 @@
+import React from "react";
 import styled from "styled-components";
-import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Amazon_Logo } from "../../assets/Images";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TopNavSearch from "./TopNavSearch";
+import { Amazon_Logo } from "../../assets/Images";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+// import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { enableBackDrop, disableBackDrop, enablepopupBackdrop } from "../../Store/backdrop-Slice";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { backDropContext, UserContext } from "../../Store";
+import { Logout } from '../../Store/Auth-Slice'
+import { logoutHelper } from '../../Store/AuthenticationHelper'
 
 const TopNav = () => {
-  const backDropCtx = useContext(backDropContext);
-  const userCtx = useContext(UserContext)
-  return (
-    <TopNavContainer className="flex">
-      {/* Top Nav Left Side */}
-      <TopNavLeft className="flex top-nav-child">
-        {/* Top Nav Logo */}
-        <div className="nav__logo nav--hover ">
-          <Link to={"/"} className="flex">
-            <img src={Amazon_Logo} alt="Amazon Logo" /> <span>.in</span>
-          </Link>
-        </div>
-        {/* Top Nav Logo */}
-        {/* Top Nav Address */}
-        <div className="nav__address nav--hover">
-          <Link to={"/"} className="flex-column">
-            <span className="nav__address__first nav__span__first">Hello</span>
-            <span className="nav__address__second nav__span__second">
-              <LocationOnOutlinedIcon />
-              Select your address
-            </span>
-          </Link>
-        </div>
-        {/* Top  Nav Address */}
-      </TopNavLeft>
-      {/* Top Nav Left Side */}
-      {/* Top Nav Middle */}
-      <TopNavMiddle className="flex top-nav-child">
-        {/* Top Nav Middle Search Bar */}
-        <TopNavSearch />
-      </TopNavMiddle>
-      {/* Top Nav Middle */}
-      <TopNavRight className="flex top-nav-child">
-        {/* <div className="nav--hover nav__language"></div> */}
+  const Auth = useSelector(state => state.Auth)
+  const Cart = useSelector(state => state.Cart)
+  const dispatch = useDispatch()
+  const isCart = window.location.href;
 
-        <div
-          className="nav--hover nav__signIn nav__signIn__dropDown"
-          onMouseEnter={backDropCtx.enableBackDrop}
-          onMouseLeave={backDropCtx.disableBackDrop}
-        >
-          <Link to={userCtx.isLoggedIn ? '#' : '/signin/emailCheck'} className="flex-column" >
-            <span className="nav__span__first">Hello, {userCtx.isLoggedIn ? userCtx.user.name : 'Sign in'}</span>
-            <span className="nav__span__second flex">
-              Accounts &amp; Lists <ArrowDropDownIcon />
-            </span>
+  const backdropEnableHandler = () => {
+    dispatch(enableBackDrop())
+  }
+
+  const backdropDisableHandler = () => {
+    dispatch(disableBackDrop())
+  }
+
+  const popUpBackDropHandler = () => {
+    dispatch(enablepopupBackdrop())
+  }
+
+  const logoutHandler = () => {
+    dispatch(Logout())
+    logoutHelper()
+
+  }
+  return (
+    <TopNavContainer className='flex'>
+      <TopNavLeftContainer className="flex">
+        <TopNavLogo className='nav--hover'>
+          <Link to={'/'}>
+            <img src={Amazon_Logo} alt='Nav_Logo' />
+            <span>.in</span>
           </Link>
-          <div className="nav__signIn__dropDown__content">
-            <div>
-              {!userCtx.isLoggedIn && <div className="dropdown__signin">
+        </TopNavLogo>
+        <TopNavLocation className="nav--hover flex"
+          onClick={popUpBackDropHandler}
+        >
+          <LocationOnOutlinedIcon />
+          <div className="flex-column">
+            <span className='top__nav__hover__div-first'>{Auth.isLoggedIn ? `Deliver to ${Auth.user.name}` : 'Hello'}</span>
+            <span className="top__nav__hover__div-second">Select Your Address</span>
+          </div>
+        </TopNavLocation>
+      </TopNavLeftContainer>
+      <TopNavMiddleContainer className="flex">
+        <TopNavSearch />
+      </TopNavMiddleContainer>
+      <TopNavRightContainer className="flex">
+        <TopNavSignin className='flex nav--hover'
+          onMouseEnter={backdropEnableHandler}
+          onMouseLeave={backdropDisableHandler} >
+          <Link to={Auth.isLoggedIn ? '#' : '/signin/emailCheck'} className="flex-column">
+            <span className="top__nav__hover__div-first">Hello, {Auth.isLoggedIn ? Auth.user.name : 'Sign in'}</span>
+            <div className="flex">
+              <span className="top__nav__hover__div-second">Accounts &amp; Lists</span>
+              <ArrowDropDownIcon fontSize="small" />
+            </div>
+          </Link>
+          <TopNavSigninDropDown className="dropdown" >
+            <TopNavSigninDropDownContainer>
+              {!Auth.isLoggedIn && <DropDownSignInBtn>
                 <Link to={"/signin/emailCheck"}>
                   <button>Sign In</button>
                 </Link>
-                <p>
+                <p className="flex">
                   New Customer?
-                  <Link to={"/signup"}>
+                  <Link to={"/signup"} className='colored-link'>
                     <span>Start Here.</span>
                   </Link>
                 </p>
-              </div>}
-              <ul className="dropdown__list">
+              </DropDownSignInBtn>}
+              <DropDownList1>
                 <h3>Your List</h3>
                 <li>
-                  <Link to={"/"}>{userCtx.isLoggedIn ? userCtx.user.name + "'s" : 'Create a'} Wish List</Link>
+                  <Link to={"/"}>{Auth.isLoggedIn ? Auth.user.name + "'s" : 'Create a'} Wish List</Link>
                 </li>
                 <li>
                   <Link to={"/"}>Wish from Any Website</Link>
@@ -85,8 +98,8 @@ const TopNav = () => {
                 <li>
                   <Link to={"/"}>Explore Showroom</Link>
                 </li>
-              </ul>
-              <ul className="dropdown__account">
+              </DropDownList1>
+              <DropDownList2>
                 <h3>Your Account</h3>
                 <li>
                   <Link to={"/"}>Your Account</Link>
@@ -107,10 +120,10 @@ const TopNav = () => {
                   <Link to={"/"}>Your Prime Video</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>Your Subscribe & Save Items</Link>
+                  <Link to={"/"}>Your Subscribe &amp; Save Items</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>Memberships & Subscriptions</Link>
+                  <Link to={"/"}>Memberships &amp; Subscriptions</Link>
                 </li>
                 <li>
                   <Link to={"/"}>Your Amazon Business Account</Link>
@@ -121,28 +134,36 @@ const TopNav = () => {
                 <li>
                   <Link to={"/"}>Manage Your Content and Devices</Link>
                 </li>
-                {userCtx.isLoggedIn && <li onClick={userCtx.logoutHandler} >
-                  <Link to={'#'}>Sign Out</Link>
+                {Auth.isLoggedIn && <li onClick={logoutHandler} >
+                  <Link to={'/signin/emailCheck'}>Sign Out</Link>
                 </li>}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="nav--hover nav__orders">
-          <Link to={"/"} className="flex-column">
-            <span className="nav__span__first">Returns</span>
-            <span className="nav__span__second">&amp; Orders</span>
-          </Link>
-        </div>
-        <div className="nav--hover nav__cart">
-          <Link to={"/"} className="flex-column">
-            <span className="nav__span__second flex">
-              <ShoppingCartOutlinedIcon fontSize="large" />
-              Cart
-            </span>
-          </Link>
-        </div>
-      </TopNavRight>
+              </DropDownList2>
+            </TopNavSigninDropDownContainer>
+          </TopNavSigninDropDown>
+        </TopNavSignin>
+        <TopNavReturnOrder className="nav--hover flex">
+          <Link to={'#'} className="flex-column">
+            <span className="top__nav__hover__div-first">Returns</span>
+            <span className="top__nav__hover__div-second">&amp; Orders</span></Link>
+        </TopNavReturnOrder>
+        <TopNavCart className='nav--hover '>
+          {isCart.includes('Cart') ?
+            <div className="flex">
+              <div className="CartIconContainer">
+                <ShoppingCartOutlinedIcon />
+                <span className="cartItem">{Cart.totalQuantity}</span>
+              </div>
+              <h4>Cart</h4></div>
+            :
+            <Link to={'/Cart'} className="flex">
+              <div className="CartIconContainer">
+                <ShoppingCartOutlinedIcon />
+                <span className="cartItem">{Cart.totalQuantity}</span>
+              </div>
+              <h4>Cart</h4></Link>
+          }
+        </TopNavCart>
+      </TopNavRightContainer>
     </TopNavContainer >
   );
 };
@@ -152,135 +173,166 @@ export default TopNav;
 const TopNavContainer = styled.nav`
   height: 60px;
   align-items: center;
-  background-color: #0f1111;
+  background-color: #131921;
   padding: 0.4rem 0.8rem;
   width: 100%;
   gap: 0.5rem;
   z-index: 100;
 
-  .nav__span__first {
-    font-size: 0.75rem;
-    color: #cecaca;
+  a{
+    display: flex;
+  } 
+  .top__nav__hover__div-first{
+    font-size: 0.7rem;
+    color:rgba(200,200,200,1);
+    padding-bottom: 0.1rem;
   }
-  .nav__span__second {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+  .top__nav__hover__div-second{
+    font-size: 0.8rem;
+    font-family: 'Amazon-light';
+    font-weight: 900;
+    letter-spacing: .5px;
+  }
+  .nav--hover{
+    cursor: pointer;
     align-items: center;
-    width: max-content;
+    margin:0 1px;
   }
 `;
-const TopNavLeft = styled.div`
+
+const TopNavLeftContainer = styled.div`
+`;
+
+const TopNavLogo = styled.div`
+  padding: 0.7rem 0.4rem 0.2rem;
+  img {
+    width:6rem;
+  }
+`
+
+const TopNavLocation = styled.div`
   align-items: center;
-  /* NavLogo */
-  .nav__logo {
-    padding: 0.7rem 0.4rem 0.2rem;
-    img {
-      width: 6.5rem;
-      height: 2rem;
-    }
-    span {
-      margin: 0.2rem 0 0.2rem 0;
-      font-size: 0.95rem;
-    }
-  }
-  /* Nav Address */
-  .nav__address {
-    justify-content: center;
-    .nav__span__first {
-      margin-left: 1.5rem;
-    }
-    .nav__span__second {
-      margin-top: -10px;
-    }
-  }
-`;
-const TopNavMiddle = styled.div`
+`
+
+const TopNavMiddleContainer = styled.div`
   flex-grow: 2;
 `;
-const TopNavRight = styled.div`
-  .nav__signIn__dropDown {
-    position: relative;
-    display: inline-block;
 
-    .nav__signIn__dropDown__content {
-      display: none;
-      position: absolute;
-      top: 3rem;
-      right: -1px;
-      padding: 1rem 2rem;
-      background-color: white;
-      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
-      z-index: 90;
-      color: black;
+const TopNavRightContainer = styled.div``;
 
-      ul {
-        h3 {
-          font-size: 1rem;
-          font-weight: 600;
-          margin: 0.5rem 0;
-        }
-        a {
-          font-size: 0.9rem;
-          font-family: "Amazon-light";
-          color: black;
-          &:hover {
-            color: var(--orange);
-            text-decoration: underline;
-          }
-        }
-      }
-
-      div {
-        display: grid;
-        width: 25rem;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: "signin signin" "yourlist youraccount";
-
-        .dropdown__signin {
-          grid-area: signin;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 0.5rem;
-          button {
-            width: 10rem;
-            padding: 0.5rem;
-            margin-bottom: 0.6rem;
-          }
-          p {
-            font-size: 0.7rem;
-            a {
-              color: var(--blue);
-              margin-left: 0.2rem;
-              &:hover {
-                text-decoration: underline;
-                color: var(--orange);
-              }
-            }
-          }
-        }
-        .dropdown__list {
-          grid-area: yourlist;
-        }
-        .dropdown__account {
-          grid-area: youraccount;
-        }
-      }
-    }
-
-    &:hover {
-      .nav__signIn__dropDown__content {
-        display: block;
-        transition: 300ms ease;
-      }
+const TopNavSignin = styled.div`
+position: relative;
+span{
+  padding-bottom: 0 !important;
+}
+> a > div {
+  align-items: center;
+}
+&:hover {
+  .dropdown{
+      opacity:1;
+      pointer-events: all;
+  }
+}
+`
+const TopNavSigninDropDown = styled.div`
+  opacity:0;
+  pointer-events: none;
+  position: absolute;
+  top: 2.98rem;
+  right: -1rem;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+  z-index: 90;
+  color: black;
+  cursor: default;
+  transition:ease 300ms;
+  border-radius: 3px;
+  border: 1px solid var(--lightgray);
+  span{
+    margin-left:0.4rem;
+  }
+`
+// TopNavBarDropDown....
+const TopNavSigninDropDownContainer = styled.div`
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "button button"
+  "list1 list2";
+  width:28rem;
+  align-items: flex-start;
+`
+const DropDownSignInBtn = styled.div`
+  grid-area: button;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid rgba(200,200,200,.5);
+  button {
+    width: 12rem;
+    padding: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+  p {
+    font-size: 0.7rem;
+  }
+`
+const DropDownList1 = styled.ul`  
+  grid-area: list1;
+  align-items: flex-start;
+  padding: 0 1rem;
+  a{
+    color:var(--gray);
+    font-size:0.8rem;
+    margin:0.5rem 0;
+    &:hover{
+      color:var(--orange);
+      text-decoration: underline;
     }
   }
-  .nav__cart {
-    .nav__span__second {
-      align-items: flex-end;
-      font-weight: 600;
-      letter-spacing: 1xpx;
-    }
-  }
+`
+const DropDownList2 = styled(DropDownList1)`
+  grid-area: list2;
+  border-left: 1px solid rgba(200,200,200,.5);
 `;
+
+
+// TopNavBarDropDown....
+
+
+const TopNavReturnOrder = styled.div``
+
+const TopNavCart = styled.div`
+ h4 {
+    margin-bottom: 5px !important;
+  }
+  .MuiSvgIcon-root{
+    font-size: 2.5rem;
+  }
+  a,div {
+    align-items: flex-end !important;
+  }
+.CartIconContainer{
+  position:relative;
+  .cartItem{
+    position: absolute;
+    text-align: center;
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
+    /* background-color: white; */
+    background-color: #131921;
+    top: 2px;
+    border-radius: 1rem;
+    left: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--orange);
+  }
+}
+  
+`
+

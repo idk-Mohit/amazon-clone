@@ -1,17 +1,21 @@
 import axios from "axios";
 import ErrorModal from "./ErrorModal";
 import styled from "styled-components";
-import { UserContext } from "../../Store";
+import { useSelector, useDispatch } from 'react-redux'
+import { loginHelper } from '../../Store/AuthenticationHelper'
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import AuthenticationWrapper from "./AuthenticationWrapper";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Login } from "../../Store/Auth-Slice";
 
-const EmailForm = () => {
-  const userCtx = useContext(UserContext)
+const PasswordForm = () => {
+  // const userCtx = useContext(UserContext)
+  const Auth = useSelector(state => state.Auth)
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [errorPresent, setIsErrorPresent] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -19,7 +23,7 @@ const EmailForm = () => {
   const redirect = useNavigate()
   const [helpDropdown, setHelpDropDown] = useState(false);
 
-  var username = userCtx.userName || localStorage.getItem('username');
+  var username = Auth.username || localStorage.getItem('username');
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
@@ -37,15 +41,14 @@ const EmailForm = () => {
           'Content-Type': 'application/json'
         },
         data: {
-          username: userCtx.userName,
+          username: username,
           password: passwordRef.current.value
         }
       });
       if (response.data.found) {
         console.log(response)
-        userCtx.loginHandler(response.data.accessToken)
-        localStorage.setItem('accessToken', response.data.accessToken)
-        userCtx.userHandler(response.data)
+        loginHelper(response.data.accessToken)
+        dispatch(Login(response.data.accessToken))
         redirect('/')
       }
       else {
@@ -112,7 +115,7 @@ const EmailForm = () => {
   );
 };
 
-export default EmailForm;
+export default PasswordForm;
 
 const Container = styled.section`
   margin: auto;

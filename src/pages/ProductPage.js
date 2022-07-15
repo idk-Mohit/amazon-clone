@@ -2,7 +2,7 @@ import axios from 'axios'
 import LayOut from './LayOut'
 import styled from 'styled-components'
 import { Skeleton } from '@mui/material'
-import Tilt from 'react-parallax-tilt';
+import ReactImageMagnify from 'react-image-magnify';
 import { Link, useParams } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -10,9 +10,7 @@ import { Accordian, ProductRating, PriceUI, BuyingSection, ItemCarousel } from '
 
 
 const ProductPage = () => {
-    // const FetchDataCtx = useContext(FetchDataContext)
     const { id, category } = useParams();
-    const [scale, setScale] = useState(1.15);
     const [product, setProduct] = useState()
     const [productFeatures, setProductFeatures] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -24,6 +22,7 @@ const ProductPage = () => {
                 url: `https://amazon-scraper.chipmunk092000.workers.dev/product/${id.replaceAll(`~`, '/')}`
             })
             if (result.data.product_detail !== null) {
+                console.log(result.data.product_detail)
                 setProduct(result.data.product_detail)
                 if (result.data.product_detail !== null) {
                     if (result.data.product_detail.features) setProductFeatures(result.data.product_detail.features)
@@ -57,31 +56,29 @@ const ProductPage = () => {
                     {product}
                 </ProductContainer> : <ProductContainer>
                     <ProductImageDiv>
-                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> :
-                            <div className='flex-column'>
-                                {product.image &&
-                                    <Tilt scale={scale} transitionSpeed={2500}>
-                                        <div className="tilt-scale">
-                                            <img src={product.image} alt="" />
-                                            <div className="header">
-                                                <div id='ImageScaler'>
-                                                    <div className="form">
-                                                        <input
-                                                            type="range"
-                                                            min="0.7"
-                                                            max="1.5"
-                                                            step="0.01"
-                                                            value={scale}
-                                                            onChange={(ev) => setScale(parseFloat(ev.target.value))}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
+                        {isLoading ?
+                            <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
+                            :
 
-                                        </div>
-                                    </Tilt>}
-                                < span > Hover to Zoom In</span>
-                            </div>}
+                            <div className='flex-column magnifier-container'>
+                                {product.image &&
+                                    <ReactImageMagnify {...{
+                                        smallImage: {
+                                            alt: 'ProductImage',
+                                            isFluidWidth: true,
+                                            src: product.image
+                                        },
+                                        largeImage: {
+                                            src: product.image,
+                                            width: 1000,
+                                            height: 1000
+                                        }
+                                    }} className='magnifier' />
+                                }
+                                <span> Hover to Zoom In</span>
+                            </div>
+
+                        }
                     </ProductImageDiv>
                     <ProductData className='flex-column'>
                         {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"50%"} /> : <>{product.name && <Heading>{product.name}</Heading>}
@@ -106,7 +103,9 @@ const ProductPage = () => {
                             </Features>
                         }
                     </ProductData>
-                    {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
+                    {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
+                        :
+                        <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
                 </ProductContainer>}
             </Container>
         </LayOut >
@@ -115,7 +114,7 @@ const ProductPage = () => {
 
 export default ProductPage
 
-const Container = styled.section`
+const Container = styled.section`   
     margin: 105px 1rem 2rem;
     font-family: 'Amazon-light';
     min-height: 70vh;
@@ -163,53 +162,28 @@ h1{
 `
 
 const ProductImageDiv = styled.div`
-    top: 0;
-    margin: auto;
     min-height: 25rem;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border:1px solid var(--lightgray);
-    border-radius: 5px;
-    div {
+    text-align: center;
+    z-index: 10;
+    .magnifier{
+        width: 30rem !important;
+        height: 30rem !important;
         margin:auto;
-        text-align: center;
-        width: 90%;
-        align-items: center;
-    }
-    img {
-        margin:5rem 0 4rem;
-        max-height: 30rem;
-        max-width: 100%;
-        transition: 300ms ease all;
-        cursor: pointer;
-        &:hover {
-            /* width: 90%; */
-            transition: 300ms ease all;
-            transform: scale(1.04);
+        > img{
+            display: flex;
+            align-self: center;
+            padding: 10%;
+            display: table;
+            margin: auto;
         }
-    }
-    span{
-        color:var(--gray)
-    }
-    .tilt-scale{
-        position: relative;
-
-        #ImageScaler {
-            opacity: 0;
-            position: absolute;
-            top:50%;
-            z-index: 100;
-            transition: 200ms ease opacity;
-        }
-
-        &:hover{
-            #ImageScaler{
-                opacity: 1;
-                transition: 200ms ease opacity;
+        div:nth-of-type(2){
+            background-color: white;
+            img {
+                padding: 2rem;
             }
         }
     }
+    
 `
 const ProductData = styled.div`
 border:1px solid var(--lightgray);
@@ -259,6 +233,7 @@ position: relative;
         position: absolute;
         width: 100%;
         top: 1rem;
+        z-index: 10;
         right: 40%;
         padding: 1rem;
         border: 1px solid var(--lightgray);

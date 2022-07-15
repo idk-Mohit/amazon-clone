@@ -2,7 +2,7 @@ const search = [
   "All Categories",
   "Alexa Skills",
   "Amazon Devices",
-  " Amazon Fashion",
+  "Amazon Fashion",
   "Amazon Fresh",
   "Amazon Pharmacy",
   "Appliances",

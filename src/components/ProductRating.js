@@ -15,4 +15,7 @@ export default function ProductRating({ rating }) {
 
 const Container = styled.div`
 margin:.3rem 0;
+  > * {
+    z-index: 0;
+  }
 `

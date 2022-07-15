@@ -57,9 +57,9 @@ const ProductList = () => {
                 </ImageContainer>
             </Link>
             <DataContainer>
-                <Link to={`/product/${ProductLink}`} ><ProductName className='product-name'>{NewProductName}</ProductName></Link>
+                <Link to={`/product/${name}/${ProductLink}`}><ProductName className='product-name'>{NewProductName}</ProductName></Link>
                 <ProductPriceDiv className='flex-column product-price-div'>
-                    <Link to={`/product/${ProductLink}`} ><p className='current-price flex'><span className='price-symbol'>&#8377;</span>{product.price}</p></Link>
+                    <Link to={`/product/${name}/${ProductLink}`}><p className='current-price flex'><span className='price-symbol'>&#8377;</span>{product.price}</p></Link>
                     <p>From<span className='price-symbol'>&#8377;</span><span className='original-price'>{product.original_price}</span></p>
                 </ProductPriceDiv>
                 <span className='productNote'>Flat INR 6000 Off on HDFC Bank Cards</span>
@@ -235,10 +235,6 @@ img {
     right: 0;
     max-width: 100%;
     max-height: 100%;
-}
-&:hover img{
-    transform: scale(1.03);
-    transition: 300ms ease all;
 }
 `
 const DataContainer = styled.div`

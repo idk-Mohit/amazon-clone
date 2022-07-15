@@ -30,7 +30,7 @@ const Container = styled.div`
         border: .5px solid rgba(200,200,200,.5);
         padding: .8rem .5rem;
         span{
-            margin: 0 .2rem;
+            margin-right:.2rem;
             color:var(--orange);
         }
     }
