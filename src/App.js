@@ -54,7 +54,10 @@ function App() {
       // Waking up the backend server
       axios('https://diverse-backend.herokuapp.com/')
         .then(result => {
-          if (result) sessionStorage.setItem('backend', 'active')
+          if (result) {
+            console.log('Backend Active')
+            sessionStorage.setItem('backend', 'active')
+          }
         })
       window.addEventListener("scroll", () => {
         if (window.pageYOffset > 300) {
@@ -64,6 +67,7 @@ function App() {
         }
       });
     }
+    AppStart = false
   }, []);
 
   // Setting User LoggedIn State and User Data
