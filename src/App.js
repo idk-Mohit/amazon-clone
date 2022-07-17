@@ -22,7 +22,6 @@ function App() {
 
   const loginCheckHelper = useCallback(
     () => {
-      console.log('LoginCheckHelper Running')
       let loggedIn = localStorage.getItem('isLoggedIn')
       let token = localStorage.getItem('accessToken')
       if (loggedIn || token) {
@@ -55,7 +54,6 @@ function App() {
       axios('https://diverse-backend.herokuapp.com/')
         .then(result => {
           if (result) {
-            console.log('Backend Active')
             sessionStorage.setItem('backend', 'active')
           }
         })
@@ -105,14 +103,12 @@ function App() {
 
   useEffect(() => {
     const getInitialCart = async () => {
-      console.log('Fetching User Cart')
       const response = await axios({
         method: 'get',
         url: `https://diverse-backend.herokuapp.com/fetchCart/${Auth.user._id}`, //Production
         // url: `http://localhost:3001/fetchCart/${Auth.user._id}`,
       })
       if (response) {
-        console.log(response)
         const totalQty = await response.data.totalQuantity
         const newCart = await response.data.cart.map((item) => {
           return { id: item.productId, quantity: item.quantity, category: item.productCategory }

@@ -30,11 +30,9 @@ const ProductList = () => {
         }
         const storedList = JSON.parse(localStorage.getItem(`Fetched ${name}`))
         if (storedList === null || storedList.length < 1) {
-            console.log('Online data')
             FetchProductList()
         }
         else {
-            console.log('Offline Data')
             setFtechedProductList(storedList)
             setIsLoading(false)
         }

@@ -15,10 +15,8 @@ const Cart = () => {
     const Cart = useSelector(state => state.Cart)
     const [priceToPay, setPriceToPay] = useState(0)
     const [ProductList, setProductList] = useState([])
-    const [productQty, setProductQty] = useState(0)
 
     const fetchProduct = async (id) => {
-        console.log('Fetching Product, id :', id)
         const fetchedProduct = await axios({
             method: 'get',
             url: `https://amazon-scraper.chipmunk092000.workers.dev/product/${id.replaceAll(`~`, '/')}`
@@ -38,7 +36,6 @@ const Cart = () => {
     useEffect(() => {
         function setCart() {
             Cart.items.forEach(async (product) => {
-                console.log('Online Cart', product)
                 let ProductData = await fetchProduct(product.id)
                 if (ProductData.name !== '')
                     setProductList(prev => [...prev, {
@@ -49,7 +46,6 @@ const Cart = () => {
                         category: product.category,
                         quantity: product.quantity
                     }])
-                setProductQty(product.quantity)
             })
         }
         if (Cart.items.length > 0) {
@@ -70,7 +66,6 @@ const Cart = () => {
 
     const deleteHandler = async (e) => {
         let id = e.target.value
-        console.log('deleteHandler', e.target.value)
         let data = {
             email: Auth.user.email,
             productId: id,
@@ -79,39 +74,38 @@ const Cart = () => {
         let url = 'https://diverse-backend.herokuapp.com/removeFromCart' //Production
         // let url = 'http://localhost:3001/removeFromCart' // development
         const result = await CartHandler(data, url)
-        if (result) dispatch(removeItemFromCart({ id, quantity: 1 }))
+        if (result)
+            dispatch(removeItemFromCart({ id, quantity: 1 }))
     }
 
     const totalQtyHandler = async (e) => {
         const selectValue = parseInt(e.target.value)
-        const { id, category } = JSON.parse(e.target.title)
-        console.log('Product Info', id, category, e.target.title)
-        if (selectValue > productQty) {
+        const { id, category, quantity } = JSON.parse(e.target.title)
+        if (selectValue > quantity) {
             let data = {
                 email: Auth.user.email,
                 productCategory: category,
                 productId: id,
-                quantity: selectValue - productQty
+                quantity: selectValue - quantity
             }
             let url = 'https://diverse-backend.herokuapp.com/addToCart' //Production
             // let url = 'http://localhost:3001/addToCart' //Developmemt
             const response = await CartHandler(data, url)
             if (response)
-                dispatch(addItemToCart({ id, quantity: selectValue - productQty }))
+                dispatch(addItemToCart({ id, quantity: selectValue - quantity, category }))
         }
-        if (selectValue < productQty) {
+        if (selectValue < quantity) {
             let data = {
                 email: Auth.user.email,
                 productId: id,
-                quantity: productQty - selectValue
+                quantity: quantity - selectValue
             }
             let url = 'https://diverse-backend.herokuapp.com/removeFromCart' //Production
             // let url = 'http://localhost:3001/removeFromCart'
             const response = await CartHandler(data, url)
             if (response)
-                dispatch(removeItemFromCart({ id, quantity: productQty - selectValue }))
+                dispatch(removeItemFromCart({ id, quantity: quantity - selectValue }))
         }
-        setProductQty(e.target.value)
     }
 
     return (
@@ -134,7 +128,7 @@ const Cart = () => {
                                     <h1>Shopping Cart</h1>
                                     <span className='PriceHeader'>Price</span>
                                     {ProductList.map((product, index) => {
-                                        console.log(product)
+                                        let quantity = product.quantity
                                         return <Item key={index}>
                                             <Link to={`/product/${product.category}/${product.id}`} className='productImage'>
                                                 <img src={product.image} alt="" />
@@ -148,7 +142,7 @@ const Cart = () => {
                                                     </div>
                                                     <Buttons className='buttons flex'>
                                                         <ProductQty className="productQty">
-                                                            <select name="addMore" id="addMore" defaultValue={product.quantity} onChange={totalQtyHandler} title={JSON.stringify({ id: product.id, category: product.category })} >
+                                                            <select name="addMore" id="addMore" defaultValue={quantity} onChange={totalQtyHandler} title={JSON.stringify({ id: product.id, category: product.category, quantity })} >
                                                                 <option value="0">0 (delete)</option>
                                                                 <option value='1'>1</option>
                                                                 <option value='2'>2</option>
@@ -161,7 +155,7 @@ const Cart = () => {
                                                                 <option value='9'>9</option>
                                                                 <option value='10'>10+</option>
                                                             </select>
-                                                            <div className="progressive_width flex">Qty: <span className='flex'>{product.quantity} <ArrowDropDownIcon fontSize='small' /></span></div>
+                                                            <div className="progressive_width flex">Qty: <span className='flex'>{quantity} <ArrowDropDownIcon fontSize='small' /></span></div>
                                                         </ProductQty>
                                                         <button onClick={deleteHandler} value={product.id} >Delete</button>
                                                     </Buttons>

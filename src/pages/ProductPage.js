@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Accordian, ProductRating, PriceUI, BuyingSection, ItemCarousel } from '../components'
 
-
 const ProductPage = () => {
     const { id, category } = useParams();
     const [product, setProduct] = useState()
@@ -22,7 +21,6 @@ const ProductPage = () => {
                 url: `https://amazon-scraper.chipmunk092000.workers.dev/product/${id.replaceAll(`~`, '/')}`
             })
             if (result.data.product_detail !== null) {
-                console.log(result.data.product_detail)
                 setProduct(result.data.product_detail)
                 if (result.data.product_detail !== null) {
                     if (result.data.product_detail.features) setProductFeatures(result.data.product_detail.features)

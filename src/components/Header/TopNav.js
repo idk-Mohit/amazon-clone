@@ -2,13 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TopNavSearch from "./TopNavSearch";
-import { Amazon_Logo } from "../../assets/Images";
+import { Amazon_Logo, CartIcon } from "../../assets/Images";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-// import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { enableBackDrop, disableBackDrop, enablepopupBackdrop } from "../../Store/backdrop-Slice";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Logout } from '../../Store/Auth-Slice'
 import { logoutHelper } from '../../Store/AuthenticationHelper'
 
@@ -150,14 +148,14 @@ const TopNav = () => {
           {isCart.includes('Cart') ?
             <div className="flex">
               <div className="CartIconContainer">
-                <ShoppingCartOutlinedIcon />
+                <img src={CartIcon} alt='' />
                 <span className="cartItem">{Cart.totalQuantity}</span>
               </div>
               <h4>Cart</h4></div>
             :
             <Link to={'/Cart'} className="flex">
               <div className="CartIconContainer">
-                <ShoppingCartOutlinedIcon />
+                <img src={CartIcon} alt='' />
                 <span className="cartItem">{Cart.totalQuantity}</span>
               </div>
               <h4>Cart</h4></Link>
@@ -307,28 +305,26 @@ const TopNavReturnOrder = styled.div``
 
 const TopNavCart = styled.div`
  h4 {
-    margin-bottom: 5px !important;
-  }
-  .MuiSvgIcon-root{
-    font-size: 2.5rem;
+    margin-bottom: 1px !important;
   }
   a,div {
     align-items: flex-end !important;
+  }
+  img {
+    width: 2.6rem;
   }
 .CartIconContainer{
   position:relative;
   .cartItem{
     position: absolute;
     text-align: center;
-    width: 1rem;
-    height: 1rem;
-    line-height: 1;
-    /* background-color: white; */
+    width: 25px;
+    height: 20px;
     background-color: #131921;
-    top: 2px;
     border-radius: 1rem;
+    top: -4px;
     left: 12px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--orange);
   }

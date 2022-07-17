@@ -30,8 +30,8 @@ const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
     const AddToCartHandler = async () => {
         const response = await axios({
             method: 'post',
-            // url: `https://diverse-backend.herokuapp.com/addToCart`,
-            url: 'http://localhost:3001/addToCart',
+            url: `https://diverse-backend.herokuapp.com/addToCart`,
+            // url: 'http://localhost:3001/addToCart',
             data: {
                 email: Auth.user.email,
                 productCategory: category,
@@ -39,9 +39,10 @@ const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
                 quantity: 1
             }
         })
-        dispatch(addItemToCart({ id, quantity: 1 }))
-        console.log(response)
-        if (response) navigate('/Cart')
+        if (response) {
+            dispatch(addItemToCart({ id, quantity: 1, category }))
+            navigate('/Cart')
+        }
     }
 
     return (
