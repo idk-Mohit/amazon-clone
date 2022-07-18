@@ -5,32 +5,37 @@ import styled from 'styled-components';
 import Skeleton from '@mui/material/Skeleton';
 import DoneIcon from '@mui/icons-material/Done';
 import LayOut from './LayOut';
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const ProductList = () => {
     const [FetchedProductList, setFtechedProductList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const { name } = useParams()
+
+    const FetchProductList = async (name) => {
+        setIsLoading(true)
+        let url = `https://amazon-scraper.chipmunk092000.workers.dev/search/${name}`
+        const result = await axios({
+            method: 'get',
+            url
+        })
+        if (result.data.status) {
+            setFtechedProductList(result.data.result)
+            localStorage.setItem(`Fetched ${name}`, JSON.stringify(result.data.result))
+            setIsLoading(false)
+        }
+        else {
+            setFtechedProductList()
+            setIsLoading(false)
+        }
+    }
+
     useEffect(() => {
         setIsLoading(true)
-        const FetchProductList = async () => {
-            const result = await axios({
-                method: 'get',
-                url: `https://amazon-scraper.chipmunk092000.workers.dev/search/${name}`
-            })
-            if (result.data.status) {
-                setFtechedProductList(result.data.result)
-                localStorage.setItem(`Fetched ${name}`, JSON.stringify(result.data.result))
-                setIsLoading(false)
-            }
-            else {
-                setFtechedProductList()
-                setIsLoading(false)
-            }
-        }
         const storedList = JSON.parse(localStorage.getItem(`Fetched ${name}`))
         if (storedList === null || storedList.length < 1) {
-            FetchProductList()
+            FetchProductList(name)
         }
         else {
             setFtechedProductList(storedList)
@@ -69,6 +74,12 @@ const ProductList = () => {
         </List>
     })
 
+    const paginationHandler = (e) => {
+        let page = e.target.innerText
+        window.scrollTo({ top: 0, behavior: 'auto' })
+        FetchProductList(`${name}&page=${page}`)
+    }
+
     return (
         <LayOut>
             <Container>
@@ -87,7 +98,7 @@ const ProductList = () => {
 
                     < main >
                         {!isLoading && FetchedProductList.length < 1 ? <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{name}"</span></h1> : <h1>RESULTS</h1>}
-                        <ul>
+                        <ul className='ProductList'>
                             {isLoading ?
                                 (<LoadingDiv>
                                     <li>
@@ -135,7 +146,15 @@ const ProductList = () => {
                                 list
                             }
                         </ul>
+                        {/* Pagination */}
+                        <PaginationContainer id='pagination'>
+                            <Stack spacing={2}>
+                                <Pagination count={5} color="primary" onChange={paginationHandler} />
+                            </Stack>
+                        </PaginationContainer>
+                        {/* Pagination */}
                     </main>
+
                 </InnerContainer>
             </Container>
         </LayOut >
@@ -148,7 +167,6 @@ const Container = styled.div`
 margin-top: 105px;
 min-height: 70vh;
 `
-
 const InnerContainer = styled.section`
 display: grid;
 grid-template-columns: 25% auto;
@@ -171,7 +189,7 @@ aside {
         margin-left:1rem;
     }
 
-    ul{
+    .filterPrice{
         padding: 1rem;
         li{
             cursor: pointer;
@@ -186,14 +204,11 @@ aside {
 
 main{
     grid-area: main;
-    ul{
+    .ProductList {
+        display: flex;
         gap:1rem;
+        flex-direction: column;
     }
-}
-
-ul {
-    display: flex;
-    flex-direction: column;
 }
 `
 const MainHeading = styled.h1`
@@ -272,7 +287,6 @@ const ProductPriceDiv = styled.div`
     }
     
 `
-
 const DeliveryDiv = styled.div`
     p{
         font-family: 'Amazon-light';
@@ -300,7 +314,6 @@ const DeliveryDiv = styled.div`
         margin: 0 .2rem;
     }
 `
-
 const LoadingDiv = styled.div`
 li {
     display: grid;
@@ -315,4 +328,19 @@ li {
         padding: 1rem 1rem 1rem 0;
     }
 } 
+`
+const PaginationContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+
+    li{
+        &:nth-of-type(1),&:nth-of-type(7){
+            display: none;
+        }
+    }
+    button{
+        background-image: none;
+        background-color: rgba(200,200,200,1);
+    }
 `

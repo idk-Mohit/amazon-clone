@@ -22,8 +22,8 @@ const SignUp = () => {
     const formSubmitHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true)
-        const url = 'https://diverse-backend.herokuapp.com/signUp';// Production
-
+        // const url = 'https://diverse-backend.herokuapp.com/signUp';// Production
+        const url = 'http://localhost:3001/signUp'
         const response = await axios({
             method: 'post',
             url: url,
@@ -37,14 +37,11 @@ const SignUp = () => {
                 password: enteredPassword.current.value,
             }
         });
-        if (response.data.found) {
-            console.log(response)
-
-            navigate("/signin/emailCheck", { replace: true });
+        if (response.data.status !== 201) {
+            setIsErrorPresent(response.data.message)
         }
         else {
-            console.log(response.data.error)
-            setIsErrorPresent(response.data.message)
+            navigate("/signin/emailCheck", { replace: true });
         }
         setIsLoading(false)
     }

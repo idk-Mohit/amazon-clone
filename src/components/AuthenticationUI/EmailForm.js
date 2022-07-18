@@ -39,13 +39,11 @@ const EmailForm = () => {
       }
     });
     if (response.data.found) {
-      console.log(response)
       userNameHelper(response.data.user)
       dispatch(UserName(response.data.user))
       navigate("/signin/passwordCheck", { replace: true });
     }
     else {
-      console.log(response.data.message)
       setIsErrorPresent(response.data.message)
     }
     setIsLoading(false)

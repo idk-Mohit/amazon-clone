@@ -1,7 +1,7 @@
 import axios from "axios";
 import ErrorModal from "./ErrorModal";
 import styled from "styled-components";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { loginHelper } from '../../Store/AuthenticationHelper'
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useRef } from "react";
@@ -10,12 +10,10 @@ import AuthenticationWrapper from "./AuthenticationWrapper";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Login } from "../../Store/Auth-Slice";
 
 const PasswordForm = () => {
   // const userCtx = useContext(UserContext)
   const Auth = useSelector(state => state.Auth)
-  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [errorPresent, setIsErrorPresent] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -46,14 +44,11 @@ const PasswordForm = () => {
         }
       });
       if (response.data.found) {
-        console.log(response)
         loginHelper(response.data.accessToken)
-        dispatch(Login(response.data.accessToken))
         redirect('/')
       }
       else {
         setIsErrorPresent(response.data.message)
-        console.log(response.data.message)
       }
     }
     setIsLoading(false)

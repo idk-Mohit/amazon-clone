@@ -44,7 +44,7 @@ const ProductPage = () => {
 
     return (
         <LayOut>
-            <Container>
+            <Container className='main-container'>
                 <ItemCarouselContainer>
                     <h1>More of <span>{category}</span></h1>
                     <div><ItemCarousel data={category} /></div>
@@ -112,11 +112,7 @@ const ProductPage = () => {
 
 export default ProductPage
 
-const Container = styled.section`   
-    margin: 105px 1rem 2rem;
-    font-family: 'Amazon-light';
-    min-height: 70vh;
-
+const Container = styled.section`
     hr.TopDivider{
         width: 95%;
         border: 1px solid rgba(200,200,200,.5);

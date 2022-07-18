@@ -4,10 +4,12 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { CartHolder } from '../components'
 import { GreenTickIcon } from '../assets/Images'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItemToCart, removeItemFromCart } from '../Store/Cart-Slice'
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Skeleton } from '@mui/material'
+import { dotLoader } from '../assets/Images'
 
 const Cart = () => {
     const dispatch = useDispatch()
@@ -15,6 +17,7 @@ const Cart = () => {
     const Cart = useSelector(state => state.Cart)
     const [priceToPay, setPriceToPay] = useState(0)
     const [ProductList, setProductList] = useState([])
+    var loadingRef = useRef();
 
     const fetchProduct = async (id) => {
         const fetchedProduct = await axios({
@@ -35,9 +38,13 @@ const Cart = () => {
 
     useEffect(() => {
         function setCart() {
+            loadingRef.current = true
+            console.log('Setting Cart')
+            setProductList([])
             Cart.items.forEach(async (product) => {
                 let ProductData = await fetchProduct(product.id)
-                if (ProductData.name !== '')
+                // if (ProductData.name) {
+                if (ProductData.name !== '') {
                     setProductList(prev => [...prev, {
                         name: ProductData.name,
                         image: ProductData.image,
@@ -46,6 +53,9 @@ const Cart = () => {
                         category: product.category,
                         quantity: product.quantity
                     }])
+                }
+                // }
+
             })
         }
         if (Cart.items.length > 0) {
@@ -78,6 +88,18 @@ const Cart = () => {
             dispatch(removeItemFromCart({ id, quantity: 1 }))
     }
 
+    const loadingList = Cart.items.map((item) => {
+        return <Loader key={item.id}>
+            <Skeleton variant="rectangular" width={"90%"} height={170} />
+            <div className="loadingDataDiv flex-column">
+                <Skeleton variant="rectangular" width={"100%"} height={"20%"} />
+                <Skeleton variant="rectangular" width={"50%"} height={"15%"} />
+                <Skeleton variant="rectangular" width={"100%"} height={"40%"} />
+            </div>
+        </Loader>
+    })
+
+
     const totalQtyHandler = async (e) => {
         const selectValue = parseInt(e.target.value)
         const { id, category, quantity } = JSON.parse(e.target.title)
@@ -107,7 +129,6 @@ const Cart = () => {
                 dispatch(removeItemFromCart({ id, quantity: quantity - selectValue }))
         }
     }
-
     return (
         <LayOut>
             {!Auth.isLoggedIn ?
@@ -127,45 +148,51 @@ const Cart = () => {
                                     {/* If Cart has Product */}
                                     <h1>Shopping Cart</h1>
                                     <span className='PriceHeader'>Price</span>
-                                    {ProductList.map((product, index) => {
-                                        let quantity = product.quantity
-                                        return <Item key={index}>
-                                            <Link to={`/product/${product.category}/${product.id}`} className='productImage'>
-                                                <img src={product.image} alt="" />
-                                            </Link>
-                                            <div className="productData flex">
-                                                <div className='flex-column'>
-                                                    <div>
-                                                        <Link className='productNameLink' to={`/product/${product.category}/${product.id}`}><h4>{product.name}</h4></Link>
-                                                        <span className='green-color'>In Stock</span>
-                                                        <p>Eligible for FREE Shipping</p>
+                                    {ProductList.length === Cart.items.length ? loadingRef.current = false : loadingRef.current = true}
+                                    {loadingRef.current ? loadingList : (
+                                        ProductList.map((product, index) => {
+                                            let quantity = product.quantity
+                                            return <Item key={index}>
+                                                <Link to={`/product/${product.category}/${product.id}`} className='productImage'>
+                                                    <img src={product.image} alt="" />
+                                                </Link>
+                                                <div className="productData flex">
+                                                    <div className='flex-column'>
+                                                        <div>
+                                                            <Link className='productNameLink' to={`/product/${product.category}/${product.id}`}><h4>{product.name}</h4></Link>
+                                                            <span className='green-color'>In Stock</span>
+                                                            <p>Eligible for FREE Shipping</p>
+                                                        </div>
+                                                        <Buttons className='buttons flex'>
+                                                            <ProductQty className="productQty">
+                                                                <select name="addMore" id="addMore" defaultValue={quantity} onChange={totalQtyHandler} title={JSON.stringify({ id: product.id, category: product.category, quantity })} >
+                                                                    <option value="0">0 (delete)</option>
+                                                                    <option value='1'>1</option>
+                                                                    <option value='2'>2</option>
+                                                                    <option value='3'>3</option>
+                                                                    <option value='4'>4</option>
+                                                                    <option value='5'>5</option>
+                                                                    <option value='6'>6</option>
+                                                                    <option value='7'>7</option>
+                                                                    <option value='8'>8</option>
+                                                                    <option value='9'>9</option>
+                                                                    <option value='10'>10+</option>
+                                                                </select>
+                                                                <div className="progressive_width flex">Qty: <span className='flex'>{quantity} <ArrowDropDownIcon fontSize='small' /></span></div>
+                                                            </ProductQty>
+                                                            <button onClick={deleteHandler} value={product.id} >Delete</button>
+                                                        </Buttons>
                                                     </div>
-                                                    <Buttons className='buttons flex'>
-                                                        <ProductQty className="productQty">
-                                                            <select name="addMore" id="addMore" defaultValue={quantity} onChange={totalQtyHandler} title={JSON.stringify({ id: product.id, category: product.category, quantity })} >
-                                                                <option value="0">0 (delete)</option>
-                                                                <option value='1'>1</option>
-                                                                <option value='2'>2</option>
-                                                                <option value='3'>3</option>
-                                                                <option value='4'>4</option>
-                                                                <option value='5'>5</option>
-                                                                <option value='6'>6</option>
-                                                                <option value='7'>7</option>
-                                                                <option value='8'>8</option>
-                                                                <option value='9'>9</option>
-                                                                <option value='10'>10+</option>
-                                                            </select>
-                                                            <div className="progressive_width flex">Qty: <span className='flex'>{quantity} <ArrowDropDownIcon fontSize='small' /></span></div>
-                                                        </ProductQty>
-                                                        <button onClick={deleteHandler} value={product.id} >Delete</button>
-                                                    </Buttons>
+                                                    <span className='productPrice'>&#8377;{product.price}</span>
                                                 </div>
-                                                <span>&#8377;{product.price}</span>
-                                            </div>
-                                        </Item>
-                                    })}
+                                            </Item>
+                                        })
+                                    )}
                                     <SubTotalAmount className='TotalFooter' >
-                                        <h4>{`Subtotal (${Cart.totalQuantity} item) :`}<span className='priceSymbol'>&#8377;</span>{priceToPay} </h4>
+                                        <h4>{`Subtotal (${Cart.totalQuantity} item) :`}
+                                            <span className='priceSymbol'>&#8377;</span>
+                                            {loadingRef.current ? <PriceLoader src={dotLoader} alt='' /> : priceToPay}
+                                        </h4>
                                     </SubTotalAmount>
                                 </Products>)
                         }
@@ -185,7 +212,9 @@ const Cart = () => {
                             </div>
                         </Note>
                         <SubTotalAmount>
-                            <h4>{`Subtotal (${Cart.totalQuantity} item) :`}<span className='priceSymbol'>&#8377;</span>{priceToPay} </h4>
+                            <h4>{`Subtotal (${Cart.totalQuantity} item) :`}
+                                <div><span className='priceSymbol'>&#8377;</span>
+                                    {loadingRef.current ? <PriceLoader src={dotLoader} alt='' /> : priceToPay}</div></h4>
                         </SubTotalAmount>
                         <button>Proceed to Buy</button>
                     </SubTotal>
@@ -231,6 +260,20 @@ const Products = styled(NoProduct)`
     .TotalFooter{
         display:flex;
         justify-content: flex-end;
+    }
+`
+const Loader = styled.div`
+    display: grid;
+    grid-template-columns: auto 75%;
+    grid-gap: 1rem;
+    border: 1px solid rgba(200,200,200,.4);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    padding:1rem;
+
+    .loadingDataDiv{
+        justify-content: space-between;
+        padding: 1rem 1rem 1rem 0;
     }
 `
 const Item = styled.div`
@@ -293,8 +336,11 @@ const Item = styled.div`
             }
         }
         
-        span{
+        .productPrice{
             text-align: end;
+            font-family: 'Amazon-light';
+            font-weight: 600;
+            font-size: 1.1rem;
         }
         
     }
@@ -351,7 +397,6 @@ const ProductQty = styled.div`
   }
 }
 `
-
 const SubTotal = styled.aside`
     background: white;
     padding: 1rem;
@@ -388,16 +433,22 @@ font-size: 0.75rem;
         margin-left: 2px;
     }
 `
-
 const SubTotalAmount = styled.div`
     margin: 1rem 0;
     .priceSymbol {
         color:var(--orange);
         margin:0 2px;
     }
-h2 {
+h4 {
     font-family: 'amazon-light';
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
 }
 
+`
+const PriceLoader = styled.img`
+    width:1.5rem;
+    margin:0 .5rem;
 `

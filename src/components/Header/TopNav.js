@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TopNavSearch from "./TopNavSearch";
 import { Amazon_Logo, CartIcon } from "../../assets/Images";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -14,6 +14,7 @@ const TopNav = () => {
   const Auth = useSelector(state => state.Auth)
   const Cart = useSelector(state => state.Cart)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const isCart = window.location.href;
 
   const backdropEnableHandler = () => {
@@ -29,9 +30,9 @@ const TopNav = () => {
   }
 
   const logoutHandler = () => {
-    dispatch(Logout())
     logoutHelper()
-
+    dispatch(Logout())
+    navigate('/signin/emailCheck', { replace: true })
   }
   return (
     <TopNavContainer className='flex'>
@@ -59,7 +60,7 @@ const TopNav = () => {
         <TopNavSignin className='flex nav--hover'
           onMouseEnter={backdropEnableHandler}
           onMouseLeave={backdropDisableHandler} >
-          <Link to={Auth.isLoggedIn ? '#' : '/signin/emailCheck'} className="flex-column">
+          <Link to={Auth.isLoggedIn ? '/yourAccount' : '/signin/emailCheck'} className="flex-column">
             <span className="top__nav__hover__div-first">Hello, {Auth.isLoggedIn ? Auth.user.name : 'Sign in'}</span>
             <div className="flex">
               <span className="top__nav__hover__div-second">Accounts &amp; Lists</span>
@@ -100,7 +101,7 @@ const TopNav = () => {
               <DropDownList2>
                 <h3>Your Account</h3>
                 <li>
-                  <Link to={"/"}>Your Account</Link>
+                  <Link to={"/yourAccount"}>Your Account</Link>
                 </li>
                 <li>
                   <Link to={"/"}>Your Orders</Link>
@@ -133,14 +134,14 @@ const TopNav = () => {
                   <Link to={"/"}>Manage Your Content and Devices</Link>
                 </li>
                 {Auth.isLoggedIn && <li onClick={logoutHandler} >
-                  <Link to={'/signin/emailCheck'}>Sign Out</Link>
+                  <Link to={'#'}>Sign Out</Link>
                 </li>}
               </DropDownList2>
             </TopNavSigninDropDownContainer>
           </TopNavSigninDropDown>
         </TopNavSignin>
         <TopNavReturnOrder className="nav--hover flex">
-          <Link to={'#'} className="flex-column">
+          <Link to={Auth.isLoggedIn ? '/order-history' : '/signin/emailCheck'} className="flex-column">
             <span className="top__nav__hover__div-first">Returns</span>
             <span className="top__nav__hover__div-second">&amp; Orders</span></Link>
         </TopNavReturnOrder>

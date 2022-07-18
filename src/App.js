@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ArrowUp } from './assets/Images'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginHelper, userHelper } from './Store/AuthenticationHelper'
-import { Home, NotFound, ProductPage, ProductList, Cart } from "./pages";
+import { Home, NotFound, ProductPage, ProductList, Cart, Account, OrdersNReturn } from "./pages";
 import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 import { Backdrop, EmailForm, PasswordForm, SignUpForm, PopUpbackDrop } from "./components/index";
@@ -85,9 +85,9 @@ function App() {
       })
       if (user) {
         loginHelper(accessToken)
-        dispatch(Login(true))
         userHelper(user.data)
         dispatch(User(user.data))
+        dispatch(Login(true))
       }
     }
     if (loggedIn === '1' && (accessToken !== null || accessToken !== '')) {
@@ -95,12 +95,13 @@ function App() {
         fetchData()
       }
       else {
-        loginCheckHelper()
         dispatch(User(JSON.parse(userData)))
+        loginCheckHelper()
       }
     }
   }, [location, dispatch, loginCheckHelper]);
 
+  // Setting State Cart
   useEffect(() => {
     const getInitialCart = async () => {
       const response = await axios({
@@ -122,6 +123,9 @@ function App() {
     if (Auth.isLoggedIn === true) {
       getInitialCart()
     }
+    else {
+      dispatch(replaceCart({ items: [], totalQuantity: 0 }))
+    }
   }, [Auth.user._id, Auth.isLoggedIn, dispatch])
 
   // Scrolling To Top And Disabling The Backdrops if Open
@@ -129,7 +133,6 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'auto' })
     dispatch(disableBackDrop())
   }, [location, dispatch])
-
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -151,6 +154,8 @@ function App() {
           <Route path={"/product/:category/:id"} element={<ProductPage />} />
           <Route path={"/productList/:name"} element={<ProductList />} />
           <Route path={"/Cart"} element={<Cart />} />
+          <Route path={"/yourAccount"} element={<Account />} />
+          <Route path={"/order-history"} element={<OrdersNReturn />} />
           <Route path={"/notfound"} element={<NotFound />} />
         </Routes>
         {showButton && (

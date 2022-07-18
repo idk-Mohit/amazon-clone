@@ -21,7 +21,7 @@
   --yellow: #f7ca00;
   --darkblue: #232f3e;
   --lightgray: #f3f3f3;
-  --gray: rgb(97, 96, 96);
+  --gray: #616060;
   --blue: #0066c0;
   --orange: #c7511f;
   --black: #0f1111;
@@ -137,11 +137,35 @@ select {
 }
 
 .colored-link {
-  color: var(--blue) !important;
+  /* color: var(--blue) !important; */
+  color: #007185 !important;
 }
 
 .colored-link:hover {
   color: var(--orange) !important;
   cursor: pointer;
   text-decoration: underline !important;
+}
+
+.main-container {
+  margin: 105px 1rem 2rem;
+  font-family: "Amazon-light";
+  min-height: 70vh;
+}
+
+.padded-container {
+  width: 85%;
+  margin: auto;
+  padding: 1rem 0;
+}
+
+@media (max-width: 1024px) {
+  .padded-container {
+    width: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .padded-container {
+    width: 95%;
+  }
 }

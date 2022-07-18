@@ -73,7 +73,7 @@ const BottomNav = () => {
           <Link to={"/productList/Computer"}>Computers</Link>
         </li>
         <li>
-          <Link to={"/productList/Book"}>Books</Link>
+          <Link to={"/productList/Furniture"}>Furniture</Link>
         </li>
         <li>
           <Link to={"/productList/coupons"}>Coupons</Link>

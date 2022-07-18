@@ -40,9 +40,11 @@ export { default as EMICard } from './AboutProduct/EMICard'
 export { default as PriceUI } from './AboutProduct/PriceUi'
 export { default as BuyingSection } from './AboutProduct/BuyingSection'
 
-// Product List ....
-export { default as ProductListLoader } from './ProductListLoader'
-
-
 // Cart ....
 export { default as CartHolder } from './Cart/EmptyCartHolder'
+
+// YourAccount ...
+export { default as ImageCard } from './YourAccount/ImageCard'
+
+// Pagination
+export { default as Pagination } from './Pagination'

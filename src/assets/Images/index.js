@@ -13,4 +13,5 @@ export { default as i_alert_Icon } from './i-alert-icon.png'
 export { default as GreenTickIcon } from './greenTick.svg'
 export { default as ShoppingCart } from './shopping-cart.png'
 export { default as CartIcon } from './Cart.png'
+export { default as dotLoader } from './dotLoading.gif'
 

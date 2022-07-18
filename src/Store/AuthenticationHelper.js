@@ -8,9 +8,9 @@ const userNameHelper = (username) => {
 }
 
 const logoutHelper = () => {
-    localStorage.removeItem('isLoggedIn')
-    localStorage.removeItem('accessToken')
     localStorage.removeItem('user')
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('isLoggedIn')
 }
 
 const userHelper = (user) => {
