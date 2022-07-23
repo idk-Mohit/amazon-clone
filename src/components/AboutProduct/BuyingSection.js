@@ -82,7 +82,12 @@ const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
                     {!stock && <div className='paddingContainer'><span>Currently Unavailable.f</span></div>}
                 </ExtraInfo>
                 <Buttons className='paddingContainer flex-column'>
-                    <button id='addtoCartButton' onClick={AddToCartHandler} >Add to Cart</button>
+                    {Auth.isLoggedIn ?
+                        <button id='addtoCartButton' onClick={AddToCartHandler}  >Add to Cart</button>
+                        :
+                        <Link className='addToCartLoginButton' to='/signin/emailCheck'><button id='addtoCartButton'>Add to Cart</button></Link>
+                    }
+
                     <button id='buyNowButton'>Buy Now</button>
                 </Buttons>
                 <SecureTransaction className="paddingContainer flex">
@@ -182,6 +187,9 @@ margin: 1rem 0;
         padding: .7rem;
         border-radius: 50px;
         border: none;
+    }
+    .addToCartLoginButton{
+        width:100%;
     }
     #addtoCartButton{
         background: #f7ca00;

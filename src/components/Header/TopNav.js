@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import TopNavSearch from "./TopNavSearch";
-import { Amazon_Logo, CartIcon } from "../../assets/Images";
+import { Amazon_Logo, CartIcon, FlagImage } from "../../assets/Images";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { enableBackDrop, disableBackDrop, enablepopupBackdrop } from "../../Store/backdrop-Slice";
@@ -57,6 +57,23 @@ const TopNav = () => {
         <TopNavSearch />
       </TopNavMiddleContainer>
       <TopNavRightContainer className="flex">
+        <TopNavLanguage className="flex nav--hover"
+          onMouseEnter={backdropEnableHandler}
+          onMouseLeave={backdropDisableHandler} >
+          <div className="imageContainer flex">
+            <img src={FlagImage} alt="" /> <span><ArrowDropDownIcon /></span>
+          </div>
+          <LanguageDropDown className="languageDropdown flex-column">
+            <div className="input-radio-container">
+              <input type="radio" name="langauge" id="english" />
+              <label htmlFor="english">English</label>
+            </div>
+            <div className="input-radio-container">
+              <input type="radio" name="langauge" id="hindi" />
+              <label htmlFor="hindi">हिन्दी</label>
+            </div>
+          </LanguageDropDown>
+        </TopNavLanguage>
         <TopNavSignin className='flex nav--hover'
           onMouseEnter={backdropEnableHandler}
           onMouseLeave={backdropDisableHandler} >
@@ -215,9 +232,77 @@ const TopNavLocation = styled.div`
 
 const TopNavMiddleContainer = styled.div`
   flex-grow: 2;
+  margin:0 .4rem;
 `;
 
 const TopNavRightContainer = styled.div``;
+
+const TopNavLanguage = styled.div`
+    position:relative;
+    .imageContainer{
+      align-items: flex-end;
+      img{
+        width:2rem;
+      }
+      .MuiSvgIcon-root{
+          font-size: 1.2rem;
+          margin-right: -5px;
+        }
+    }
+
+    &:hover {
+      .languageDropdown{
+        opacity:1;
+        pointer-events: all;
+        transition:ease 300ms;
+      }
+    }
+`
+const LanguageDropDown = styled.div`
+    opacity:0;
+    position:absolute;
+    top:2.98rem;
+    right:-1rem;
+    width: 10rem;
+    padding:1rem;
+    pointer-events: none;
+    background-color: white;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+    z-index: 90;
+    color: black;
+    cursor: default;
+    transition:ease 300ms;
+    border-radius: 3px;
+    border: 1px solid var(--lightgray);
+
+    div{
+      display: flex;
+      align-items: center;
+      cursor:pointer;
+      label{
+        margin-left: .5rem;
+        font-size: .9rem;
+        color:var(--gray);
+        cursor:pointer;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+
+      input{
+
+
+        &:hover{
+
+        }
+      }
+
+      &:hover{
+        
+      }
+    }
+`
 
 const TopNavSignin = styled.div`
 position: relative;
@@ -226,6 +311,10 @@ span{
 }
 > a > div {
   align-items: center;
+  .MuiSvgIcon-root{
+          font-size: 1.2rem;
+          margin-right: -5px;
+        }
 }
 &:hover {
   .dropdown{
@@ -307,25 +396,26 @@ const TopNavReturnOrder = styled.div``
 const TopNavCart = styled.div`
  h4 {
     margin-bottom: 1px !important;
+    font-size: .9rem;
   }
   a,div {
     align-items: flex-end !important;
   }
   img {
-    width: 2.6rem;
+    width: 2.3rem;
   }
 .CartIconContainer{
   position:relative;
   .cartItem{
     position: absolute;
     text-align: center;
-    width: 25px;
-    height: 20px;
+    width: 22px;
+    height: 15px;
     background-color: #131921;
     border-radius: 1rem;
     top: -4px;
-    left: 12px;
-    font-size: 1.3rem;
+    left: 11px;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--orange);
   }

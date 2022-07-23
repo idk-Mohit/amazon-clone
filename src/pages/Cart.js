@@ -292,7 +292,8 @@ const Item = styled.div`
         position:relative;
         overflow:hidden;
         display: flex;
-        justify-content: center;
+        justify-self: center;
+        align-self: center;
         img{
             position: absolute;
             margin: auto;
@@ -318,6 +319,7 @@ const Item = styled.div`
                 color:var(--darkblue);
                 h4{
                     font-size: 1rem;
+                    margin-bottom:.5rem;
                 }
 
                 &:hover {
@@ -346,6 +348,7 @@ const Item = styled.div`
     }
 `
 const Buttons = styled.div`
+    margin-top:.5rem;
     button {
         margin-left: 0.5rem;
         padding: 0rem 0.8rem;

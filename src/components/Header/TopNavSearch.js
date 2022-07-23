@@ -120,18 +120,20 @@ const TopNavSearchBar = styled.div`
   }
 
   .Nav__search__button {
-    background-color: #fdba3d;
+    background-color: #febd69;
     height: 100%;
     color: black;
     border: 1px solid transparent;
-    padding: 0.2rem 0.8rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 0;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
-
+    .MuiSvgIcon-root{
+      font-size:1.8rem;
+    }
     &:hover {
       background-color: #dda949;
     }

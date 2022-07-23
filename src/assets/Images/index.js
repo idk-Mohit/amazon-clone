@@ -14,4 +14,5 @@ export { default as GreenTickIcon } from './greenTick.svg'
 export { default as ShoppingCart } from './shopping-cart.png'
 export { default as CartIcon } from './Cart.png'
 export { default as dotLoader } from './dotLoading.gif'
+export { default as FlagImage } from './FlagImage.png'
 
