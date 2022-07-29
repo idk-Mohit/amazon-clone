@@ -6,7 +6,7 @@ import { loginHelper, userHelper } from './Store/AuthenticationHelper'
 import { Home, NotFound, ProductPage, ProductList, Cart, Account, OrdersNReturn } from "./pages";
 import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
-import { Backdrop, EmailForm, PasswordForm, SignUpForm, PopUpbackDrop } from "./components/index";
+import { Backdrop, EmailForm, PasswordForm, SignUpForm } from "./components/index";
 import { disableBackDrop } from "./Store/backdrop-Slice";
 import { Login, User } from './Store/Auth-Slice'
 import { replaceCart } from "./Store/Cart-Slice";
