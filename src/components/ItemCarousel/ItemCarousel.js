@@ -39,7 +39,7 @@ const ItemCarousel = ({ data, heading }) => {
     return (
       <div key={index} className='ImageContainer'>
         <Link to={`/product/${data}/${ProductLink}`}>
-          <img src={slide.image} alt="" />
+          <img src={slide.image} alt="" loading="lazy" />
         </Link>
       </div>
     )
@@ -51,7 +51,7 @@ const ItemCarousel = ({ data, heading }) => {
     centerMode: true,
     centerPadding: "100px",
     slidesToShow: 2,
-    slidesToScroll: 1,
+    swipeToSlide: true,
     variableWidth: true,
     autoplay: true,
     speed: 1000,
@@ -82,8 +82,6 @@ const CarouselContainer = styled.div`
     margin:0 0 1rem 1.4rem;
     font-size: 1.6rem;
   }
-
-  
    .ImageContainer{
     width: 100%;
     height: 165px;

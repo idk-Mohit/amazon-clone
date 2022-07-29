@@ -69,6 +69,7 @@ a:active {
   color: white;
   text-decoration: none;
   width: fit-content;
+  cursor: pointer;
 }
 ul,
 li {

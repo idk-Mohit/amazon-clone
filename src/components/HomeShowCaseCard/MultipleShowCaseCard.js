@@ -7,7 +7,7 @@ const MultipleShowCaseCard = ({ data }) => {
     return (
       <Link className="flex-column" to={`/productList/${item.imageLink}`} key={index}>
         <div className="innerImageContainer">
-          <img src={item.image} alt="" />
+          <img src={item.image} alt="" loading="lazy" />
         </div>
         <span>{item.imageLinkText}</span>
       </Link>

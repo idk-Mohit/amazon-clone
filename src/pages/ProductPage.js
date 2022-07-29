@@ -28,7 +28,7 @@ const ProductPage = () => {
                 setIsLoading(false)
             }
             else {
-                setProduct('Product Not Found')
+                setProduct(false)
                 setIsLoading(false)
             }
         }
@@ -50,61 +50,64 @@ const ProductPage = () => {
                     <div><ItemCarousel data={category} /></div>
                 </ItemCarouselContainer>
                 <hr className='TopDivider' />
-                {product === 'Product Not Found' ? <ProductContainer>
-                    {product}
-                </ProductContainer> : <ProductContainer>
-                    <ProductImageDiv>
-                        {isLoading ?
-                            <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
+                {product === false ?
+                    <div style={{ textAlign: 'center', width: "100%" }}>
+                        <h2 style={{ color: "var(--orange)" }}>Looking for something?</h2>
+                        <p>We're sorry. The Web address you entered is not a functioning page on our site.</p>
+                    </div>
+                    : <ProductContainer>
+                        <ProductImageDiv>
+                            {isLoading ?
+                                <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
+                                :
+
+                                <div className='flex-column magnifier-container'>
+                                    {product.image &&
+                                        <ReactImageMagnify {...{
+                                            smallImage: {
+                                                alt: 'ProductImage',
+                                                isFluidWidth: true,
+                                                src: product.image
+                                            },
+                                            largeImage: {
+                                                src: product.image,
+                                                width: 1000,
+                                                height: 1000
+                                            }
+                                        }} className='magnifier' />
+                                    }
+                                    <span> Hover to Zoom In</span>
+                                </div>
+
+                            }
+                        </ProductImageDiv>
+                        <ProductData className='flex-column'>
+                            {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"50%"} /> : <>{product.name && <Heading>{product.name}</Heading>}
+                                <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
+                                {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
+                                {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}</>}
+                            <hr />
+                            {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <PriceUI currentPrice={product.price} originalPrice={product.original_price} />}
+                            {!isLoading && <>
+                                <EMISection>
+                                    <Accordian />
+                                </EMISection>
+                                <ReplacementDiv>
+                                    <Link to={'#'} className='color-link'><span className='flex'>7-day replacement only <KeyboardArrowDownIcon fontSize='extrasmall' /></span></Link>
+                                    <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
+                                </ReplacementDiv>
+                            </>}
+                            {!isLoading &&
+                                <Features>
+                                    <h3>About this item</h3>
+                                    <ul>{List}</ul>
+                                </Features>
+                            }
+                        </ProductData>
+                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
                             :
-
-                            <div className='flex-column magnifier-container'>
-                                {product.image &&
-                                    <ReactImageMagnify {...{
-                                        smallImage: {
-                                            alt: 'ProductImage',
-                                            isFluidWidth: true,
-                                            src: product.image
-                                        },
-                                        largeImage: {
-                                            src: product.image,
-                                            width: 1000,
-                                            height: 1000
-                                        }
-                                    }} className='magnifier' />
-                                }
-                                <span> Hover to Zoom In</span>
-                            </div>
-
-                        }
-                    </ProductImageDiv>
-                    <ProductData className='flex-column'>
-                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"50%"} /> : <>{product.name && <Heading>{product.name}</Heading>}
-                            <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
-                            {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
-                            {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}</>}
-                        <hr />
-                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <PriceUI currentPrice={product.price} originalPrice={product.original_price} />}
-                        {!isLoading && <>
-                            <EMISection>
-                                <Accordian />
-                            </EMISection>
-                            <ReplacementDiv>
-                                <Link to={'#'} className='color-link'><span className='flex'>7-day replacement only <KeyboardArrowDownIcon fontSize='extrasmall' /></span></Link>
-                                <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
-                            </ReplacementDiv>
-                        </>}
-                        {!isLoading &&
-                            <Features>
-                                <h3>About this item</h3>
-                                <ul>{List}</ul>
-                            </Features>
-                        }
-                    </ProductData>
-                    {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
-                        :
-                        <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
-                </ProductContainer>}
+                            <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
+                    </ProductContainer>}
             </Container>
         </LayOut >
     )

@@ -144,7 +144,6 @@ function App() {
   return (
     <>
       {backdrop.backdrop && <Backdrop />}
-      {backdrop.popupbackdrop && <PopUpbackDrop />}
       <Container>
         <Routes>
           <Route path={"/"} element={<Home />} />
@@ -156,6 +155,7 @@ function App() {
           <Route path={"/Cart"} element={<Cart />} />
           <Route path={"/yourAccount"} element={<Account />} />
           <Route path={"/order-history"} element={<OrdersNReturn />} />
+        
           <Route path={"/notfound"} element={<NotFound />} />
         </Routes>
         {showButton && (

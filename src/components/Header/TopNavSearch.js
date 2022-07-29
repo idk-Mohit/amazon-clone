@@ -120,7 +120,7 @@ const TopNavSearchBar = styled.div`
   }
 
   .Nav__search__button {
-    background-color: #febd69;
+    background: #febd69;
     height: 100%;
     color: black;
     border: 1px solid transparent;
@@ -135,7 +135,7 @@ const TopNavSearchBar = styled.div`
       font-size:1.8rem;
     }
     &:hover {
-      background-color: #dda949;
+      background: #dda949;
     }
   }
 `;

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = { backdrop: false, popupbackdrop: false }
+const initialState = { backdrop: false }
 
 const backdropSlice = createSlice({
     name: 'backdrop',
@@ -11,12 +11,6 @@ const backdropSlice = createSlice({
         },
         disableBackDrop(state) {
             state.backdrop = false
-        },
-        enablepopupBackdrop(state) {
-            state.popupbackdrop = true
-        },
-        disablepopupBackdrop(state) {
-            state.popupbackdrop = false
         }
     }
 })

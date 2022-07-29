@@ -11,6 +11,7 @@ import {
 } from "../components";
 import { useSelector } from 'react-redux'
 import LayOut from "./LayOut";
+// import ReactLazyTest from "../components/ReactLazyTest";
 
 const Home = () => {
   const Auth = useSelector(state => state.Auth)
@@ -73,9 +74,7 @@ const Home = () => {
           <div className="itemCarouselContainer">
             <ItemCarousel data="tv" heading='Decor your Livingroom' />
           </div>
-
           <ItemCarousel data="laptop" heading="Latest to improve Productivity" />
-
           {!Auth.isLoggedIn && <SignInFooter />}
         </div>
         {/* OnTop CarouselDiv */}
