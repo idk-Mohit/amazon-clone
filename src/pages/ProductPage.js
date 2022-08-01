@@ -134,6 +134,7 @@ display: grid;
 grid-template-columns: auto 90%;
 align-items: center;
 grid-gap: .5rem;
+padding: 0 .5rem;
 h1{
     font-size: 1.4rem;
     span {
@@ -144,7 +145,7 @@ h1{
 .CarouselContainer{
     margin: 0;
     .ImageContainer{
-        height: 90px !important;
+        height: 80px !important;
     }
     .slick-next,.slick-prev {
         width:3.8rem;
@@ -155,7 +156,9 @@ h1{
     }
 }
   
-
+@media (max-width: 768px) {
+    display:none ;
+}
 `
 
 const ProductImageDiv = styled.div`

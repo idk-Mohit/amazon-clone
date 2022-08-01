@@ -9,8 +9,8 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 const TopFooter = () => {
   return (
     <TopFooterContainer>
-      <div className="footer__mainlinks flex">
-        <div className="footer__mainlinks__knowUs">
+      <FooterMainLinks className="flex">
+        <KnowUs className="footer__mainlinks__knowUs">
           <h3>Get to Know Us</h3>
           <ul>
             <li>
@@ -32,8 +32,8 @@ const TopFooter = () => {
               <Link to={"/"}>Amazon Science</Link>
             </li>
           </ul>
-        </div>
-        <div className="footer__mainlinks__connect">
+        </KnowUs>
+        <Connect className="footer__mainlinks__connect">
           <h3>Connect with Us</h3>
           <ul>
             <li>
@@ -46,8 +46,8 @@ const TopFooter = () => {
               <Link to={"/"}>Twitter</Link>
             </li>
           </ul>
-        </div>
-        <div className="footer__mainlinks__makemoney">
+        </Connect>
+        <MakeMoney className="footer__mainlinks__makemoney">
           <h3>Make Money with Us</h3>
           <ul>
             <li>
@@ -72,8 +72,8 @@ const TopFooter = () => {
               <Link to={"/"}>Amazon Pay on Merchants</Link>
             </li>
           </ul>
-        </div>
-        <div className="footer__mainlinks__helpyou">
+        </MakeMoney>
+        <HelpYou className="footer__mainlinks__helpyou">
           <h3>Let Us Help You</h3>
           <ul>
             <li>
@@ -98,9 +98,9 @@ const TopFooter = () => {
               <Link to={"/"}>Help</Link>
             </li>
           </ul>
-        </div>
-      </div>
-      <div className="footer__countries flex-column">
+        </HelpYou>
+      </FooterMainLinks>
+      <FooterCountries className="footer__countries flex-column">
         <div className="flex">
           {/* Footer Logo */}
           <Link to={"/"}>
@@ -109,18 +109,18 @@ const TopFooter = () => {
           {/* Footer Logo */}
           {/* Footer Language Selector */}
           <Link to={"/"}>
-            <div className="Footer__language__button flex">
+            <FooterLanguageButton className="Footer__language__button flex">
               <LanguageIcon fontSize="small" /> English
               <span className="flex-column">
                 <ArrowDropUpIcon fontSize="small" />
                 <ArrowDropDownIcon fontSize="small" />
               </span>
-            </div>
+            </FooterLanguageButton>
           </Link>
           {/* Footer Language Selector */}
         </div>
         {/* Countries */}
-        <ul className="flex">
+        <CountriesList className="flex">
           <li>
             <Link to={"/"}>Australia</Link>
           </li>
@@ -146,7 +146,7 @@ const TopFooter = () => {
             <Link to={"/"}>Japan</Link>
           </li>
           <li>
-            <Link to={"/"}>MExico</Link>
+            <Link to={"/"}>Mexico</Link>
           </li>
           <li>
             <Link to={"/"}>Netherlands</Link>
@@ -172,8 +172,26 @@ const TopFooter = () => {
           <li>
             <Link to={"/"}>United States</Link>
           </li>
+        </CountriesList>
+      </FooterCountries>
+      <MobileView className='flex'>
+        <ul className="flex-column">
+          <li><Link to={'/order-history'}>Track and Manage Your Orders</Link></li>
+          <li><Link to={'/order-history'}>Buy Again</Link></li>
+          <li><Link to={'/order-history'}>Return Centre</Link></li>
+          <li><Link to={'/order-history'}>Delivery Speeds &amp; Charges</Link></li>
+          <li><Link to={'/'}>Customer Service</Link></li>
         </ul>
-      </div>
+        <ul className='flex-column'>
+          <li><Link to={'#'}>Lists</Link></li>
+          <li><Link to={'#'}>Recommendations</Link></li>
+          <li><Link to={'#'}>Browsing History</Link></li>
+          <li><Link to={'#'}>Subscribe and Save</Link></li>
+          <li><Link to={'#'}>Your Prime Membership</Link></li>
+          <li><Link to={'#'}>Your Memberships and Subscriptions(YMS)</Link></li>
+          <li><Link to={'#'}>See all account</Link></li>
+        </ul>
+      </MobileView>
     </TopFooterContainer>
   );
 };
@@ -183,47 +201,60 @@ export default TopFooter;
 const TopFooterContainer = styled.footer`
   background-color: #232f3e;
   color: white;
-
-  .footer__mainlinks {
-    justify-content: space-evenly;
-    padding: 3rem;
+  padding:3rem 3rem 1rem;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.267);
+  @media(max-width:1024px){
+  /* padding: 1.5rem .5rem; */
+  }
+`
+const FooterMainLinks = styled.div`
+    justify-content: space-around;
+    padding-bottom: 2rem;
     border-bottom: 1px solid rgba(200, 200, 200, 0.267);
-
-    div {
-      h3 {
+    @media(max-width:1024px){
+    display:none;
+  }
+`
+const KnowUs = styled.div`
+  h3 {
         font-weight: 500;
         margin: 1rem 0;
         font-size: 1rem;
-      }
-      li {
-        margin: 0.5rem 0;
-        a {
-          font-size: 0.85rem;
-          font-weight: 400;
-          color: var(--lightgray);
+    }
+  li {
+    margin: 0.5rem 0;
+    a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--lightgray);
 
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
-
-  .footer__countries {
-    padding: 2rem 3rem;
+`
+const HelpYou = styled(KnowUs)``
+const Connect = styled(KnowUs)``
+const MakeMoney = styled(KnowUs)``
+const FooterCountries = styled.div`
+  padding: 2rem 3rem;
+  align-items: center;
+  > div {
+    gap: 1rem;
+    margin: 1rem;
     align-items: center;
-    > div {
-      gap: 1rem;
-      margin: 1rem;
-      align-items: center;
-      img {
-        width: 5.5rem;
-        height: 1.8rem;
-      }
+    img {
+      width: 5.5rem;
+      height: 1.8rem;
     }
-    .Footer__language__button {
-      gap: 0.5rem;
+    }
+  @media(max-width:1024px){
+    display:none;
+  }
+`
+const FooterLanguageButton = styled.div`
+  gap: 0.5rem;
       align-items: center;
       border: 1px solid #dcdcdc7f;
       padding: 0.3rem;
@@ -241,9 +272,8 @@ const TopFooterContainer = styled.footer`
       &:hover {
         border-color: white;
       }
-    }
-
-    ul {
+`
+const CountriesList = styled.ul`
       width: 90%;
       margin: auto;
       flex-wrap: wrap;
@@ -259,6 +289,29 @@ const TopFooterContainer = styled.footer`
           text-decoration: underline;
         }
       }
+`
+
+const MobileView = styled.div`
+  display:none;
+  width:100%;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+  align-items:center;  
+
+  li {
+    margin: 0.5rem 0;
+    a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--lightgray);
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
-`;
+
+  @media(max-width:1024px){
+    display:flex;
+  }
+`

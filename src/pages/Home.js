@@ -111,6 +111,10 @@ const Container = styled.section`
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--lightgray));
     padding: 1rem 1rem;
     width: 100%;
+
+    @media (max-width:1024px) {
+        margin-top:-25%;
+    }
   }
 
   /* Mobile Styling */

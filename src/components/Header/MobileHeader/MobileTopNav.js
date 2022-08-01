@@ -22,7 +22,7 @@ const MobileTopNav = () => {
         let TopSignIn = document.querySelector('.SignInContainer').style
         let TopSearchbar = document.querySelector('.SearchBarContainer').style
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 95) {
+            if (window.scrollY > 145) {
                 TopNav.position = 'fixed'
                 TopLogo.display = 'none'
                 TopSignIn.display = 'none'
@@ -90,7 +90,7 @@ const Container = styled.div`
     background-color: #232f3e;
     top:0;
     width:100%;
-    padding: 0.8rem .8rem .6rem;
+    padding: 0.8rem .5rem .6rem;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
@@ -111,11 +111,19 @@ const LeftContainer = styled.div`
 `
 const MiddleContainer = styled.div`
     display: none;
-    width: 100%;
+    width: 80%;
     margin:0 15px;
+    box-sizing: border-box;
     .nav__select__container{
         display: none;
     }
+
+    @media(max-width:1024px){
+        input{
+            font-size: .8rem;
+        }  
+     margin:0px 5px;    
+    }   
 `
 const RightContainer = styled(LeftContainer)``
 const BurgerMenuContainer = styled.div``

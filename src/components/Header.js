@@ -38,7 +38,7 @@ const MainHeader = styled.header`
 `;
 
 const MobileHeaderContainer = styled.div`
-  height: 188px;
+  height: 185px;
   display: none;
   background-color: #232f3e;
   box-sizing: border-box;
