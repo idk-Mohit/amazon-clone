@@ -8,7 +8,7 @@ const TopNavCart = () => {
     const isCart = window.location.href;
     const Cart = useSelector(state => state.Cart)
     return (
-        <Container className='nav--hover '>
+        <Container className='nav--hover flex'>
             {isCart.includes('Cart') ?
                 <div className="flex">
                     <div className="CartIconContainer">
@@ -48,7 +48,7 @@ const Container = styled.div`
     position: absolute;
     text-align: center;
     width: 22px;
-    height: 15px;
+    height: 21px;
     background-color: #131921;
     border-radius: 1rem;
     top: -4px;

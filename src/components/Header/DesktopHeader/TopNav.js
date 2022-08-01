@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import TopNavSearch from "./TopNavSearch";
 // Top Nav Element Imports
-import { TopNavCart, TopNavLanguage, TopNavLocation, TopNavSignIn, TopNavReturnOrder, TopNavLogo } from './TopNavContainer'
+import {
+  TopNavCart,
+  TopNavLanguage,
+  TopNavLocation,
+  TopNavSignIn,
+  TopNavReturnOrder,
+  TopNavLogo
+} from '../HeaderItems'
 
 const TopNav = () => {
+
+  useEffect(() => {
+    let DesktopTopNav = document.querySelector('.DesktopTopNav').style
+    document.addEventListener('scroll', () => {
+      if (window.scrollY > 105) {
+        DesktopTopNav.position = 'fixed'
+      }
+      else {
+        DesktopTopNav.position = 'relative'
+      }
+    })
+  }, [])
   return (
-    <TopNavContainer className='flex'>
+    <TopNavContainer className='DesktopTopNav flex'>
       <TopNavLeftContainer className="flex">
         <TopNavLogo />
         <TopNavLocation />
@@ -29,6 +48,7 @@ const TopNav = () => {
 export default TopNav;
 
 const TopNavContainer = styled.nav`
+  top: 0;
   height: 60px;
   align-items: center;
   background-color: #131921;
@@ -37,9 +57,7 @@ const TopNavContainer = styled.nav`
   gap: 0.5rem;
   z-index: 100;
 
-  a{
-    display: flex;
-  } 
+  
   .top__nav__hover__div-first{
     font-size: 0.7rem;
     color:rgba(200,200,200,1);
@@ -50,11 +68,6 @@ const TopNavContainer = styled.nav`
     font-family: 'Amazon-light';
     font-weight: 900;
     letter-spacing: .5px;
-  }
-  .nav--hover{
-    cursor: pointer;
-    align-items: center;
-    margin:0 1px;
   }
 `;
 

@@ -16,6 +16,10 @@
   font-family: "Amazon", Helvetica, sans-serif;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 :root {
   --amazon-button: #f0c14b;
   --yellow: #f7ca00;
@@ -85,6 +89,9 @@ select {
   height: 49px;
   border: 1px solid transparent;
   border-radius: 2px;
+  cursor: pointer;
+  align-items: center;
+  margin: 0 1px;
 }
 
 .nav--hover:hover {
@@ -149,7 +156,6 @@ select {
 }
 
 .main-container {
-  margin: 105px 1rem 2rem;
   font-family: "Amazon-light";
   min-height: 70vh;
 }

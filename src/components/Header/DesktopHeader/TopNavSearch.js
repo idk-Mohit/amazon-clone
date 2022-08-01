@@ -2,11 +2,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import search from "./searchOption";
+import search from "../searchOption";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useDispatch, useSelector } from "react-redux";
-import { enableBackDrop } from "../../Store/backdrop-Slice";
-import { setQuery } from "../../Store/SearchField-Slice";
+import { enableBackDrop } from "../../../Store/backdrop-Slice";
+import { setQuery } from "../../../Store/SearchField-Slice";
 
 const TopNavSearch = () => {
   const [selectedOption, setSelectedOption] = useState("All");
@@ -43,7 +43,7 @@ const TopNavSearch = () => {
 
   return (
     <TopNavSearchBar className="flex">
-      <div className="nav__select__container">
+      <SelectContainer className="nav__select__container">
         <select
           name="search_options"
           id="searchOptions"
@@ -54,17 +54,16 @@ const TopNavSearch = () => {
         <span className="flex searchoptionSpan">
           {selectedOption} <ArrowDropDownIcon />
         </span>
-      </div>
-      <form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
-        <input type="text" onClick={backdropEnableHandler} value={query} onChange={inputChangeHandler} />
+      </SelectContainer>
+      <Form className="nav__input__Container flex" onSubmit={FormSubmitHandler}>
+        <input type="text" onClick={backdropEnableHandler} value={query} onChange={inputChangeHandler} placeholder={'Search Amazon.in'} />
         <div className="nav__floyout_Search">
           { }
         </div>
-        <button className="Nav__search__button flex">
+        <NavSearchButton className="Nav__search__button flex">
           <SearchIcon fontSize="medium" />
-        </button>
-      </form>
-
+        </NavSearchButton>
+      </Form>
     </TopNavSearchBar>
   );
 };
@@ -75,8 +74,10 @@ const TopNavSearchBar = styled.div`
   align-items: center;
   height: 40px;
   width: 100%;
-  .nav__select__container {
-    height: 100%;
+`;
+
+const SelectContainer = styled.div`
+  height: 100%;
     position: relative;
 
     span {
@@ -99,10 +100,13 @@ const TopNavSearchBar = styled.div`
       height: inherit;
       cursor: pointer;
     }
-  }
 
-  .nav__input__Container {
-    height: 100%;
+    @media (max-width:1024px) {
+        display: none;
+    }
+`
+const Form = styled.form`
+  height: 100%;
     align-items: center;
     z-index: 20;
     flex-grow: 2;
@@ -116,26 +120,41 @@ const TopNavSearchBar = styled.div`
       font-size: 1rem;
       color: #242323;
       min-width: 200px;
+      ::placeholder{
+            color:transparent;
+           } 
+
+      @media (max-width:1024px) {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+           ::placeholder{
+            color: var(--gray);
+           }     
+      }
     }
+`
+
+const NavSearchButton = styled.button`
+  background: #febd69;
+  height: 100%;
+  color: black;
+  border: 1px solid transparent;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  .MuiSvgIcon-root{
+    font-size:1.8rem;
+  }
+  &:hover {
+    background: #dda949;
   }
 
-  .Nav__search__button {
-    background: #febd69;
-    height: 100%;
-    color: black;
-    border: 1px solid transparent;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-    .MuiSvgIcon-root{
-      font-size:1.8rem;
-    }
-    &:hover {
-      background: #dda949;
-    }
+  @media(max-width:1024px){
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
-`;
+`

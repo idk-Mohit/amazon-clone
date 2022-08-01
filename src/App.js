@@ -58,7 +58,7 @@ function App() {
           }
         })
       window.addEventListener("scroll", () => {
-        if (window.pageYOffset > 300) {
+        if (window.scrollY > 300) {
           setShowButton(true);
         } else {
           setShowButton(false);
@@ -142,9 +142,8 @@ function App() {
   };
 
   return (
-    <>
-      {backdrop.backdrop && <Backdrop />}
       <Container>
+      {backdrop.backdrop && <Backdrop />}
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/signin/emailCheck"} element={<EmailForm />} />
@@ -164,7 +163,6 @@ function App() {
           </button>
         )}
       </Container>
-    </>
   );
 }
 

@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { enableBackDrop, disableBackDrop } from "../../Store/backdrop-Slice";
+import { enableBackDrop, disableBackDrop } from "../../../Store/backdrop-Slice";
 import { useDispatch } from "react-redux";
-import BurgerMenu from "./BurgerMenu";
-import CloseIcon from '@mui/icons-material/Close';
+import MainBurgerMenu from "../BurgerMenu/MainBurgerMenu";
 
 
 const BottomNav = () => {
@@ -22,10 +21,11 @@ const BottomNav = () => {
     dispatch(disableBackDrop())
   }
   const BurgerMenuOpenHandler = () => {
+    document.querySelector('body').style.overflowY = 'hidden'
     setBurgerStatus(true)
   }
-
   const BurgerMenuCloseHandler = () => {
+    document.querySelector('body').style.overflowY = 'auto'
     setBurgerStatus(false)
   }
   return (
@@ -90,8 +90,7 @@ const BottomNav = () => {
           <Link to={"/productList/toys and games"}>Toys &amp; Games</Link>
         </li>
       </List>
-      <BurgerMenu className='MainBurgerMenu' status={burgerStatus} Close={BurgerMenuCloseHandler} />
-      {burgerStatus && <CloseButton onClick={BurgerMenuCloseHandler}><CloseIcon fontSize='large' /></CloseButton>}
+      <MainBurgerMenu status={burgerStatus} Close={BurgerMenuCloseHandler} />
     </BottomNavContainer>
   );
 };
@@ -121,8 +120,7 @@ const BottomNavContainer = styled.nav`
       transform: scale(1.5);
     }
   }
-`;
-
+`
 const List = styled.ul`
   flex: 1;
   justify-content: space-evenly;
@@ -149,7 +147,6 @@ const List = styled.ul`
     justify-content: center;
   }
 `
-
 const Prime = styled.li`
   position: relative;
   display: inline-block;
@@ -168,7 +165,6 @@ const Prime = styled.li`
   }
     
 `
-
 const PrimeDropDown = styled.div`
       opacity:0;
       pointer-events: none;
@@ -185,30 +181,5 @@ const PrimeDropDown = styled.div`
         height: 20rem;
       }
 `
-
 const MainBurgerMenuBtn = styled.span`
-`
-const CloseButton = styled.div`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        left: 380px;
-        top:.7rem;
-        width: 3rem;
-        height: 3rem;
-        z-index: 300;
-        border-radius: 50px;
-        background-color: transparent;
-        cursor: pointer;
-        .MuiSvgIcon-root{
-            fill:white;
-        }
-
-        &:hover{
-          background-color: white;
-          .MuiSvgIcon-root{
-            fill:black;
-        }
-        }
 `

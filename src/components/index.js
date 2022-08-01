@@ -1,7 +1,7 @@
 // Header Exports ...
 export { default as Header } from "./Header";
-export { default as TopNav } from "./Header/TopNav";
-export { default as BottomNav } from "./Header/BottomNav";
+export { default as TopNav } from "./Header/DesktopHeader/TopNav";
+export { default as BottomNav } from "./Header/DesktopHeader/BottomNav";
 
 // Footer Exports ...
 export { default as Footer } from "./Footer";

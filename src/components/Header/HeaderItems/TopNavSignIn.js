@@ -36,6 +36,8 @@ const TopNavSignIn = (props) => {
                     <ArrowDropDownIcon fontSize="small" />
                 </div>
             </Link>
+            {/* Small Triangle Shape on Top of DropDown */}
+            <DropDownTriangleTop className='DropDownTriangleTop' />
             <TopNavSigninDropDown className="dropdown" >
                 <TopNavSigninDropDownContainer>
                     {!Auth.isLoggedIn && <DropDownSignInBtn>
@@ -54,6 +56,7 @@ const TopNavSignIn = (props) => {
                         <li>
                             <Link to={"/"}>{Auth.isLoggedIn ? Auth.user.name + "'s" : 'Create a'} Wish List</Link>
                         </li>
+                        <hr />
                         <li>
                             <Link to={"/"}>Wish from Any Website</Link>
                         </li>
@@ -127,11 +130,25 @@ span{
         }
 }
 &:hover {
-  .dropdown{
+  .dropdown,.DropDownTriangleTop{
       opacity:1;
       pointer-events: all;
   }
 }
+`
+// Small Triangle Shape on Top of DropDown
+const DropDownTriangleTop = styled.span`
+    border: 9px solid transparent;
+    border-top-width: 0;
+    border-bottom: 9px solid white;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top:2.39rem;
+    right: 1.5px;
+    opacity:0;
 `
 
 const TopNavSigninDropDown = styled.div`
@@ -139,7 +156,7 @@ const TopNavSigninDropDown = styled.div`
   pointer-events: none;
   position: absolute;
   top: 2.98rem;
-  right: -1rem;
+  right: -6rem;
   padding: 1rem;
   background-color: white;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
@@ -156,10 +173,10 @@ const TopNavSigninDropDown = styled.div`
 // TopNavBarDropDown....
 const TopNavSigninDropDownContainer = styled.div`
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   grid-template-areas: "button button"
   "list1 list2";
-  width:28rem;
+  width:34rem;
   align-items: flex-start;
 `
 const DropDownSignInBtn = styled.div`
@@ -184,6 +201,13 @@ const DropDownList1 = styled.ul`
   grid-area: list1;
   align-items: flex-start;
   padding: 0 1rem;
+  hr{
+    border: .1px solid rgba(200,200,200,.3);
+    margin: 8px 0;
+  }
+  li{
+    margin:.3rem 0;
+  }
   a{
     color:var(--gray);
     font-size:0.8rem;

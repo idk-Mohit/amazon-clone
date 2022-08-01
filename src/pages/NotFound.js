@@ -5,7 +5,7 @@ import LayOut from "./LayOut";
 const NotFound = () => {
   return (
     <LayOut>
-      <Container>
+      <Container className="main-container">
         <h1>NotFound</h1>
       </Container>
     </LayOut>
@@ -15,7 +15,6 @@ const NotFound = () => {
 export default NotFound;
 
 const Container = styled.div`
-  margin-top: 105px;
   text-align: center;
 
   h1 {

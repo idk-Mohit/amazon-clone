@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <LayOut>
-      <Container>
+      <Container className="main-container">
         <TopCarousel data={carouselData} />
         {/* OnTop CarouselDiv */}
         <div className="onTopCarouselDiv">
@@ -87,8 +87,6 @@ export default Home;
 
 const Container = styled.section`
   background-color: var(--lightgray);
-  /* padding-bottom: 1rem; */
-  margin-top: 105px;
   .cardContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

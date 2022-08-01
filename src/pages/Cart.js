@@ -43,7 +43,6 @@ const Cart = () => {
             setProductList([])
             Cart.items.forEach(async (product) => {
                 let ProductData = await fetchProduct(product.id)
-                // if (ProductData.name) {
                 if (ProductData.name !== '') {
                     setProductList(prev => [...prev, {
                         name: ProductData.name,
@@ -54,8 +53,6 @@ const Cart = () => {
                         quantity: product.quantity
                     }])
                 }
-                // }
-
             })
         }
         if (Cart.items.length > 0) {
@@ -134,7 +131,7 @@ const Cart = () => {
             {!Auth.isLoggedIn ?
                 <CartHolder />
                 :
-                <Container>
+                <Container className='main-container'>
                     <ProductHolder classname='flex-column'>
                         {Cart.items.length < 1 ?
                             <NoProduct>
@@ -227,7 +224,6 @@ const Cart = () => {
 export default Cart
 
 const Container = styled.section`
-    margin-top: 105px;
     background: #EAEDED;
     padding: 1.5rem;
     display: grid;

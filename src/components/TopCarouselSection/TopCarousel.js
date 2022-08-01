@@ -62,10 +62,15 @@ const Carousel = styled.div`
 `;
 
 const CarouselSlide = styled.div`
-background-image: ${(props) => `url(${props.bgImage})`};
+  background-image: ${(props) => `url(${props.bgImage})`};
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
   height: 600px;
+  width: 100%;
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+
+  @media (max-width:768px) {
+    height: 550px;
+  }
 `;

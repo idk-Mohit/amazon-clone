@@ -1,12 +1,24 @@
 import styled from "styled-components";
 import { TopNav, BottomNav } from "./index";
 import React from "react";
+import MobileTopNav from "./Header/MobileHeader/MobileTopNav";
+import TopNavSearch from "./Header/DesktopHeader/TopNavSearch";
+import MobileBottomNav from "./Header/MobileHeader/MobileBottomNav";
 
 const Header = () => {
   return (
     <MainHeader>
-      <TopNav />
-      <BottomNav />
+      <DesktopHeaderContainer>
+        <TopNav />
+        <BottomNav />
+      </DesktopHeaderContainer>
+      <MobileHeaderContainer>
+        <MobileTopNav />
+        <div id="searchBarContainer">
+          <TopNavSearch />
+        </div>
+        <MobileBottomNav />
+      </MobileHeaderContainer>
     </MainHeader>
   );
 };
@@ -16,9 +28,32 @@ export default Header;
 const MainHeader = styled.header`
   color: var(--lightgray);
   z-index: 100;
-  position: fixed;
-  top:0;
-  left: 0;
-  right:0;
+  width: 100%;
   min-width:60rem;
+  position: relative;
+
+  @media (max-width:1024px) {
+    min-width:auto;
+  }
 `;
+
+const MobileHeaderContainer = styled.div`
+  height: 188px;
+  display: none;
+  background-color: #232f3e;
+  box-sizing: border-box;
+
+  #searchBarContainer{
+    padding: 0 .8rem;
+  }
+
+  @media (max-width:1024px) {
+    display: block;
+  }
+`
+
+const DesktopHeaderContainer = styled.div`
+  @media (max-width:1024px) {
+    display: none;
+  }
+`

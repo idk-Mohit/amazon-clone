@@ -82,7 +82,7 @@ const ProductList = () => {
 
     return (
         <LayOut>
-            <Container>
+            <Container className='main-container'>
                 <MainHeading>Search Result for <span>"{name}"</span></MainHeading>
                 <InnerContainer>
                     <aside>
@@ -163,10 +163,7 @@ const ProductList = () => {
 
 export default ProductList
 
-const Container = styled.div`
-margin-top: 105px;
-min-height: 70vh;
-`
+const Container = styled.div``
 const InnerContainer = styled.section`
 display: grid;
 grid-template-columns: 25% auto;
