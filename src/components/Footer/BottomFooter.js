@@ -118,9 +118,14 @@ const BottomFooter = () => {
       </FooterMainLinks>
       <FooterCopyRights>
         <ul className="mobileView flex-column">
-          <li><Link to='#' className="flex"><LanguageIcon fontSize="small" />English</Link></li>
-          <li><Link to='#'>Switch Account</Link></li>
-          <li onClick={navigateHandler}><Link to='#'>{Auth.isLoggedIn ? 'Sign Out' : 'Sign In'}</Link></li>
+          {Auth.isLoggedIn &&
+            <>
+              <li><Link to='#' className="flex"><LanguageIcon fontSize="small" />English</Link></li>
+              <li><Link to='#'>Switch Account</Link></li>
+            </>
+          }
+
+          <li onClick={navigateHandler}><Link to='#'>{Auth.isLoggedIn ? 'Sign Out' : 'Already a customer ? Sign In'}</Link></li>
         </ul>
         <ul className="flex">
           <li>

@@ -39,6 +39,10 @@ export { default as EMICard } from './AboutProduct/EMICard'
 export { default as PriceUI } from './AboutProduct/PriceUi'
 export { default as BuyingSection } from './AboutProduct/BuyingSection'
 
+// ProductList Components ... 
+export { default as ProductCard } from './ProductList/ProductCard'
+export { default as FilterCard } from './ProductList/FilterCard'
+
 // Cart ....
 export { default as CartHolder } from './Cart/EmptyCartHolder'
 

@@ -5,8 +5,10 @@ import { Amazon_Logo } from "../../assets/Images";
 import LanguageIcon from "@mui/icons-material/Language";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { useSelector } from "react-redux";
 
 const TopFooter = () => {
+  const Auth = useSelector(state => state.Auth)
   return (
     <TopFooterContainer>
       <FooterMainLinks className="flex">
@@ -176,20 +178,19 @@ const TopFooter = () => {
       </FooterCountries>
       <MobileView className='flex'>
         <ul className="flex-column">
-          <li><Link to={'/order-history'}>Track and Manage Your Orders</Link></li>
-          <li><Link to={'/order-history'}>Buy Again</Link></li>
-          <li><Link to={'/order-history'}>Return Centre</Link></li>
-          <li><Link to={'/order-history'}>Delivery Speeds &amp; Charges</Link></li>
-          <li><Link to={'/'}>Customer Service</Link></li>
+          <li><Link to={'/'}>{Auth.isLoggedIn ? `${Auth.user.name}'s` : 'Your'} Amazon.in</Link></li>
+          <li><Link to={'#'}>Amazon Pay</Link></li>
+          <li><Link to={'#'}>Wish List</Link></li>
+          <li><Link to={Auth.isLoggedIn ? `/` : '/signin/emailCheck'}>Your Account</Link></li>
+          <li><Link to={Auth.isLoggedIn ? '/order-history' : '/signin/emailCheck'}>Returns</Link></li>
+          <li><Link to={'#'}>Customer Service</Link></li>
         </ul>
         <ul className='flex-column'>
-          <li><Link to={'#'}>Lists</Link></li>
-          <li><Link to={'#'}>Recommendations</Link></li>
-          <li><Link to={'#'}>Browsing History</Link></li>
-          <li><Link to={'#'}>Subscribe and Save</Link></li>
-          <li><Link to={'#'}>Your Prime Membership</Link></li>
-          <li><Link to={'#'}>Your Memberships and Subscriptions(YMS)</Link></li>
-          <li><Link to={'#'}>See all account</Link></li>
+          <li><Link to={Auth.isLoggedIn ? '/order-history' : '/signin/emailCheck'}>Your Orders</Link></li>
+          <li><Link to={'#'}>Amazon App Download</Link></li>
+          <li><Link to={'#'}>Find a WishList</Link></li>
+          <li><Link to={'#'}>Your Recently viewed Items</Link></li>
+          <li><Link to={'#'}>Sell</Link></li>
         </ul>
       </MobileView>
     </TopFooterContainer>
@@ -294,13 +295,13 @@ const CountriesList = styled.ul`
 const MobileView = styled.div`
   display:none;
   width:100%;
-  justify-content:flex-start;
+  justify-content:space-between;
   flex-wrap:wrap;
-  align-items:center;  
-
+  gap:1.4rem;
   li {
     margin: 0.5rem 0;
     a {
+      display: flex;
       font-size: 0.85rem;
       font-weight: 400;
       color: var(--lightgray);
