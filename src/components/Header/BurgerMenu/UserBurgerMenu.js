@@ -81,7 +81,7 @@ const InnerContainer = styled.div`
     top: 0;
     right: 0;
     width: 370px;
-    height: 100vh;
+    height: 100%;
     background-color: white;
     overflow: auto;
     z-index: 301;

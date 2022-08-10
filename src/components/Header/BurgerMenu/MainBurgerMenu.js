@@ -51,7 +51,7 @@ const MainBurgerMenu = ({ status, Close }) => {
                 </Header>
                 <MobileView>
                     <List style={{ padding: 0 }}>
-                        <h3 style={{ padding: 0 }}><Link to='/' style={{ fontSize: '1.2rem', color:'var(--darkblue)' }}>Amazon Home <HomeRoundedIcon /></Link></h3>
+                        <h3 style={{ padding: 0 }}><Link to='/' style={{ fontSize: '1.2rem', color: 'var(--darkblue)' }}>Amazon Home <HomeRoundedIcon /></Link></h3>
                     </List>
                 </MobileView>
                 <List>
@@ -117,7 +117,7 @@ const InnerContainer = styled.div`
     top: 0;
     left: 0;
     width: 370px;
-    height: 100vh;
+    height: 100%;
     background-color: white;
     overflow: auto;
     z-index: 301;

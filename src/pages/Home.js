@@ -25,7 +25,7 @@ const Home = () => {
         <div className="onTopCarouselDiv">
           <div className="Mobile__Carousel">
             <Suspense fallback={<MainPageLoader />}>
-              <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
+              <ItemCarousel data="Macbook" heading="Latest M2 Macbooks" />
             </Suspense>
           </div>
           <div className="cardContainer">
