@@ -26,7 +26,7 @@ const MultipleImageData = [
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg",
-        imageLink: "Washing Machines",
+        imageLink: "Washing-Machines",
         imageLinkText: "Washing Machines",
       },
     ],
@@ -58,7 +58,7 @@ const MultipleImageData = [
       {
         image:
           "https://images-eu.ssl-images-amazon.com/images/G/31/img21/AmazonBrands/GW/Kitchen_1x._SY116_CB627276315_.jpg",
-        imageLink: "chimney",
+        imageLink: "kitchen-products",
         imageLinkText: "Kitchen Products",
       },
     ],
@@ -77,21 +77,21 @@ const MultipleImageData = [
       },
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img19/2020/PC/Mobile._SY116_CB431401553_.jpg",
-        imageLink: "Mobiles",
-        imageLinkText: "Mobiles",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/AmazonBusiness/appgw_aug_art/QC_Smartphones_186_116_0308._SY116_CB630737022_.jpg",
+        imageLink: "Smart-Phones",
+        imageLinkText: "Smart Phones",
       },
       {
         image:
-          "https://m.media-amazon.com/images/I/61gYxcIGjvL._SL1000_.jpg",
-        imageLink: "over ear headphones",
-        imageLinkText: "Over Ear Headphones",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/kitchen/AugART22/GW/PC_QC-1x._SY116_CB633274941_.jpg",
+        imageLink: "Kitchen-dining",
+        imageLinkText: "Kitchen & Dining",
       },
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_5._SY116_CB655805757_.jpg",
-        imageLink: "Smart Watch",
-        imageLinkText: "Smart Watches & Fitness Trackers",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/Event/Gw/AugART/Event/PC-MF/MF-2-186-116._SY116_CB630562389_.jpg",
+        imageLink: "Watch",
+        imageLinkText: "Watches",
       },
     ],
   },
@@ -103,54 +103,54 @@ const MultipleImageData = [
     data: [
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_7._SY116_CB655805757_.jpg",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/CEPC/AugArt/GW/QCs/V1/xcm_banners_desk1_186x116_in-en._SY116_CB630945071_.jpg",
         imageLink: "Laptops",
         imageLinkText: "Laptops",
       },
       {
         image:
-          "https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_8._SY116_CB655805757_.jpg",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/CEPC/AugArt/GW/QCs/V1/xcm_banners_desk3_186x116_in-en._SY116_CB630945067_.jpg",
         imageLink: "Monitors",
         imageLinkText: "Monitors",
       },
       {
-        image: 'https://m.media-amazon.com/images/I/61yQqZ7yI+L._SL1000_.jpg',
-        imageLink: "security camera",
-        imageLinkText: "Security & Surveillance",
+        image: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/CEPC/AugArt/GW/QCs/V1/xcm_banners_desk2_186x116_in-en._SY116_CB630945065_.jpg',
+        imageLink: "Tablets",
+        imageLinkText: "Tablets",
       },
       {
-        image: 'https://m.media-amazon.com/images/I/71NBQ2a52CL._SL1000_.jpg',
-        imageLink: "Gaming and More",
-        imageLinkText: "Xbox",
+        image: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/CEPC/AugArt/GW/QCs/V1/xcm_banners_desk4_186x116_in-en._SY116_CB630945065_.jpg',
+        imageLink: "Printers",
+        imageLinkText: "Printers",
       }
     ],
   },
   {
-    title: "Electronics devices for home office",
+    title: "Starting ₹49 | Accessories from top brands",
     footerLinkText: "See all deals",
     footerLink: "/",
     data: [
       {
         image:
-          "https://m.media-amazon.com/images/I/61imoTVBk7L._SL1000_.jpg",
-        imageLink: "Motherboard",
-        imageLinkText: "Motherboared Gaming / Productivity",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/WLA/AugustART/UnrecMSO/D52533858_WLA_AugART_QC_PC_QC_186x116_5._SY116_CB630927801_.jpg",
+        imageLink: "OnePlus",
+        imageLinkText: "Starting ₹ 1,799",
       },
       {
         image:
-          "https://m.media-amazon.com/images/I/81EoGRqh1DL._SL1000_.jpg",
-        imageLink: "graphic card",
-        imageLinkText: "Graphic Card",
+          "https://images-eu.ssl-images-amazon.com/images/G/31/img22/WLA/AugustART/UnrecMSO/D52533858_WLA_AugART_QC_PC_QC_186x116_6._SY116_CB630927801_.jpg",
+        imageLink: "pTron",
+        imageLinkText: "Starting ₹ 49",
       },
       {
-        image: 'https://m.media-amazon.com/images/I/51leZMMlvhL._SL1000_.jpg',
-        imageLink: "Ram",
-        imageLinkText: "Storage Memory",
+        image: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/WLA/AugustART/UnrecMSO/D52533858_WLA_AugART_QC_PC_QC_186x116_7._SY116_CB630927801_.jpg',
+        imageLink: "RealMe",
+        imageLinkText: "Starting ₹ 399",
       },
       {
-        image: 'https://m.media-amazon.com/images/I/515qC3Er6YL._SL1000_.jpg',
-        imageLink: "cabinet",
-        imageLinkText: "PC Cabinets",
+        image: 'https://images-eu.ssl-images-amazon.com/images/G/31/img22/WLA/AugustART/UnrecMSO/D52533858_WLA_AugART_QC_PC_QC_186x116_8._SY116_CB630927801_.jpg',
+        imageLink: "Boat",
+        imageLinkText: "Starting ₹ 99",
       }
     ],
   },

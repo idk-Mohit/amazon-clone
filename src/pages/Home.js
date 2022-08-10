@@ -52,7 +52,7 @@ const Home = () => {
           </div>
           <div className="itemCarouselContainer">
             <Suspense fallback={<MainPageLoader />}>
-              <ItemCarousel data="mobile accessories" heading="Mobile Accessories" />
+              <ItemCarousel data="Apple-Watches" heading="Apple Watches" />
             </Suspense>
           </div>
           <div className="itemCarouselContainer">
@@ -75,6 +75,13 @@ const Home = () => {
               button={false}
               link="/productList/chimneys"
               image="https://images-eu.ssl-images-amazon.com/images/G/31/img19/Home/LA/LATVFdesktopQC/Chimney_GW_CC_379x304._SY304_CB427965740_.jpg"
+              footerLinkText="See More"
+            />
+            <SingleShowCaseCard
+              title="Up to 75% off | Laptops, headphones &amp; more"
+              button={false}
+              link="/productList/Laptops"
+              image="https://images-eu.ssl-images-amazon.com/images/G/31/img22/CEPC/AugArt/Electronics/GW/D52498136_IN_CEPC_Electronics_GW_Graphics_PC_CC0.5x._SY304_CB630947424_.jpg"
               footerLinkText="See More"
             />
           </div>
