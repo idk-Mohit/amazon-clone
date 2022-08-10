@@ -172,6 +172,10 @@ const InputSection = styled.section`
       align-items: center;
       justify-content: center;
       padding: 3px;
+      .loader{
+        width: 26px;
+        height: 26px;
+      }
     }
 `;
 

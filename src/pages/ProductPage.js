@@ -1,12 +1,11 @@
 import axios from 'axios'
-import LayOut from './LayOut'
 import styled from 'styled-components'
 import { Skeleton } from '@mui/material'
-import ReactImageMagnify from 'react-image-magnify';
+import { BoxLoader } from '../assets/Images'
 import { Link, useParams } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Accordian, ProductRating, PriceUI, BuyingSection, ItemCarousel } from '../components'
+import { ProductRating, ItemCarousel } from '../components'
+import { ImageMagnifier, NoProductFound, PriceUI, BuyingSection, Accordion, ReplacementUi } from '../components/AboutProduct'
 
 const ProductPage = () => {
     const { id, category } = useParams();
@@ -33,17 +32,14 @@ const ProductPage = () => {
             }
         }
         FetchProduct()
-        // eslint-disable-next-line
     }, [id])
-
 
     let List = productFeatures.map((feature, index) => {
         return <li key={index}>{feature}</li>
     })
 
-
     return (
-        <LayOut>
+        <>
             <Container className='main-container'>
                 <ItemCarouselContainer>
                     <h1>More of <span>{category}</span></h1>
@@ -51,73 +47,61 @@ const ProductPage = () => {
                 </ItemCarouselContainer>
                 <hr className='TopDivider' />
                 {product === false ?
-                    <div style={{ textAlign: 'center', width: "100%" }}>
-                        <h2 style={{ color: "var(--orange)" }}>Looking for something?</h2>
-                        <p>We're sorry. The Web address you entered is not a functioning page on our site.</p>
-                    </div>
-                    : <ProductContainer>
+                    <NoProductFound />
+                    :
+                    <ProductContainer>
                         <ProductImageDiv>
                             {isLoading ?
                                 <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
                                 :
-
-                                <div className='flex-column magnifier-container'>
-                                    {product.image &&
-                                        <ReactImageMagnify {...{
-                                            smallImage: {
-                                                alt: 'ProductImage',
-                                                isFluidWidth: true,
-                                                src: product.image
-                                            },
-                                            largeImage: {
-                                                src: product.image,
-                                                width: 1000,
-                                                height: 1000
-                                            }
-                                        }} className='magnifier' />
-                                    }
-                                    <span> Hover to Zoom In</span>
-                                </div>
-
+                                (product.image &&
+                                    <ImageMagnifier image={product.image} />
+                                )
                             }
                         </ProductImageDiv>
-                        <ProductData className='flex-column'>
-                            {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"50%"} /> : <>{product.name && <Heading>{product.name}</Heading>}
-                                <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
-                                {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
-                                {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}</>}
-                            <hr />
-                            {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} /> : <PriceUI currentPrice={product.price} originalPrice={product.original_price} />}
-                            {!isLoading && <>
-                                <EMISection>
-                                    <Accordian />
-                                </EMISection>
-                                <ReplacementDiv>
-                                    <Link to={'#'} className='color-link'><span className='flex'>7-day replacement only <KeyboardArrowDownIcon fontSize='extrasmall' /></span></Link>
-                                    <div className='replacementDivPopUp'><p>This item can't be returned to Amazon, if the item is "No longer needed". For device related issues, please contact the brand directly for resolution.</p></div>
-                                </ReplacementDiv>
-                            </>}
-                            {!isLoading &&
-                                <Features>
-                                    <h3>About this item</h3>
-                                    <ul>{List}</ul>
-                                </Features>
-                            }
-                        </ProductData>
-                        {isLoading ? <Skeleton variant='rectangular' width={"100%"} height={"100%"} />
-                            :
-                            <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />}
-                    </ProductContainer>}
+                        {
+                            isLoading ?
+                                <LoadingDiv>
+                                    <img src={BoxLoader} alt="" />
+                                </LoadingDiv>
+                                :
+                                <ProductDataContainer>
+                                    <ProductData className='flex-column'>
+                                        <Heading>
+                                            <div>
+                                                {product.name && <h2>{product.name}</h2>}
+                                                <Link to={'#'} className='color-link'><span>Visit the Store</span></Link>
+                                            </div>
+                                            <div>
+                                                {product.rating_details.rating && <Link to={'#'} className='color-link'><ProductRating rating={product.rating_details.rating} /></Link>}
+                                                {product.rating_details.ratings_count && <Link to={'#'} className='color-link'><span>{product.rating_details.ratings_count} Ratings</span></Link>}
+                                            </div>
+                                        </Heading>
+                                        <hr />
+                                        <PriceUI currentPrice={product.price} originalPrice={product.original_price} />
+                                        <Accordion />
+                                        <ReplacementUi />
+                                        <Features>
+                                            <h3>About this item</h3>
+                                            <ul>{List}</ul>
+                                        </Features>
+                                    </ProductData>
+                                    <BuyingSection currentPrice={product.price} originalPrice={product.original_price} stock={product.in_stock} />
+                                </ProductDataContainer>
+                        }
+                    </ProductContainer>
+                }
             </Container>
-        </LayOut >
+        </ >
     )
 }
 
 export default ProductPage
 
 const Container = styled.section`
+padding: 0 1rem 1rem;
     hr.TopDivider{
-        width: 95%;
+        width: 100%;
         border: 1px solid rgba(200,200,200,.5);
         margin: 1rem auto;
         border-radius: 50px;
@@ -125,16 +109,20 @@ const Container = styled.section`
 
 `
 const ProductContainer = styled.div`
+position: relative;
 display: grid;
-grid-template-columns: 1.8fr 1fr .8fr;
+grid-template-columns: .9fr 1fr;
 grid-gap: .5rem;
+    @media (max-width:900px) {
+        grid-template-columns: 1fr;
+    }
 `
 const ItemCarouselContainer = styled.div`
 display: grid;
 grid-template-columns: auto 90%;
 align-items: center;
 grid-gap: .5rem;
-padding: 0 .5rem;
+padding:.5rem;
 h1{
     font-size: 1.4rem;
     span {
@@ -144,15 +132,15 @@ h1{
 }
 .CarouselContainer{
     margin: 0;
+    padding: 0;
+    .slick-list{
+        height: 80px !important;
+    }
     .ImageContainer{
         height: 80px !important;
     }
-    .slick-next,.slick-prev {
-        width:3.8rem;
-    }
-    .MuiPrevIcon,.MuiNextIcon{
-        font-size: 2rem;
-        top:38%
+    .slick-arrow{
+        display: none !important;
     }
 }
   
@@ -165,25 +153,17 @@ const ProductImageDiv = styled.div`
     min-height: 25rem;
     text-align: center;
     z-index: 10;
-    .magnifier{
-        width: 30rem !important;
-        height: 30rem !important;
-        margin:auto;
-        > img{
-            display: flex;
-            align-self: center;
-            padding: 10%;
-            display: table;
-            margin: auto;
-        }
-        div:nth-of-type(2){
-            background-color: white;
-            img {
-                padding: 2rem;
-            }
-        }
+    @media (max-width:900px) {
+        min-height: 15rem;
     }
-    
+`
+const ProductDataContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    @media (max-width:900px) {
+        grid-template-columns: 1fr;
+    }
 `
 const ProductData = styled.div`
 border:1px solid var(--lightgray);
@@ -210,39 +190,30 @@ border:1px solid var(--lightgray);
     }
 }
 `
-const Heading = styled.h1`
-    font-family: 'Amazon-light';
-    font-weight: 600;
-`
-const EMISection = styled.div``
-const ReplacementDiv = styled.div`
-position: relative;
-    a {
-        width: fit-content;
-        span{
-            width: fit-content;
-            align-items: center;
-            gap: .4rem;
+const Heading = styled.div`
+    background-color: white;
+    h2{
+        font-family: 'Amazon-light';
+        font-weight: 600;
+    }
+    ::-webkit-scrollbar{
+        display:none;
+    }
+    @media(max-width:768px){
+        position: absolute;
+        top:0;
+        left:0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        z-index: 10;
+        gap:10px;
+        max-height: 45px;
+        overflow: auto;
+        h2,a,span{
+            font-size: .8rem !important;   
         }
     }
-
-    &:hover .replacementDivPopUp{
-        display: block;
-    }
-    .replacementDivPopUp{
-        position: absolute;
-        width: 100%;
-        top: 1rem;
-        z-index: 10;
-        right: 40%;
-        padding: 1rem;
-        border: 1px solid var(--lightgray);
-        border-radius: 5px;
-        background-color: white;
-        display: none;
-        box-shadow: 0px 3px 14px 0px rgba(0,0,0,.4);
-    }
-
 `
 const Features = styled.ul`
 margin:1rem 0;
@@ -254,6 +225,13 @@ margin:1rem 0;
             letter-spacing: .1px;
             margin-bottom:0.5rem;
         }
-}
-    
+}    
+`
+const LoadingDiv = styled.div`
+    min-height: 20rem;
+    display: grid;
+    place-items: center;
+    img{
+        width: 2.5rem;
+    }
 `

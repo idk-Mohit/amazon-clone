@@ -5,36 +5,38 @@ import { CartIcon } from '../../../assets/Images'
 import { Link } from 'react-router-dom'
 
 const TopNavCart = () => {
-    const isCart = window.location.href;
-    const Cart = useSelector(state => state.Cart)
-    return (
-        <Container className='nav--hover flex'>
-            {isCart.includes('Cart') ?
-                <div className="flex">
-                    <div className="CartIconContainer">
-                        <img src={CartIcon} alt='' />
-                        <span className="cartItem">{Cart.totalQuantity}</span>
-                    </div>
-                    <h4>Cart</h4></div>
-                :
-                <Link to={'/Cart'} className="flex">
-                    <div className="CartIconContainer">
-                        <img src={CartIcon} alt='' />
-                        <span className="cartItem">{Cart.totalQuantity}</span>
-                    </div>
-                    <h4>Cart</h4></Link>
-            }
-
-        </Container>
-    )
+  const isCart = window.location.href;
+  const Cart = useSelector(state => state.Cart)
+  return (
+    <Container className='nav--hover flex'>
+      {isCart.includes('Cart') ?
+        <div className="flex">
+          <div className="CartIconContainer">
+            <img src={CartIcon} alt='' />
+            <span className="cartItem">{Cart.totalQuantity}</span>
+          </div>
+          <h4>Cart</h4></div>
+        :
+        <Link to={'/Cart'} className="flex">
+          <div className="CartIconContainer">
+            <img src={CartIcon} alt='' />
+            <span className="cartItem">{Cart.totalQuantity}</span>
+          </div>
+          <h4>Cart</h4></Link>
+      }
+    </Container>
+  )
 }
 
 export default TopNavCart
 
 const Container = styled.div`
-    h4 {
+  h4 {
     margin-bottom: 1px !important;
     font-size: .9rem;
+    @media(max-width:1024px){
+      display:none;
+    }
   }
   a,div {
     align-items: flex-end !important;

@@ -101,7 +101,7 @@ const SelectContainer = styled.div`
       cursor: pointer;
     }
 
-    @media (max-width:1024px) {
+    @media (max-width:768px) {
         display: none;
     }
 `
@@ -123,13 +123,15 @@ const Form = styled.form`
       ::placeholder{
             color:transparent;
            } 
-
-      @media (max-width:1024px) {
+      @media (max-width:768px) {
         border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-           ::placeholder{
+        border-bottom-left-radius: 8px;   
+        ::placeholder{
             color: var(--gray);
-           }     
+           }  
+      }
+      @media (max-width:768px) {
+        
       }
     }
 `
@@ -153,7 +155,7 @@ const NavSearchButton = styled.button`
     background: #dda949;
   }
 
-  @media(max-width:1024px){
+  @media(max-width:768px){
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
   }

@@ -79,9 +79,9 @@ const PasswordForm = () => {
             {isLoading && <button className="loaderDiv flex"><div className="loader"></div></button>}
           </form>
           <div>
-            {/* <p className="flex">
-              <input type="checkbox" onChange={()=>} checked /> Keep me signed in. <Link to={'#'}>Details</Link>
-            </p> */}
+            <p className="flex">
+              <input type="checkbox" /> Keep me signed in. <Link to={'#'}>Details</Link>
+            </p>
             <div
               className="help__dropdown"
               onClick={() => setHelpDropDown(!helpDropdown)}
@@ -178,6 +178,10 @@ const InputSection = styled.section`
       align-items: center;
       justify-content: center;
       padding: 3px;
+      .loader{
+        width: 26px;
+        height: 26px;
+      }
     }
   }
   a {

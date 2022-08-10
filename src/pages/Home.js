@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import styled from "styled-components";
 import {
   TopCarousel,
@@ -7,23 +7,26 @@ import {
   MultipleShowCaseData,
   SingleShowCaseCard,
   SignInFooter,
-  ItemCarousel
+  MainPageLoader,
+  // ItemCarousel
 } from "../components";
 import { useSelector } from 'react-redux'
-import LayOut from "./LayOut";
-// import ReactLazyTest from "../components/ReactLazyTest";
+
+const ItemCarousel = lazy(() => import('../components/ItemCarousel/ItemCarousel'))
 
 const Home = () => {
   const Auth = useSelector(state => state.Auth)
 
   return (
-    <LayOut>
+    <>
       <Container className="main-container">
         <TopCarousel data={carouselData} />
         {/* OnTop CarouselDiv */}
         <div className="onTopCarouselDiv">
           <div className="Mobile__Carousel">
-            <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
+            <Suspense fallback={<MainPageLoader />}>
+              <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
+            </Suspense>
           </div>
           <div className="cardContainer">
             <MultipleShowCaseCard data={MultipleShowCaseData[0]} />
@@ -48,10 +51,14 @@ const Home = () => {
             {/* <MultipleShowCaseCard data={MultipleShowCaseData[6]} /> */}
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="mobile accessories" heading="Mobile Accessories" />
+            <Suspense fallback={<MainPageLoader />}>
+              <ItemCarousel data="mobile accessories" heading="Mobile Accessories" />
+            </Suspense>
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
+            <Suspense fallback={<MainPageLoader />}>
+              <ItemCarousel data="mobile" heading="Latest and Greatest Mobiles" />
+            </Suspense>
           </div>
           <div className="cardContainer">
             {/* <MultipleShowCaseCard data={MultipleShowCaseData[6]} /> */}
@@ -72,14 +79,18 @@ const Home = () => {
             />
           </div>
           <div className="itemCarouselContainer">
-            <ItemCarousel data="tv" heading='Decor your Livingroom' />
+            <Suspense fallback={<MainPageLoader />}>
+              <ItemCarousel data="tv" heading='Decor your Livingroom' />
+            </Suspense>
           </div>
-          <ItemCarousel data="laptop" heading="Latest to improve Productivity" />
+          <Suspense fallback={<MainPageLoader />}>
+            <ItemCarousel data="laptop" heading="Latest to improve Productivity" />
+          </Suspense>
           {!Auth.isLoggedIn && <SignInFooter />}
         </div>
         {/* OnTop CarouselDiv */}
       </Container>
-    </LayOut>
+    </>
   );
 };
 

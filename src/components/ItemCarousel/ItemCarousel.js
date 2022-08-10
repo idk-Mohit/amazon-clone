@@ -1,14 +1,15 @@
+import axios from "axios";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Autoplay } from "swiper";
+
+// import { FreeMode } from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
+import Slider from "react-slick";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-// import "swiper/css/navigation";
+// import "swiper/css";
+// import "swiper/css/free-mode";
 
 const ItemCarousel = ({ data, heading }) => {
   const [carouselData, setCarouselData] = useState([])
@@ -42,43 +43,33 @@ const ItemCarousel = ({ data, heading }) => {
     let ProductLink = slide.query_url.split('/product/')[1];
     ProductLink = ProductLink.replaceAll('/', '~')
     return (
-      <SwiperSlide key={index} className='ImageContainer'>
+      // <SwiperSlide key={index} className='ImageContainer'>
+      //   <Link to={`/product/${data}/${ProductLink}`}>
+      //     <img src={slide.image} alt="" loading="lazy" />
+      //   </Link>
+      // </SwiperSlide>
+      <Item key={index} className='ImageContainer'>
         <Link to={`/product/${data}/${ProductLink}`}>
           <img src={slide.image} alt="" loading="lazy" />
         </Link>
-      </SwiperSlide>
+      </Item>
     )
   })
 
-  // const settings = {
-  //   className: "slider variable-width",
-  //   infinite: true,
-  //   centerMode: true,
-  //   centerPadding: "100px",
-  //   slidesToShow: 2,
-  //   swipeToSlide: true,
-  //   variableWidth: true,
-  //   autoplay: true,
-  //   speed: 1000,
-  //   autoplaySpeed: 5000,
-  //   cssEase: "linear"
-  // };
+  const settings = {
+    className: "slider center variable-width",
+    infinite: true,
+    speed: 500,
+    variableWidth: true,
+    slidesToShow: 1,
+    swipeToSlide: true,
+  };
 
   return <>
     <CarouselContainer className="CarouselContainer">
       {heading && <h1>{heading}</h1>}
-      <Swiper
-        slidesPerView={"auto"}
-        spaceBetween={2}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: true,
-        }}
-        freeMode={true}
-        // navigation={true}
-        modules={[FreeMode, Autoplay]}
-        className="mySwiper"
-      >{List}</Swiper>
+      <Slider {...settings}
+      >{List}</Slider>
     </CarouselContainer>
   </>;
 };
@@ -91,49 +82,66 @@ const CarouselContainer = styled.div`
   padding: 1rem;
   background-color: white;
   height: auto;
+  transition: 300ms ease;
 
   h1 {
     margin:0 0 1rem 1.4rem;
     font-size: 1.6rem;
   }
-   .ImageContainer{
-    width: fit-content;
-    height: 165px;
-    display: grid;
-    place-items: center;
-    padding: 0 1rem;
-    
-        a{
-          height: inherit;
-            img {
-            height: inherit;
-          }
-        }
+
+  .slick-list{
+    height: 165px !important;
   }
 
-  .swiper-button-prev,.swiper-button-next{
+  .slick-arrow{
     border-radius: 8px;
     width: 3rem;
     height: 150px;
     align-items: center;
     display: flex;
     color:black;
-    top:28px;
+    top:5rem;
+    z-index: 10;
       &:hover{
         background-color: transparent;
         box-shadow: 0 5px 10px rgba(0,0,0,.3);
       }
- }
-
+  }
+  .slick-prev{
+    left:0;
+  }
+  .slick-next{
+    right:0;
+  }
  &:hover{
-  .swiper-button-prev,.swiper-button-next{
+  transition: 300ms ease;
+  .slick-prev,.slick-next{
     background-color: rgba(200,200,200,.5);
+    &:before{
+      color: black;
+    }
   }
  }
 
  @media (max-width:768px) {
-  .swiper-button-prev,.swiper-button-next{
-    display: none;
+  .slick-arrow{
+    display: none !important;
   }
  }
 `;
+
+const Item = styled.li`
+  width: fit-content;
+    height: 165px;
+    display: grid;
+    place-items: center;
+    margin: 0 1rem;
+    
+    a{
+      height: inherit;
+        img {
+        height: inherit;
+        margin: auto;
+      }
+    }
+`

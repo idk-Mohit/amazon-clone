@@ -16,4 +16,7 @@ export { default as CartIcon } from './Cart.png'
 export { default as dotLoader } from './dotLoading.gif'
 export { default as DarkFlagImage } from './darkBgFlag.png'
 export { default as WhiteFlagImage } from './whiteBgFlag.png'
+export { default as returnorderIcon } from './returnorderIcon.png'
+export { default as BoxLoader } from './BoxLoader.gif'
+export { default as EmptyCartBg } from './EmptyCartBg.gif'
 

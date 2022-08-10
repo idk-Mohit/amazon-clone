@@ -69,6 +69,11 @@ const TopNavContainer = styled.nav`
     font-weight: 900;
     letter-spacing: .5px;
   }
+
+  @media (max-width:1024px) {
+    padding: 0.4rem .2rem;
+    gap:.2rem;
+  }
 `;
 
 const TopNavLeftContainer = styled.div`

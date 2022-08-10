@@ -6,6 +6,7 @@ import { Logout } from '../../../Store/Auth-Slice'
 import { logoutHelper } from '../../../Store/AuthenticationHelper'
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { disableBackDrop, enableBackDrop } from '../../../Store/backdrop-Slice'
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 const TopNavSignIn = (props) => {
     const dispatch = useDispatch()
@@ -29,12 +30,15 @@ const TopNavSignIn = (props) => {
     return (
         <Container className='flex nav--hover' onMouseEnter={backdropEnableHandler}
             onMouseLeave={backdropDisableHandler}>
-            <Link to={Auth.isLoggedIn ? '/yourAccount' : '/signin/emailCheck'} className="flex-column">
-                <span className="top__nav__hover__div-first">Hello, {Auth.isLoggedIn ? Auth.user.name : 'Sign in'}</span>
-                <div className="flex">
-                    <span className="top__nav__hover__div-second">Accounts &amp; Lists</span>
-                    <ArrowDropDownIcon fontSize="small" />
-                </div>
+            <Link to={Auth.isLoggedIn ? '/yourAccount' : '/signin/emailCheck'}>
+                <HeadingText className='flex-column'>
+                    <span className="top__nav__hover__div-first">Hello, {Auth.isLoggedIn ? Auth.user.name : 'Sign in'}</span>
+                    <div className="flex">
+                        <span className="top__nav__hover__div-second">Accounts &amp; Lists</span>
+                        <ArrowDropDownIcon fontSize="small" />
+                    </div>
+                </HeadingText>
+                <div className="UserIcon"><PersonOutlineIcon /></div>
             </Link>
             {/* Small Triangle Shape on Top of DropDown */}
             <DropDownTriangleTop className='DropDownTriangleTop' />
@@ -119,22 +123,26 @@ export default TopNavSignIn
 
 const Container = styled.div`
     position: relative;
-span{
-  padding-bottom: 0 !important;
-}
-> a > div {
-  align-items: center;
-  .MuiSvgIcon-root{
-          font-size: 1.2rem;
-          margin-right: -5px;
+        span{
+        padding-bottom: 0 !important;
         }
-}
-&:hover {
-  .dropdown,.DropDownTriangleTop{
-      opacity:1;
-      pointer-events: all;
-  }
-}
+        &:hover {
+        .dropdown,.DropDownTriangleTop{
+            opacity:1;
+            pointer-events: all;
+        }
+    }
+    .UserIcon{
+        display:none;
+    }
+    @media (max-width:940px) {
+        .UserIcon{
+            display:flex;
+            align-items: center;
+            font-size: 1.8rem;
+            padding:2px;
+        }
+    }
 `
 // Small Triangle Shape on Top of DropDown
 const DropDownTriangleTop = styled.span`
@@ -222,3 +230,16 @@ const DropDownList2 = styled(DropDownList1)`
   grid-area: list2;
   border-left: 1px solid rgba(200,200,200,.5);
 `;
+
+const HeadingText = styled.div`
+    align-items: flex-start;
+    margin-bottom: -5px;
+    .MuiSvgIcon-root{
+            font-size: 1.2rem;
+            margin-right: -5px;
+    }
+
+    @media(max-width:940px){
+        display:none;
+    }
+`

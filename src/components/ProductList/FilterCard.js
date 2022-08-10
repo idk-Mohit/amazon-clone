@@ -31,7 +31,7 @@ const Container = styled.aside`
         font-size: 0.9rem;
         margin-left:1rem;
     }
-    @media(max-width:1024px){
+    @media(max-width:768px){
         display: none;
     }
 `

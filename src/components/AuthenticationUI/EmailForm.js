@@ -160,6 +160,11 @@ const InputSection = styled.section`
       align-items: center;
       justify-content: center;
       padding: 3px;
+
+      .loader{
+        width: 26px;
+        height: 26px;
+      }
     }
 `;
 
@@ -174,7 +179,6 @@ margin-top: 1rem;
     }
   }
 `
-
 const Needhelp = styled.div`
   margin: 1rem 0 0 -5px;
   position: relative;
@@ -189,7 +193,6 @@ const Needhelp = styled.div`
     }
   }
 `
-
 const ExtraInformation = styled.div`
 margin-top: 1rem;
     p{

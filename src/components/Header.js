@@ -7,7 +7,7 @@ import MobileBottomNav from "./Header/MobileHeader/MobileBottomNav";
 
 const Header = () => {
   return (
-    <MainHeader>
+    <MainHeader className="MainHeader">
       <DesktopHeaderContainer>
         <TopNav />
         <BottomNav />
@@ -35,6 +35,9 @@ const MainHeader = styled.header`
   @media (max-width:1024px) {
     min-width:auto;
   }
+  @media (max-width:768px) {
+    min-width:auto;
+  }
 `;
 
 const MobileHeaderContainer = styled.div`
@@ -46,14 +49,13 @@ const MobileHeaderContainer = styled.div`
   #searchBarContainer{
     padding: 0 .8rem;
   }
-
-  @media (max-width:1024px) {
+  @media (max-width:768px) {
     display: block;
   }
 `
 
 const DesktopHeaderContainer = styled.div`
-  @media (max-width:1024px) {
+  @media (max-width:768px) {
     display: none;
   }
 `

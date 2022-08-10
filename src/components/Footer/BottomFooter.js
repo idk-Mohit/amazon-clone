@@ -150,10 +150,7 @@ const BottomFooterContainer = styled.footer`
   background-color: #131a22;
   padding: 2rem 3rem;
 `;
-
-const FooterMainLinks = styled.div`
-
-`
+const FooterMainLinks = styled.div``
 const List = styled.ul`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -176,7 +173,7 @@ const List = styled.ul`
       text-decoration: underline;
     }  
 }
-  @media (max-width:1024px) {
+  @media (max-width:768px) {
       display:none ;
     }
 `
@@ -212,7 +209,7 @@ const FooterCopyRights = styled.div`
     }
 
     @media(max-width:1024px){
-      display: flex;
+      /* display: flex; */
     }
   }
 `

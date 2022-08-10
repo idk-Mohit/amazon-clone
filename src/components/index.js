@@ -25,6 +25,7 @@ export { default as SignInFooter } from "./SignInFooter";
 
 // Backdrop ...
 export { default as Backdrop } from "./backdrop/Backdrop";
+export { default as MainPageLoader } from "./MainPageLoader";
 
 // Authentication ...
 export { default as AuthenticationWrapper } from "./AuthenticationUI/AuthenticationWrapper";
@@ -33,18 +34,18 @@ export { default as PasswordForm } from "./AuthenticationUI/PasswordForm";
 export { default as SignUpForm } from './AuthenticationUI/SignUp'
 
 // ProductPageComponents...
-export { default as Accordian } from './AboutProduct/Accordian'
 export { default as ProductRating } from './ProductRating'
-export { default as EMICard } from './AboutProduct/EMICard'
-export { default as PriceUI } from './AboutProduct/PriceUi'
-export { default as BuyingSection } from './AboutProduct/BuyingSection'
 
 // ProductList Components ... 
-export { default as ProductCard } from './ProductList/ProductCard'
+export { default as ListProductCard } from './ProductList/ListProductCard'
 export { default as FilterCard } from './ProductList/FilterCard'
 
 // Cart ....
 export { default as CartHolder } from './Cart/EmptyCartHolder'
+export { default as SubTotal } from './Cart/SubTotal'
+export { default as SubTotalAmount } from './Cart/SubTotalAmount'
+export { default as NoProduct } from './Cart/NoProduct'
+export { default as CartProductCard } from './Cart/CartProductCard'
 
 // YourAccount ...
 export { default as ImageCard } from './YourAccount/ImageCard'

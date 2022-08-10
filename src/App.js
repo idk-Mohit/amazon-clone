@@ -1,15 +1,23 @@
+import React, { useCallback, useEffect, useState, Suspense, lazy } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { ArrowUp } from './assets/Images'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginHelper, userHelper } from './Store/AuthenticationHelper'
-import { Home, NotFound, ProductPage, ProductList, Cart, Account, OrdersNReturn } from "./pages";
 import { Routes, Route, useLocation } from "react-router-dom";
-import React, { useCallback, useEffect, useState } from "react";
-import { Backdrop, EmailForm, PasswordForm, SignUpForm } from "./components/index";
 import { disableBackDrop } from "./Store/backdrop-Slice";
 import { Login, User } from './Store/Auth-Slice'
 import { replaceCart } from "./Store/Cart-Slice";
+import { Backdrop, MainPageLoader, Header, Footer } from "./components/index";
+const EmailForm = lazy(() => import('./components/AuthenticationUI/EmailForm'))
+const PasswordForm = lazy(() => import('./components/AuthenticationUI/PasswordForm'))
+const SignUpForm = lazy(() => import('./components/AuthenticationUI/SignUp'))
+const Home = lazy(() => import('./pages/Home'))
+const ProductPage = lazy(() => import('./pages/ProductPage'))
+const ProductList = lazy(() => import('./pages/ProductList'))
+const Cart = lazy(() => import('./pages/Cart'))
+const Account = lazy(() => import('./pages/Account'))
+const OrdersNReturn = lazy(() => import('./pages/OrdersNReturn'))
 
 var AppStart = true;
 
@@ -130,6 +138,14 @@ function App() {
 
   // Scrolling To Top And Disabling The Backdrops if Open
   useEffect(() => {
+    if (location.pathname.includes('sign')) {
+      document.querySelector('.MainHeader').style.display = 'none'
+      document.querySelector('.MainFooter').style.display = 'none'
+    }
+    else {
+      document.querySelector('.MainHeader').style.display = 'block'
+      document.querySelector('.MainFooter').style.display = 'block'
+    }
     window.scrollTo({ top: 0, behavior: 'auto' })
     dispatch(disableBackDrop())
   }, [location, dispatch])
@@ -142,27 +158,27 @@ function App() {
   };
 
   return (
-      <Container>
+    <Container>
       {backdrop.backdrop && <Backdrop />}
-        <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/signin/emailCheck"} element={<EmailForm />} />
-          <Route path={"/signin/passwordCheck"} element={<PasswordForm />} />
-          <Route path={"/signup"} element={<SignUpForm />} />
-          <Route path={"/product/:category/:id"} element={<ProductPage />} />
-          <Route path={"/productList/:name"} element={<ProductList />} />
-          <Route path={"/Cart"} element={<Cart />} />
-          <Route path={"/yourAccount"} element={<Account />} />
-          <Route path={"/order-history"} element={<OrdersNReturn />} />
-        
-          <Route path={"/notfound"} element={<NotFound />} />
-        </Routes>
-        {showButton && (
-          <button onClick={scrollToTop} id={'scrollToTopButton'}>
-            <img src={ArrowUp} alt="" />
-          </button>
-        )}
-      </Container>
+      <Header />
+      <Routes>
+        <Route path={"/"} element={<Suspense fallback={<MainPageLoader />}><Home /></Suspense>} />
+        <Route path={"/signin/emailCheck"} element={<Suspense fallback={<MainPageLoader />}><EmailForm /></Suspense>} />
+        <Route path={"/signin/passwordCheck"} element={<Suspense fallback={<MainPageLoader />}><PasswordForm /></Suspense>} />
+        <Route path={"/signup"} element={<Suspense fallback={<MainPageLoader />}><SignUpForm /></Suspense>} />
+        <Route path={"/product/:category/:id"} element={<Suspense fallback={<MainPageLoader />}><ProductPage /></Suspense>} />
+        <Route path={"/productList/:name"} element={<Suspense fallback={<MainPageLoader />}><ProductList /></Suspense>} />
+        <Route path={"/Cart"} element={<Suspense fallback={<MainPageLoader />}><Cart /></Suspense>} />
+        <Route path={"/yourAccount"} element={<Suspense fallback={<MainPageLoader />}><Account /></Suspense>} />
+        <Route path={"/order-history"} element={<Suspense fallback={<MainPageLoader />}><OrdersNReturn /></Suspense>} />
+      </Routes>
+      <Footer />
+      {showButton && (
+        <button onClick={scrollToTop} id={'scrollToTopButton'}>
+          <img src={ArrowUp} alt="" />
+        </button>
+      )}
+    </Container>
   );
 }
 

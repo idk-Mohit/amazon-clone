@@ -13,7 +13,7 @@ const SingleShowCaseCard = (props) => {
       )}
       {props.image && (
         <div className="imageContainer">
-          <Link to={`${props.link}`}> <img src={props.image} alt="" /></Link>
+          <Link to={`${props.link}`}> <img src={props.image} alt="" loading="lazy" /></Link>
         </div>
       )
       }

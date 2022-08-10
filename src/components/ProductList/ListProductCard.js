@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import DeliveryDiv from './DeliveryDiv';
 import ProductPriceDiv from './ProductPriceDiv';
 
-const ProductCard = ({ name, ProductLink, product, NewProductName }) => {
+const ListProductCard = ({ name, ProductLink, product, NewProductName }) => {
     return (
         <Container>
             <Link to={`/product/${name}/${ProductLink}`} className="ProductViaImageLink flex" >
                 <ImageContainer>
-                    <img src={product.image} alt="" />
+                    <img src={product.image} alt="" loading='lazy' />
                 </ImageContainer>
             </Link>
             <DataContainer>
@@ -22,7 +22,7 @@ const ProductCard = ({ name, ProductLink, product, NewProductName }) => {
     )
 }
 
-export default ProductCard
+export default ListProductCard
 
 const Container = styled.div`
     display: grid;
@@ -34,7 +34,7 @@ const Container = styled.div`
 .ProductViaImageLink{
     width: 100%;
     max-height:218px;
-     height: auto;
+    height: auto;
     justify-content:center;
     overflow: hidden;
     @media (max-width:1024px) {

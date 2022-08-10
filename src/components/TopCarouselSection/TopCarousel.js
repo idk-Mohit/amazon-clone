@@ -20,7 +20,7 @@ const TopCarousel = ({ data }) => {
         </DesktopView>
         <MobileView>
           <Link className='TopCarouselImageLink' to={`${item.MobileLink}`}>
-            <img src={item.MobileImage} alt='carouselImage' />
+            <img src={item.MobileImage} alt='carouselImage' loading="lazy" />
           </Link>
         </MobileView>
       </SwiperSlide >

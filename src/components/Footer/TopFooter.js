@@ -205,14 +205,14 @@ const TopFooterContainer = styled.footer`
   padding:3rem 3rem 1rem;
   border-bottom: 1px solid rgba(200, 200, 200, 0.267);
   @media(max-width:1024px){
-  /* padding: 1.5rem .5rem; */
+  padding: 3rem 1rem;
   }
 `
 const FooterMainLinks = styled.div`
     justify-content: space-around;
     padding-bottom: 2rem;
     border-bottom: 1px solid rgba(200, 200, 200, 0.267);
-    @media(max-width:1024px){
+    @media(max-width:768px){
     display:none;
   }
 `
@@ -250,7 +250,7 @@ const FooterCountries = styled.div`
       height: 1.8rem;
     }
     }
-  @media(max-width:1024px){
+  @media(max-width:768px){
     display:none;
   }
 `
@@ -312,7 +312,7 @@ const MobileView = styled.div`
     }
   }
 
-  @media(max-width:1024px){
+  @media(max-width:768px){
     display:flex;
   }
 `

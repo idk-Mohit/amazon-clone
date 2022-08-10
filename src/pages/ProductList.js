@@ -2,11 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-
-import LayOut from './LayOut';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { ProductCard, FilterCard } from '../components';
+import { ListProductCard, FilterCard } from '../components';
 import ProductListLoader from '../components/ProductList/ProductListLoader';
 
 const ProductList = () => {
@@ -54,7 +52,7 @@ const ProductList = () => {
         else {
             NewProductName = product.name
         }
-        return <ProductCard key={index} name={name} ProductLink={ProductLink} product={product} index={index} NewProductName={NewProductName} />
+        return <ListProductCard key={index} name={name} ProductLink={ProductLink} product={product} index={index} NewProductName={NewProductName} />
     })
 
     const paginationHandler = (e) => {
@@ -64,7 +62,7 @@ const ProductList = () => {
     }
 
     return (
-        <LayOut>
+        <>
             <Container className='main-container'>
                 <MainHeading>Search Result for <span>"{name}"</span></MainHeading>
                 <InnerContainer>
@@ -88,7 +86,7 @@ const ProductList = () => {
                     </main>
                 </InnerContainer>
             </Container>
-        </LayOut >
+        </ >
     )
 }
 
@@ -111,7 +109,7 @@ main{
         flex-direction: column;
     }
 }
-@media(max-width:1024px){
+@media(max-width:768px){
     grid-template-columns: 1fr;
     grid-template-areas: "main";
 }
@@ -125,7 +123,7 @@ const MainHeading = styled.h1`
         color: var(--orange);
     }
 
-    @media(max-width:1024px){
+    @media(max-width:768px){
         display: none;
     }
 `

@@ -99,7 +99,8 @@ export default BottomNav;
 
 const BottomNavContainer = styled.nav`
   background-color: #232f3e;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
   height: 45px;
   z-index: 100;
   padding: 0 .5rem;

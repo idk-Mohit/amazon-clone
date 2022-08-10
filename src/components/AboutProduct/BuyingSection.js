@@ -1,31 +1,31 @@
-// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import styled from 'styled-components'
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import LockIcon from '@mui/icons-material/Lock';
 import { addItemToCart } from '../../Store/Cart-Slice'
 import axios from 'axios';
+import CircleSelectorIcon from './CircleSelectorIcon'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import LockIcon from '@mui/icons-material/Lock';
 
 const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
     const { category, id } = useParams()
     const navigate = useNavigate()
     const Auth = useSelector(state => state.Auth)
     const dispatch = useDispatch()
-    const [exchange, setExchange] = useState('2')
+    // const [exchange, setExchange] = useState('2')
     // const Auth = useSelector(state => state.Auth)
     //Creating Fake Delivery Date ...
-    let fullDate = new Date().toDateString().split(' ')
-    let date = +fullDate[2]
-    date += 3
-    fullDate.splice(2, 1, date)
-    fullDate = fullDate.join(' ')
-    //Creating Fake Delivery Date ...
-
-    const ExchangeHandler = (e) => {
-        setExchange(e.target.value)
+    const newDate = (days) => {
+        let date = new Date().toDateString().split(' ')
+        let newDate = [...date]
+        let temp = parseInt(newDate[2]) + days
+        newDate.splice(2, 1, temp)
+        newDate = newDate.join(' ')
+        return newDate
     }
+    //Creating Fake Delivery Date ...
 
     const AddToCartHandler = async () => {
         const response = await axios({
@@ -41,173 +41,288 @@ const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
         })
         if (response) {
             dispatch(addItemToCart({ id, quantity: 1, category }))
-            navigate('/Cart')
         }
+        navigate('/Cart')
+    }
+    const SigninHandler = () => {
+        navigate('/signin/emailCheck', { replace: true })
+    }
+
+    const RemoveActive = () => {
+        let Items = [...document.querySelectorAll('li.accordion__item')];
+        Items.forEach((item) => {
+            item.classList.remove('active')
+            item.querySelector('.accordion__content').style.maxHeight = null
+        })
+    }
+
+    const ExchangeHandler = (e) => {
+        let ClickedItem = e.target.closest('li')
+        RemoveActive()
+        ClickedItem.classList.toggle('active')
+        let AccordianContent = ClickedItem.querySelector('.accordion__content')
+        const scrollHeight = AccordianContent.scrollHeight
+        AccordianContent.style.maxHeight = `${scrollHeight}px`
     }
 
     return (
-        <Container>
-            <div className={`${exchange === '2' && 'inactive'} main-heading`}>
-                <input type="radio" name="exchange" id="withExchange" onClick={ExchangeHandler} value={'1'} />
-                <label htmlFor="withExchange">With Exchange</label>
-                <div className='paddingContainer'>Up to <span className='currency-symbol'>&#8377;</span>{Math.round((15 / 100 * currentPrice))}.00 off</div>
-            </div>
-            {/* <h2 className='main-heading'><RadioButtonUncheckedIcon /> Without Exchange</h2> */}
-            <div className={`${exchange === '1' && 'inactive'} main-heading`}>
-                <input type="radio" name="exchange" id="withoutExchange" onClick={ExchangeHandler} value={'2'} defaultChecked />
-                <label htmlFor="withoutExchange">Without Exchange</label>
-                <div className="paddingContainer">
-                    {
-                        currentPrice === originalPrice ?
-                            <Price className='flex'>
-                                <p className='currentPrice'><span className='currency-symbol'>&#8377;</span><strong>{currentPrice}</strong></p>
-                            </Price>
-                            :
-                            <Price className='flex'>
-                                <p className='currentPrice'><span className='currency-symbol'>&#8377;</span><strong>{currentPrice}</strong></p>
-                                <p className='originalPrice'><span className='currency-symbol'>&#8377;</span><i>{originalPrice}</i></p>
-                            </Price>
-                    }
-                </div>
-                <DeliveryTime className='paddingContainer'>
-                    <span>Free Delivery <strong>{fullDate}.</strong></span><br />
-                    <p>Or Fastest Delivery <strong>Today</strong>.</p>
-                </DeliveryTime>
-
-                <DeliveryAddress className='paddingContainer'>
-                    <Link to={'#'} className='flex'><LocationOnIcon />Select delivery location</Link>
-                </DeliveryAddress>
-                <ExtraInfo>
-                    {stock && <div className='paddingContainer'><span>In Stock.</span></div>}
-                    {!stock && <div className='paddingContainer'><span>Currently Unavailable.f</span></div>}
-                </ExtraInfo>
-                <Buttons className='paddingContainer flex-column'>
-                    {Auth.isLoggedIn ?
-                        <button id='addtoCartButton' onClick={AddToCartHandler}  >Add to Cart</button>
-                        :
-                        <Link className='addToCartLoginButton' to='/signin/emailCheck'><button id='addtoCartButton'>Add to Cart</button></Link>
-                    }
-
-                    <button id='buyNowButton'>Buy Now</button>
-                </Buttons>
-                <SecureTransaction className="paddingContainer flex">
-                    <LockIcon /><Link to={'#'}>Secure Transaction</Link>
-                </SecureTransaction>
-            </div>
-        </Container >
+        <>
+            <Container className='accordion flex-column'>
+                <ul className='accordion__list'>
+                    <Item1 className='accordion__item' onClick={ExchangeHandler}>
+                        <Heading className='accordion__heading'>
+                            <InputHeading className='accordion__inputHeading'>
+                                <CircleSelectorIcon className='circleSelector' />
+                                <span>With Exchange</span>
+                            </InputHeading>
+                            <div className='accordion__textHeading'>
+                                <span className='accordion__textHeading--orange'>Up to <i className='priceSymbol'>&#8377;</i>{Math.round((15 / 100 * currentPrice))}.00 off</span>
+                            </div>
+                        </Heading>
+                        <Content className='accordion__content flex-column'>
+                            <button className='accordion__button--white flex'>Choose Product to Exchange <span><KeyboardArrowRightIcon /></span></button>
+                            <Link to='#' className='colored-link'>How does Exchange Work?</Link>
+                        </Content>
+                    </Item1>
+                    <Item2 className='accordion__item active' onClick={ExchangeHandler}>
+                        <Heading>
+                            <div className='accordion__inputHeading'>
+                                <CircleSelectorIcon className='circleSelector' />
+                                <span>With Out Exchange</span>
+                            </div>
+                            <div className='accordion__textHeading'>
+                                {currentPrice === originalPrice ?
+                                    <span className="accordion__textHeading--orange line-thorugh"><i className='priceSymbol'>&#8377;</i>{currentPrice}</span>
+                                    :
+                                    <>
+                                        <span className='accordion__textHeading--orange'><i className='priceSymbol'>&#8377;</i>{currentPrice}.00</span>
+                                        <span className='accordion__textHeading--gray line-through'><i className='priceSymbol'>&#8377;</i><strong>{originalPrice}</strong></span>
+                                    </>
+                                }
+                            </div>
+                        </Heading>
+                        <Content className='accordion__content'>
+                            <div className="deliverDetails flex-column">
+                                <p><Link to='#' className='colored-link'>FREE delivery </Link><strong>{newDate(3)} </strong> <Link to={'#'} className='colored-link'>Details</Link></p>
+                                <p>Or fastest delivery <strong>Tomorrow {newDate(1)}</strong></p>
+                                <span className='flex deliveryLocation'><LocationOnOutlinedIcon className='Icon' /> <Link to="#" className='colored-link'>Select delivery location</Link></span>
+                                <span className='green'>In Stock</span>
+                            </div>
+                            <Buttons>
+                                <button onClick={Auth.isLoggedIn ? AddToCartHandler : SigninHandler} className="yellow">Add To Cart</button>
+                                <button className="orange">Buy Now</button>
+                                <div className='flex-column'>
+                                    <span className="colored-link flex"><LockIcon />Secure Transaction</span>
+                                    <span className='flex'>
+                                        <input type="checkbox" name="addgift" id="Gift" />
+                                        <label htmlFor="Gift">Add gift options</label>
+                                    </span>
+                                </div>
+                            </Buttons>
+                        </Content>
+                    </Item2>
+                </ul>
+                <hr />
+                <Footer className='flex-column'>
+                    <button className='gray'>Add to Wish List</button>
+                    <span>Have one to sell?</span>
+                    <button className='white'>Sell on Amazon</button>
+                </Footer>
+            </Container>
+        </>
     )
 }
 
 export default BuyingSection
 
 const Container = styled.div`
-    max-width: 20rem;
-    border: 1px solid rgba(200,200,200,1);
+    width:275px;
     height: fit-content;
-    border-radius: 10px;
-    .main-heading{
-        font-size: 1rem;
-        padding:.8rem 1rem;
-        .paddingContainer{
-            color: var(--orange);
-            margin-left:1.5rem;
-        }
-        label {
-            font-size: 1rem;
-            margin:0.8rem 2rem .8rem .5rem;
-            cursor: pointer;
-        }
-        input{
-            margin: 0.5rem 0;
-        }
+    hr{
+        margin:10px 0;
+        border-color: rgba(200,200,200,.3);
     }
-    .inactive{
-        background-color: rgba(200,200,200,.6)
-    }
-`
-const Price = styled.div`
-    gap:0.4rem;
-    font-size: 1.1rem;
-    .currency-symbol {
-        color:var(--orange)
-    }
-    .originalPrice{
-        span{
-            color:var(--gray);
-        }
-        i{
-            text-decoration: line-through;
-        }
-    }
-    .currentPrice{
-        color:var(--orange);
-    }
-`
-const DeliveryTime = styled.div`
-margin: 1rem 0;
-    span{
-        color:var(--blue);
-        strong{
-            color: black;
-        }
-    }
-    p{
-        color:black;
-        margin-top:1rem;
-    }
-`
 
-const DeliveryAddress = styled.div`
-    a{
-        align-items: center;
-        color:var(--blue);
-        &:hover{
-            color:var(--orange);
-        }
-        .MuiSvgIcon-root{
-            fill:black;
-        }
+    ul{
+        border-radius: 8px;
+        border: 1px solid rgba(200,200,200,.7);
     }
-`
-const ExtraInfo = styled.div`
-    div{
-        margin: 1rem 0;
-        span{
-            color:var(--green);
-            font-size: 1.3rem;
-        }
-    }
-`
 
-const Buttons = styled.div`
-gap: .5rem;
-margin: 1rem 0;
-    button{
-        width: 100%;
-        padding: .7rem;
-        border-radius: 50px;
-        border: none;
+    .accordion__item{
+       &.active{
+        background-color: white;
+        .circleSelector{
+            background: #007185;
+        }
+        .accordion__content{
+            max-height: initial;
+            margin-top:1rem;
+        }
+       }
     }
-    .addToCartLoginButton{
+    @media (max-width:900px) {
         width:100%;
     }
-    #addtoCartButton{
-        background: #f7ca00;
-        &:hover{
-            background: #ecc101;
+`
+const Item1 = styled.li`
+    padding: 0.8rem 1rem 0.8rem 3rem;
+    position: relative;
+    cursor:pointer;
+    background-color:#e9e9e9;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom:1px solid rgb(200,200,200,1);
+
+    .priceSymbol{
+        margin-right: 4px;
+    }
+    .MuiSvgIcon-root{
+        font-size:1.2rem;
+        fill:var(--gray);
+        margin: -2px;
+    }
+    button{
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: .75rem;
+        margin-bottom: .5rem;
+
+        @media(max-width:900px){
+            padding: 1rem 1rem;
         }
     }
-    #buyNowButton{
-        background: #fa8900;
-        &:hover{
-            background: #eb8100
+    a{
+        font-size: .9rem;
+    }
+
+    &:hover{
+        &:not(.active){
+            .circleSelector{
+                background: #60b5c4;
+            }
         }
     }
 `
-const SecureTransaction = styled.div`
+const Item2 = styled(Item1)`
+    border-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+`
+
+const Heading = styled.span`
+    .accordion{
+        &__textHeading{
+            display:flex;
+            gap:5px;
+            font-size:.9rem;
+
+            &--orange{
+                color:var(--orange);
+                font-weight:600;
+            }
+            &--gray{
+                color:var(--gray);
+            }
+        }
+    } 
+`
+const InputHeading = styled.div`
+    span{
+        font-size: .9rem;
+    }
+`
+const Content = styled.div`
+    max-height:0;
+    overflow:hidden;
+    transition: max-height 300ms ease;
+    pointer-events: all;
+    .deliverDetails{
+        font-size: .9rem;
+        gap:.8rem;
+        strong{
+            font-size: .9rem;
+        }
+        .deliveryLocation{
+            gap:.5rem;
+            align-items: center;
+            .Icon{
+                margin:0;
+            }
+        }
+        .green{
+            color:var(--green);
+            font-size: 1rem;
+        }
+    }
+    .accordion__button{
+        &--white{
+            border-radius: 8px;
+            background: white;
+            border: 1px solid rgb(200,200,200,1);
+            box-shadow: 5px 5px 10px #f7fafa;
+            justify-content: space-between;
+            align-items: center;
+            &:hover{
+                background: #f7fafa;
+            }
+        }
+    }
+`
+const Buttons = styled.div`
+    margin: .8rem 0;
+    div{
+        margin:.4rem 0;
+        gap: .3rem;
+
+        span{
+            gap:8px;
+            align-items: center;
+        }
+    }
+    button{
+        border-radius: 20px;
+        border: none;
+    }
+    .yellow{
+        background: var(--yellow);
+        &:hover{
+            background:#e7bd00;
+        }
+    }
+
+    .orange{
+        background:#fa8900;
+        &:hover{
+            background: #e47d00;
+        }
+    }
+`
+const Footer = styled.div`
 align-items: center;
-    a{
-        color:var(--blue);
-        margin-left: 0.4rem;
+gap:5px;
+    button{
+        padding: 8px 15px;
+        width:100%;
+        &.gray{
+            background-image: linear-gradient(to bottom, rgb(255,255,255,.5), rgb(200,200,200,.5));
+            border:1px solid rgba(150,150,150,.5);
+        }
+        &.white{
+            background: white;
+            width: fit-content;
+            border:1px solid rgba(200,200,200,1);
+            border-radius: 10px;
+            color:rgb(0,0,0,.7);
+
+            &:hover{
+                background:#e9e9e9;
+                box-shadow: 0px 5px 10px #e9e9e9;
+            }
+        }  
+    }
+    span{
+        font-size:.8rem;
+        letter-spacing: 0px;
+        color:rgb(0,0,0,.5);
     }
 `

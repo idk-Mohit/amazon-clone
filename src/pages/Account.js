@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ImageCard } from '../components'
-import LayOut from './LayOut'
 
 const YourAccount = () => {
     return (
-        <LayOut>
+        <>
             <Container className='main-container'>
                 <InnerContainer className='padded-container'>
                     <h1>Your Account</h1>
@@ -20,7 +19,7 @@ const YourAccount = () => {
                     </CardContainer>
                 </InnerContainer>
             </Container>
-        </LayOut>
+        </>
     )
 }
 

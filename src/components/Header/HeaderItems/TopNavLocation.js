@@ -16,8 +16,8 @@ const TopNavLocation = () => {
     return (
         <>
             <Container className="nav--hover flex" onClick={enableBackdropHandler}>
-                <LocationOnOutlinedIcon />
-                <div className="flex-column">
+                <LocationOnOutlinedIcon className='LocationIcon' />
+                <div className="flex-column HeaderText">
                     <span className='top__nav__hover__div-first'>{Auth.isLoggedIn ? `Deliver to ${Auth.user.name}` : 'Hello'}</span>
                     <span className="top__nav__hover__div-second">Select Your Address</span>
                 </div>
@@ -32,4 +32,14 @@ export default TopNavLocation
 const Container = styled.div`
 align-items: center;
 z-index: 201;
+
+@media (max-width:940px) {
+    .HeaderText{
+        display: none;
+    }
+    .LocationIcon{
+        font-size: 1.8rem;
+        margin: -3px;
+    }
+}
 `
