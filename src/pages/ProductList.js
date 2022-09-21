@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useParams } from 'react-router-dom';
+import Pagination from '@mui/material/Pagination';
+import React, { useEffect, useState } from 'react'
 import { ListProductCard, FilterCard } from '../components';
 import ProductListLoader from '../components/ProductList/ProductListLoader';
 
@@ -33,10 +33,12 @@ const ProductList = () => {
     useEffect(() => {
         setIsLoading(true)
         const storedList = JSON.parse(localStorage.getItem(`Fetched ${name}`))
-        if (storedList === null || storedList.length < 1) {
+        if (storedList === null || storedList?.length < 1) {
+            console.log('searching again')
             FetchProductList(name)
         }
         else {
+            console.log('localstore data')
             setFtechedProductList(storedList)
             setIsLoading(false)
         }
@@ -68,7 +70,7 @@ const ProductList = () => {
                 <InnerContainer>
                     <FilterCard />
                     < main >
-                        {!isLoading && FetchedProductList.length < 1 ? <h1>No Data Found with keyword <span style={{ color: '#c7511f' }}>"{name}"</span></h1> : <h1>RESULTS</h1>}
+                        {!isLoading && FetchedProductList.length < 1 ? <h1>Server currently down , please search again or try again some time later.</h1> : <h1>RESULTS</h1>}
                         <ul className='ProductList'>
                             {isLoading ?
                                 <ProductListLoader />

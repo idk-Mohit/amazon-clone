@@ -99,8 +99,8 @@ export default BottomNav;
 
 const BottomNavContainer = styled.nav`
   background-color: #232f3e;
-  overflow-y: hidden;
-  overflow-x: auto;
+  /* overflow-y: hidden; */
+  /* overflow-x: auto; */
   height: 45px;
   z-index: 100;
   padding: 0 .5rem;
@@ -180,6 +180,7 @@ const PrimeDropDown = styled.div`
       img {
         width: 20rem;
         height: 20rem;
+        z-index: 100;
       }
 `
 const MainBurgerMenuBtn = styled.span`
