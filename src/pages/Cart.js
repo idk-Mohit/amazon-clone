@@ -16,16 +16,16 @@ const Cart = () => {
         function setCart() {
             loadingRef.current = true
             setProductList([])
-            Cart.items.forEach(async (product) => {
+            Cart?.items.forEach(async (product) => {
                 let ProductData = await FetchedProduct(product.id)
-                if (ProductData.name !== '') {
+                if (ProductData?.name !== '') {
                     setProductList(prev => [...prev, {
-                        name: ProductData.name,
-                        image: ProductData.image,
-                        price: ProductData.price,
-                        id: product.id,
-                        category: product.category,
-                        quantity: product.quantity
+                        name: ProductData?.name,
+                        image: ProductData?.image,
+                        price: ProductData?.price,
+                        id: product?.id,
+                        category: product?.category,
+                        quantity: product?.quantity
                     }])
                 }
             })
@@ -34,7 +34,7 @@ const Cart = () => {
     }, [Cart])
     useEffect(() => {
         var PricePayable = 0;
-        ProductList.forEach(product => {
+        ProductList?.forEach(product => {
             PricePayable += product.price * product.quantity
         })
         setPriceToPay(PricePayable)
@@ -63,9 +63,9 @@ const Cart = () => {
                             (<Products>
                                 <h1>Shopping Cart</h1>
                                 <span className='PriceHeader'>Price</span>
-                                {ProductList.length === Cart.items.length ? loadingRef.current = false : loadingRef.current = true}
+                                {ProductList?.length === Cart?.items.length ? loadingRef.current = false : loadingRef.current = true}
                                 {loadingRef.current ? loadingList : (
-                                    ProductList.map((product, index) => {
+                                    ProductList?.map((product, index) => {
                                         let quantity = product.quantity
                                         return <CartProductCard product={product} key={index} quantity={quantity} />
                                     })
@@ -74,7 +74,7 @@ const Cart = () => {
                             </Products>)
                         }
                     </div>
-                    <SubTotal totalQty={Cart.totalQuantity} price={priceToPay} loading={loadingRef.current} />
+                    <SubTotal totalQty={Cart?.totalQuantity} price={priceToPay} loading={loadingRef.current} />
                 </Container >
             }
         </ >
