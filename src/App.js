@@ -59,7 +59,7 @@ function App() {
   useEffect(() => {
     if (AppStart) {
       // Waking up the backend server
-      axios('https://diverse-backend.herokuapp.com/')
+      axios('https://diverse-backend.onrender.com/')
         .then(result => {
           if (result) {
             sessionStorage.setItem('backend', 'active')
@@ -82,7 +82,7 @@ function App() {
     const loggedIn = localStorage.getItem('isLoggedIn')
     const userData = localStorage.getItem('user')
     const fetchData = async () => {
-      const url = 'https://diverse-backend.herokuapp.com/fetchUserData' //Prdoduction
+      const url = 'https://diverse-backend.onrender.com/fetchUserData' //Prdoduction
       // const url = 'http://localhost:3001/fetchUserData'
       const user = await axios({
         method: 'get',
@@ -114,7 +114,7 @@ function App() {
     const getInitialCart = async () => {
       const response = await axios({
         method: 'get',
-        url: `https://diverse-backend.herokuapp.com/fetchCart/${Auth.user._id}`, //Production
+        url: `https://diverse-backend.onrender.com/fetchCart/${Auth.user._id}`, //Production
         // url: `http://localhost:3001/fetchCart/${Auth.user._id}`,
       })
       if (response) {

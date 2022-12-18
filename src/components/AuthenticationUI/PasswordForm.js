@@ -26,7 +26,7 @@ const PasswordForm = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true)
-    const url = 'https://diverse-backend.herokuapp.com/login/passwordCheck'; //Production
+    const url = 'https://diverse-backend.onrender.com/login/passwordCheck'; //Production
     // const url = 'http://localhost:3001/login/passwordCheck' //development
     if (username === '') {
       redirect('/signin/emailCheck', { replace: true })

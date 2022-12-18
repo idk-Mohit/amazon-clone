@@ -30,7 +30,7 @@ const BuyingSection = ({ currentPrice, originalPrice, stock }) => {
     const AddToCartHandler = async () => {
         const response = await axios({
             method: 'post',
-            url: `https://diverse-backend.herokuapp.com/addToCart`,
+            url: `https://diverse-backend.onrender.com/addToCart`,
             // url: 'http://localhost:3001/addToCart',
             data: {
                 email: Auth.user.email,

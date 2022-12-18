@@ -25,7 +25,7 @@ const EmailForm = () => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true)
-    const url = 'https://diverse-backend.herokuapp.com/login/emailCheck';// Production
+    const url = 'https://diverse-backend.onrender.com/login/emailCheck';// Production
     // const url = 'http://localhost:3001/login/emailCheck' //development
 
     const response = await axios({

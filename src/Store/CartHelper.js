@@ -14,7 +14,7 @@ async function DeleteProduct(id, email) {
         productId: id,
         quantity: 1
     }
-    let url = 'https://diverse-backend.herokuapp.com/removeFromCart' //Production
+    let url = 'https://diverse-backend.onrender.com/removeFromCart' //Production
     const result = await axios({ url, method: 'post', data })
     if (result) return true
     else return false
@@ -39,7 +39,7 @@ async function ProductHandler(e, email) {
             productId: id,
             quantity: selectValue - quantity
         }
-        let url = 'https://diverse-backend.herokuapp.com/addToCart'
+        let url = 'https://diverse-backend.onrender.com/addToCart'
         let response = await CartHandler(data, url)
         return response
     }
@@ -49,7 +49,7 @@ async function ProductHandler(e, email) {
             productId: id,
             quantity: quantity - selectValue
         }
-        let url = 'https://diverse-backend.herokuapp.com/removeFromCart'
+        let url = 'https://diverse-backend.onrender.com/removeFromCart'
         let response = await CartHandler(data, url)
         return response
     }

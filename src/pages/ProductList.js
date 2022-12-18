@@ -34,11 +34,11 @@ const ProductList = () => {
         setIsLoading(true)
         const storedList = JSON.parse(localStorage.getItem(`Fetched ${name}`))
         if (storedList === null || storedList?.length < 1) {
-            console.log('searching again')
+            // console.log('searching again')
             FetchProductList(name)
         }
         else {
-            console.log('localstore data')
+            // console.log('localstore data')
             setFtechedProductList(storedList)
             setIsLoading(false)
         }
