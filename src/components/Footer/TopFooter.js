@@ -12,7 +12,7 @@ const TopFooter = () => {
   return (
     <TopFooterContainer>
       <FooterMainLinks className="flex">
-        <KnowUs className="footer__mainlinks__knowUs">
+        <div className="footer__mainlinks">
           <h3>Get to Know Us</h3>
           <ul>
             <li>
@@ -34,8 +34,8 @@ const TopFooter = () => {
               <Link to={"/"}>Amazon Science</Link>
             </li>
           </ul>
-        </KnowUs>
-        <Connect className="footer__mainlinks__connect">
+        </div>
+        <div className="footer__mainlinks">
           <h3>Connect with Us</h3>
           <ul>
             <li>
@@ -48,8 +48,8 @@ const TopFooter = () => {
               <Link to={"/"}>Twitter</Link>
             </li>
           </ul>
-        </Connect>
-        <MakeMoney className="footer__mainlinks__makemoney">
+        </div>
+        <div className="footer__mainlinks">
           <h3>Make Money with Us</h3>
           <ul>
             <li>
@@ -74,8 +74,8 @@ const TopFooter = () => {
               <Link to={"/"}>Amazon Pay on Merchants</Link>
             </li>
           </ul>
-        </MakeMoney>
-        <HelpYou className="footer__mainlinks__helpyou">
+        </div>
+        <div className="footer__mainlinks">
           <h3>Let Us Help You</h3>
           <ul>
             <li>
@@ -100,7 +100,7 @@ const TopFooter = () => {
               <Link to={"/"}>Help</Link>
             </li>
           </ul>
-        </HelpYou>
+        </div>
       </FooterMainLinks>
       <FooterCountries className="footer__countries flex-column">
         <div className="flex">
@@ -209,38 +209,39 @@ const TopFooterContainer = styled.footer`
   }
 `
 const FooterMainLinks = styled.div`
+    max-width: 1500px;
+    margin:auto;
     justify-content: space-around;
     padding-bottom: 2rem;
     border-bottom: 1px solid rgba(200, 200, 200, 0.267);
     @media(max-width:768px){
     display:none;
   }
-`
-const KnowUs = styled.div`
-  h3 {
+  .footer__mainlinks{
+    h3 {
         font-weight: 500;
         margin: 1rem 0;
         font-size: 1rem;
     }
-  li {
-    margin: 0.5rem 0;
-    a {
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--lightgray);
+    li {
+      margin: 0.5rem 0;
+      a {
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: var(--lightgray);
 
-      &:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
 `
-const HelpYou = styled(KnowUs)``
-const Connect = styled(KnowUs)``
-const MakeMoney = styled(KnowUs)``
 const FooterCountries = styled.div`
   padding: 2rem 3rem;
   align-items: center;
+  max-width: 1500px;
+  margin: auto;
   > div {
     gap: 1rem;
     margin: 1rem;

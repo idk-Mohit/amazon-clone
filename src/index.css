@@ -162,12 +162,19 @@ select {
 .main-container {
   font-family: "Amazon-light";
   min-height: 70vh;
+  max-width: 1500px;
 }
 
 .padded-container {
   width: 85%;
   margin: auto;
   padding: 1rem 0;
+}
+
+@media (min-width: 1440px) {
+  .main-container {
+    margin: auto;
+  }
 }
 
 @media (max-width: 1024px) {

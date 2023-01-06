@@ -124,7 +124,7 @@ const BottomNavContainer = styled.nav`
 `
 const List = styled.ul`
   flex: 1;
-  justify-content: space-evenly;
+  gap:1rem;
   align-items: center;
 
   li {
